@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">TP Smart</string>
+    <string name="change_lenguage">Change language</string>
+    <string name="title">WELCOME TO TP Smart</string>
+    <string name="Button">Submit</string>
+    <string name="Edit_questionary">Edit questionary</string>
+    <string name="GoToSeating" translatable="false">Activate</string>
+
+    <string name="question1">1. Gender:</string>
+    <string name="question11">Male</string>
+    <string name="question12">Female</string>
+    <string name="question13">Other (specify):</string>
+    <string name="question2">2. Age:</string>
+    <string name="question3">3.	Highest educational level achieved:</string>
+    <string name="question31">High school or below</string>
+    <string name="question32">Bachelor</string>
+    <string name="question33">Master</string>
+    <string name="question34">Master</string>
+    <string name="question35">Post-doctorate</string>
+    <string name="question4">4.	Occupation (Check all that apply): </string>
+    <string name="question41">Salaried employed</string>
+    <string name="question42">Self-employed</string>
+    <string name="question43">Unemployed</string>
+    <string name="question44">Student</string>
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+    <!--<string name="question"></string>-->
+
+
+
+</resources>
