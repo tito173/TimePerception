@@ -30,7 +30,7 @@ public class HomePage extends AppCompatActivity {
 
 
 
-
+    //example commint
     public void questionarieResult(View view){
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
