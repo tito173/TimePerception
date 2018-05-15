@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
 
-    private String url = "http://104.131.32.115/save_file.php";
 
 
 
