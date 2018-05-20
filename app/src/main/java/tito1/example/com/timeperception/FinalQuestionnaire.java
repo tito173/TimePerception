@@ -34,7 +34,12 @@ import org.apache.http.util.EntityUtils;
 */
 import java.util.ArrayList;
 
+/*
+* Cuestionario final del estudio de TPSmart
+*/
+
 public class FinalQuestionnaire extends AppCompatActivity {
+
 
     private final String TAG = "test";
     //    private static final String TAG = "test";
@@ -46,7 +51,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         setContentView(R.layout.activity_final_questionnaire);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        VideoView videoView = (VideoView) findViewById(R.id.video);
+        VideoView videoView = findViewById(R.id.video);
         videoView.setVideoPath("android.resource://"+getPackageName()+"/"+R.raw.video);
         videoView.start();
 
@@ -69,7 +74,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
         for (int i = 0 ; i < questions.size(); i++) {
-            RadioGroup radioButtonGroup = (RadioGroup) findViewById((Integer) questions.get(i));
+            RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
             int value = questionnaireAnswers.getInt(numberQuestion.get(i), -1);
             RadioButton rb = (RadioButton) radioButtonGroup.getChildAt(value);
             try {
@@ -82,22 +87,22 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
         Object[] question07 = {R.id.question7_1,R.id.question7_2,R.id.question7_3,R.id.question7_4,R.id.question7_5,R.id.question7_6,R.id.question7_7};
         for (int i = 0 ; i < question07.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question07[i]);
+            CheckBox box = findViewById((Integer) question07[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question07[i].toString(),false));
         }
         Object[] question08 = {R.id.question8_1,R.id.question8_2,R.id.question8_3,R.id.question8_8,R.id.question8_5,R.id.question8_6,R.id.question8_7};
         for (int i = 0 ; i < question08.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question08[i]);
+            CheckBox box = findViewById((Integer) question08[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question08[i].toString(),false));
         }
         Object[] question10 = {R.id.question10_1,R.id.question10_2,R.id.question10_3,R.id.question10_4,R.id.question10_5,R.id.question10_6,R.id.question10_7,R.id.question10_8};
         for (int i = 0 ; i < question10.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question10[i]);
+            CheckBox box = findViewById((Integer) question10[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question10[i].toString(),false));
         }
         Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
         for (int i = 0 ; i < question11.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question11[i]);
+            CheckBox box = findViewById((Integer) question11[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question11[i].toString(),false));
         }
 
@@ -148,7 +153,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
 
         for (int i = 0 ; i < question07.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question07[i]);
+            CheckBox box = findViewById((Integer) question07[i]);
             if(box.isChecked()){
                 questionnaireAnswers.edit().putBoolean(question07[i].toString(),true).commit();
             }
@@ -158,7 +163,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         }
 
         for (int i = 0 ; i < question08.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question08[i]);
+            CheckBox box = findViewById((Integer) question08[i]);
             if(box.isChecked()){
                 questionnaireAnswers.edit().putBoolean(question08[i].toString(),true).commit();
             }
@@ -167,7 +172,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             }
         }
         for (int i = 0 ; i < question10.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question10[i]);
+            CheckBox box = findViewById((Integer) question10[i]);
             if(box.isChecked()){
                 questionnaireAnswers.edit().putBoolean(question10[i].toString(),true).commit();
             }
@@ -176,7 +181,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             }
         }
         for (int i = 0 ; i < question11.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question11[i]);
+            CheckBox box = findViewById((Integer) question11[i]);
             if(box.isChecked()){
                 questionnaireAnswers.edit().putBoolean(question11[i].toString(),true).commit();
             }

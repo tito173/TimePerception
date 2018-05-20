@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import static java.util.Arrays.asList;
-
+/*Clase para cambiar el idioma de la app y futuras opciones de la app*/
 public class Settings extends AppCompatActivity {
 
     private static final String TAG = "test";
@@ -31,7 +31,7 @@ public class Settings extends AppCompatActivity {
         ArrayList<String> optionSelection = new ArrayList<String>(asList("English","Español","Greek"));
 
         //create presentation for the language
-        ListView listView = (ListView) findViewById(R.id.languagleListView);
+        ListView listView = findViewById(R.id.languagleListView);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, optionSelection);
         listView.setAdapter(arrayAdapter);
 

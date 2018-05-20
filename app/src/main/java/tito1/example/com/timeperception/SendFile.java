@@ -21,7 +21,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+/*
+* Clase que crea el file y http POST, para luego ser enviado al servidor
+*/
 public class SendFile extends BroadcastReceiver {
     final String TAG ="Test";
 

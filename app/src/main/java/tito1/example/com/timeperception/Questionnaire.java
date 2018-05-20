@@ -29,6 +29,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+/*
+* Cuestionario de inicio de TPSmart
+*/
+
 public class Questionnaire extends AppCompatActivity {
 
     private final String TAG = "test";
@@ -40,7 +44,7 @@ public class Questionnaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        EditText other = (EditText) findViewById(R.id.question01Other);
+        EditText other = findViewById(R.id.question01Other);
         //set numberQuestion
         numberQuestion.add("question01");
         numberQuestion.add("question03");
@@ -57,7 +61,7 @@ public class Questionnaire extends AppCompatActivity {
         //mark every radiogroup option selected
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
         for (int i = 0 ; i < questions.size(); i++){
-            RadioGroup radioButtonGroup = (RadioGroup) findViewById((Integer) questions.get(i));
+            RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
             int value = questionnaireAnswers.getInt(numberQuestion.get(i),-1);
             RadioButton rb = (RadioButton) radioButtonGroup.getChildAt(value);
             try {
@@ -77,15 +81,15 @@ public class Questionnaire extends AppCompatActivity {
         }
         Object[] question04 = {R.id.question4_1,R.id.question4_2,R.id.question4_3,R.id.question4_4};
         for (int i = 0 ; i < question04.length;i++){
-            CheckBox box = (CheckBox) findViewById((Integer) question04[i]);
+            CheckBox box = findViewById((Integer) question04[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question04[i].toString(),false));
         }
 
         Object question02 = R.id.question02;
-        EditText valueOfQuestion = (EditText) findViewById(R.id.question02);
+        EditText valueOfQuestion = findViewById(R.id.question02);
         valueOfQuestion.setText(questionnaireAnswers.getString(question02.toString(),""));
         Object question07 = R.id.question07;
-        EditText valueOfQuestion07 = (EditText) findViewById(R.id.question07);
+        EditText valueOfQuestion07 = findViewById(R.id.question07);
         valueOfQuestion07.setText(questionnaireAnswers.getString(question07.toString(),""));
 
     }
@@ -99,7 +103,7 @@ public class Questionnaire extends AppCompatActivity {
 
 
         ArrayList questions = new ArrayList();
-        EditText other = (EditText) findViewById(R.id.question01Other);
+        EditText other = findViewById(R.id.question01Other);
 
         //to erase the data save
 //        questions.clear();
@@ -111,7 +115,7 @@ public class Questionnaire extends AppCompatActivity {
         questions.add(R.id.radioGroup06);
 
         for (int i = 0; i < questions.size(); i++) {
-            RadioGroup radioButtonGroup = (RadioGroup) findViewById((Integer) questions.get(i));
+            RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
             int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
             View radioButton = radioButtonGroup.findViewById(radioButtonId);
             int indice = radioButtonGroup.indexOfChild(radioButton);
@@ -128,7 +132,7 @@ public class Questionnaire extends AppCompatActivity {
 
 
         for (int i = 0; i < question04.length; i++) {
-            CheckBox box = (CheckBox) findViewById((Integer) question04[i]);
+            CheckBox box = findViewById((Integer) question04[i]);
             if (box.isChecked()) {
                 questionnaireAnswers.edit().putBoolean(question04[i].toString(), true).commit();
             } else {

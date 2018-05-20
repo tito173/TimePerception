@@ -30,23 +30,27 @@ public class HomePage extends AppCompatActivity {
 
 
 
-    //example commint
-    public void questionarieResult(View view){
-        SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
-        Map<String,?> keys = firtlog.getAll();
-        Log.d("map values","entre");
+//    public void questionarieResult(View view){
+//        SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+//
+//        Map<String,?> keys = firtlog.getAll();
+//        Log.d("map values","entre");
+//
+//
+//        for(Map.Entry<String,?> entry : keys.entrySet()){
+//            Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
+//
+//        }
+//    }
 
 
-        for(Map.Entry<String,?> entry : keys.entrySet()){
-            Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
-
-        }
-    }
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
 //        firtlog.edit().clear().apply();
@@ -59,12 +63,14 @@ public class HomePage extends AppCompatActivity {
 //            }
 //        }
 
-
+        //si ya lleneo el cuesitonario entra a la pagina de home, si no enviar a la pagina del cuestionario.
         if (firtlog.getBoolean("firtlog", false) == true){
             setContentView(R.layout.activity_home_page);
-            testReapeat();
+            SendTheLogs();
         }
         else{
+
+            //enviar a la pagina del cuestionario
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
             firtlog.edit().putBoolean("firstLog",true).apply();
@@ -87,10 +93,10 @@ public class HomePage extends AppCompatActivity {
 //                BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, true /*append*/));
                 writer.write("The app was installed");
 
-                Map<String, ?> allEntries = firtlog.getAll();
-                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                    Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
-                }
+//                Map<String, ?> allEntries = firtlog.getAll();
+//                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+//                    Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+//                }
                 writer.newLine();
 //
                 writer.close();
@@ -109,6 +115,7 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+    //Menu de la app
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -118,6 +125,7 @@ public class HomePage extends AppCompatActivity {
     }
 
 
+    //opciones del menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
@@ -136,7 +144,8 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-    public void testReapeat() {
+    //funcion que repite el envio de los logs recopilados
+    public void SendTheLogs() {
         long minuto = 1000 * 60;
         long hora = minuto * 60;
         long dia = hora * 24;

@@ -24,10 +24,8 @@ import java.util.Locale;
 
 import static java.util.Arrays.asList;
 
-/**
- * Created by tito1 on 3/15/2018.
- */
 
+/*Clase que registrad todos los eventos ocurridos en el celular*/
 public  class Services extends AccessibilityService {
     //some variables
     final static private String TAG = "Test";
@@ -91,9 +89,9 @@ public  class Services extends AccessibilityService {
         AccessibilityServiceInfo info = new AccessibilityServiceInfo();
 
         // won't be passed to this service.
-        info.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED;
-       /* |AccessibilityEvent.TYPE_VIEW_CLICKED;
-         AccessibilityEvent.TYPE_VIEW_FOCUSED|
+        info.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
+       |AccessibilityEvent.TYPE_VIEW_CLICKED;
+         /*AccessibilityEvent.TYPE_VIEW_FOCUSED|
 
          If you only want this service to work with specific applications, set their
          package names here.  Otherwise, when the service is activated, it will listen
@@ -136,6 +134,14 @@ public  class Services extends AccessibilityService {
                     e.printStackTrace();
                 }
                 break;
+            case AccessibilityEvent.TYPE_VIEW_CLICKED:
+                try {
+                    //call eventCheck
+                    eventCheck(event);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
 
         }
     }
@@ -145,13 +151,11 @@ public  class Services extends AccessibilityService {
         Log.d(TAG,"Service Interrupt");
     }
 
-    public void eventCheck(AccessibilityEvent event) throws JSONException {
+    public void eventCheck(AccessibilityEvent event) {
 
         //Array list of case that not matter check. for now only in spanish language.
         ArrayList<String> omitEvent = new ArrayList<String>(asList(
-                "[Mostrando teclado Español (EE.UU.) (QWERTY (Ñ))]"
-                ,"[Teclado de Español (EE.UU.) (QWERTY (Ñ)) oculto]",
-                "[]"));
+                "[WhatsApp]","[Facebook]","[Instagram]","[Twitter]"));
 
 //        ArrayList<String> formatEvent = new ArrayList<>();
 
@@ -164,7 +168,7 @@ public  class Services extends AccessibilityService {
         String lastApp = sharedPreferences.getString("currentApp","");
 //           Log.d(TAG,"2"+lastApp.toString());
 
-        if(!omitEvent.contains(event.getText().toString()) && !currentApp.equals(lastApp)){
+        if(omitEvent.contains(event.getText().toString()) && !currentApp.equals(lastApp)){
 //            Log.d(TAG,lastApp.toString()+"-->"+currentApp.toString());
             Log.d(TAG,currentApp.toString());
 

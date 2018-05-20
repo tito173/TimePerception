@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
+/*Clase para detectar cuadno la app se a detenido "Aun esta en desarollo"*/
 public class TheAppStopped extends AppCompatActivity {
 
     @Override

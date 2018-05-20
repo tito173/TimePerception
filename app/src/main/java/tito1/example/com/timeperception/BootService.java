@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+/*
+* Servicio dedicado a encender la clase Service cuando el celular es eencendido o reiniciado.
+* */
 public class BootService extends BroadcastReceiver {
 
     @Override
