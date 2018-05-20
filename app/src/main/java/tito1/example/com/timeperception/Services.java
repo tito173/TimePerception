@@ -127,20 +127,12 @@ public  class Services extends AccessibilityService {
         //switch case to know what is happen on the phone
         switch(eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                try {
-                    //call eventCheck
-                    eventCheck(event);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                //call eventCheck
+                eventCheck(event);
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
-                try {
-                    //call eventCheck
-                    eventCheck(event);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                //call eventCheck
+                eventCheck(event);
                 break;
 
         }
@@ -155,7 +147,9 @@ public  class Services extends AccessibilityService {
 
         //Array list of case that not matter check. for now only in spanish language.
         ArrayList<String> omitEvent = new ArrayList<String>(asList(
-                "[WhatsApp]","[Facebook]","[Instagram]","[Twitter]"));
+                "[]"));
+        ArrayList<String> changeName = new ArrayList<String>(asList(
+                "[Facebook]","[Instagram]","[Twitter]","[WhatsApp]"));
 
 //        ArrayList<String> formatEvent = new ArrayList<>();
 
@@ -163,12 +157,16 @@ public  class Services extends AccessibilityService {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("tito1.example.com.accessibilityservice", Context.MODE_PRIVATE);
         String eventText = "";
         String currentApp = event.getText().toString();
-//        Log.d(TAG,"1"+currentApp.toString());
+//        if (!changeName.contains(currentApp)){
+//            currentApp = "[Another App]";
+//
+//        }
+        //        Log.d(TAG,"1"+currentApp.toString());
 
         String lastApp = sharedPreferences.getString("currentApp","");
 //           Log.d(TAG,"2"+lastApp.toString());
 
-        if(omitEvent.contains(event.getText().toString()) && !currentApp.equals(lastApp)){
+        if(!omitEvent.contains(event.getText().toString()) && !currentApp.equals(lastApp)){
 //            Log.d(TAG,lastApp.toString()+"-->"+currentApp.toString());
             Log.d(TAG,currentApp.toString());
 

@@ -52,6 +52,7 @@ public class HomePage extends AppCompatActivity {
 
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
 //        firtlog.edit().clear().apply();
 
@@ -64,16 +65,20 @@ public class HomePage extends AppCompatActivity {
 //        }
 
         //si ya lleneo el cuesitonario entra a la pagina de home, si no enviar a la pagina del cuestionario.
-        if (firtlog.getBoolean("firtlog", false) == true){
+        Map<String, ?> allEntries = firtlog.getAll();
+                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                    Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+                }
+        if (firtlog.getBoolean("firstLog", false) == true){
             setContentView(R.layout.activity_home_page);
-            SendTheLogs();
+
         }
         else{
 
             //enviar a la pagina del cuestionario
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
-            firtlog.edit().putBoolean("firstLog",true).apply();
+//            firtlog.edit().putBoolean("firstLog",true).apply();
 
             try {
                 // Creates a file in the primary external storage space of the
@@ -111,7 +116,7 @@ public class HomePage extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e("Test", "Unable to write to the TestFile.txt file.");
             }
-
+            SendTheLogs();
         }
     }
 
@@ -166,7 +171,7 @@ public class HomePage extends AppCompatActivity {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto*2, midnightPI);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), hora, midnightPI);
 
     }
 

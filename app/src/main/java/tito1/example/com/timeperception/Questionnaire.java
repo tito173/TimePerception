@@ -163,7 +163,7 @@ public class Questionnaire extends AppCompatActivity {
         //Send file ect...
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         //set that the firt log are made
-        firtlog.edit().putBoolean("firtlog", true).apply();
+        firtlog.edit().putBoolean("firstLog", true).apply();
 
         //set the app was installed
         if (firtlog.getBoolean("appInstaled", true) == true) {
