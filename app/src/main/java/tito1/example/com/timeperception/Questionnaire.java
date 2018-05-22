@@ -214,6 +214,6 @@ public class Questionnaire extends AppCompatActivity {
 
 
         am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto*20, midnightPI);
-
+ 
     }
 }
