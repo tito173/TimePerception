@@ -1,33 +1,23 @@
 package tito1.example.com.timeperception;
 
-import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.nfc.Tag;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.Calendar;
 
 /*
 * Cuestionario de inicio de TPSmart
@@ -181,6 +171,8 @@ public class Questionnaire extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), HomePage.class);
         startActivity(intent);
 
+        SendTheLogs();
+
     }
 
 
@@ -196,5 +188,32 @@ public class Questionnaire extends AppCompatActivity {
             return  true;
         }
         return  false;
+    }
+
+
+    //funcion que repite el envio de los logs recopilados
+    public void SendTheLogs() {
+        long minuto = 1000 * 60;
+        long hora = minuto * 60;
+        long dia = hora * 24;
+        //create new calendar instance
+        Log.d("Test","prepare el pendingintent");
+        Calendar SendfileStart = Calendar.getInstance();
+
+        //set the time to midnight tonight
+
+        SendfileStart.set(Calendar.HOUR_OF_DAY, 0);
+        SendfileStart.set(Calendar.MINUTE,0);
+        SendfileStart.set(Calendar.SECOND, 0);
+
+        AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+
+        //create a pending intent to be called at midnight
+        Intent intent = new Intent(getApplicationContext(),SendFile.class);
+        PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
+
+
+        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto*20, midnightPI);
+
     }
 }

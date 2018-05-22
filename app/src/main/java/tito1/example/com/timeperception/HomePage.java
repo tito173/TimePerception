@@ -1,29 +1,16 @@
 package tito1.example.com.timeperception;
 
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaScannerConnection;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Map;
 
 
 public class HomePage extends AppCompatActivity {
@@ -31,18 +18,6 @@ public class HomePage extends AppCompatActivity {
 
 
 
-//    public void questionarieResult(View view){
-//        SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
-//
-//        Map<String,?> keys = firtlog.getAll();
-//        Log.d("map values","entre");
-//
-//
-//        for(Map.Entry<String,?> entry : keys.entrySet()){
-//            Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
-//
-//        }
-//    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -54,21 +29,9 @@ public class HomePage extends AppCompatActivity {
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
-//        firtlog.edit().clear().apply();
 
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
-//                return;
-//            }
-//        }
 
-        //si ya lleneo el cuesitonario entra a la pagina de home, si no enviar a la pagina del cuestionario.
-        Map<String, ?> allEntries = firtlog.getAll();
-                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                    Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
-                }
         if (firtlog.getBoolean("firstLog", false) == true){
             setContentView(R.layout.activity_home_page);
 
@@ -78,46 +41,10 @@ public class HomePage extends AppCompatActivity {
             //enviar a la pagina del cuestionario
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
-//            firtlog.edit().putBoolean("firstLog",true).apply();
-
-            try {
-                // Creates a file in the primary external storage space of the
-                // current application.
-                // If the file does not exists, it is created.
-
-                File testFile = new File(this.getExternalFilesDir(null), "FileInstallation.txt");
-                if (!testFile.exists())
-                    testFile.createNewFile();
-
-                // Adds a line to the file
-//          to eraise the content of file
-            BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, false ));
-//            writer.write("");
 
 
-//                BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, true /*append*/));
-                writer.write("The app was installed");
 
-//                Map<String, ?> allEntries = firtlog.getAll();
-//                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-//                    Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
-//                }
-                writer.newLine();
-//
-                writer.close();
-                // Refresh the data so it can seen when the device is plugged in a
-                // computer. You may have to unplug and replug the device to see the
-                // latest changes. This is not necessary if the user should not modify
-                // the files.
-                MediaScannerConnection.scanFile(this,
-                        new String[]{testFile.toString()},
-                        null,
-                        null);
-            } catch (IOException e) {
-                Log.e("Test", "Unable to write to the TestFile.txt file.");
-            }
-            SendTheLogs();
-        }
+    }
     }
 
     //Menu de la app
@@ -149,30 +76,6 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-    //funcion que repite el envio de los logs recopilados
-    public void SendTheLogs() {
-        long minuto = 1000 * 60;
-        long hora = minuto * 60;
-        long dia = hora * 24;
-        //create new calendar instance
-        Log.d("Test","prepare el pendingintent");
-        Calendar SendfileStart = Calendar.getInstance();
 
-        //set the time to midnight tonight
-
-        SendfileStart.set(Calendar.HOUR_OF_DAY, 12);
-        SendfileStart.set(Calendar.MINUTE,0);
-        SendfileStart.set(Calendar.SECOND, 0);
-
-        AlarmManager am = (AlarmManager) HomePage.this.getSystemService(ALARM_SERVICE);
-
-        //create a pending intent to be called at midnight
-        Intent intent = new Intent(getApplicationContext(),SendFile.class);
-        PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-
-
-        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), hora, midnightPI);
-
-    }
 
 }
