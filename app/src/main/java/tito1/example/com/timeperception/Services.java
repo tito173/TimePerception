@@ -12,8 +12,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
-import org.json.JSONException;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -28,7 +26,7 @@ import static java.util.Arrays.asList;
 /*Clase que registrad todos los eventos ocurridos en el celular*/
 public  class Services extends AccessibilityService {
     //some variables
-    final static private String TAG = "Test";
+    final static private String TAG = "Service";
     final static private String language = Locale.getDefault().getLanguage();
     private NotificationManager notificationManager;
     private static final int ID_NOTIFCATION = 45612;
@@ -144,7 +142,7 @@ public  class Services extends AccessibilityService {
     }
 
     public void eventCheck(AccessibilityEvent event) {
-
+    /*ver si se puede usar en ves de una lisat un set o un map*/
         //Array list of case that not matter check. for now only in spanish language.
         ArrayList<String> omitEvent = new ArrayList<String>(asList(
                 "[]"));

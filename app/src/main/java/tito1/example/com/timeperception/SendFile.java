@@ -9,11 +9,22 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -28,12 +39,43 @@ import okhttp3.Response;
 public class SendFile extends BroadcastReceiver {
     final String TAG ="SendFile";
 
+
+    public static void fileProcessor(int cipherMode, String key, File inputFile, File outputFile) {
+        try {
+            Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(cipherMode, secretKey);
+
+            FileInputStream inputStream = new FileInputStream(inputFile);
+            byte[] inputBytes = new byte[(int) inputFile.length()];
+            inputStream.read(inputBytes);
+
+            byte[] outputBytes = cipher.doFinal(inputBytes);
+
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
+            outputStream.write(outputBytes);
+
+            inputStream.close();
+            outputStream.close();
+
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException
+                | InvalidKeyException | BadPaddingException
+                | IllegalBlockSizeException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onReceive(final Context context, Intent intent) {
-        //logcat
+
+        String key = "This is a secret";
+        Crypto crypto = new Crypto();
+        final File testFile = new File(context.getExternalFilesDir(null), "EncrypFile.txt");
+        final File testFileOrigin = new File(context.getExternalFilesDir(null), "TestFile.txt");
+        Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,testFileOrigin,testFile);
 
         //file location of every event
-        final File testFile = new File(context.getExternalFilesDir(null), "TestFile.txt");
+
 //        final File fileIntallation = new File(context.getExternalFilesDir(null),"FileInstallation.txt");
 //        final File appstopped = new File(context.getExternalFilesDir(null),"TPSmartStop.txt");
         if (!testFile.exists()) {
@@ -51,7 +93,7 @@ public class SendFile extends BroadcastReceiver {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG,"The file will be send");
+                Log.d(TAG,"Creacion del thread");
 
 
                 //get the type of the file

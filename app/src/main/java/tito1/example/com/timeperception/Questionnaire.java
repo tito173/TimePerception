@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 public class Questionnaire extends AppCompatActivity {
 
-    private final String TAG = "test";
+    private final String TAG = "Questionnaire";
 //    private static final String TAG = "test";
     ArrayList<String> numberQuestion = new ArrayList<String>();
 
@@ -213,7 +213,7 @@ public class Questionnaire extends AppCompatActivity {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto*20, midnightPI);
- 
+        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), hora, midnightPI);
+
     }
 }

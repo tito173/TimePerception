@@ -12,10 +12,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.io.File;
+
+import javax.crypto.Cipher;
+
 
 public class HomePage extends AppCompatActivity {
 
-
+//    public void encriptacion (View view) {
+//        Intent intent = new Intent(getApplicationContext(),ClaseDePrueba.class);
+//        startActivity(intent);
+//
+//    }
 
 
 
@@ -23,9 +31,14 @@ public class HomePage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);String key = "This is a secret";
+        Crypto crypto = new Crypto();
+        final File testFile = new File(getApplicationContext().getExternalFilesDir(null), "TestFile.txt");
+        final File testFile2 = new File(getApplicationContext().getExternalFilesDir(null), "TestFile2.txt");
+        final File testFile3 = new File(getApplicationContext().getExternalFilesDir(null), "TestFileDes.txt");
 
-        //variable que guarda si ya lleno el cuestionario o no.
+        Crypto.fileProcessor(Cipher.DECRYPT_MODE,key,testFile2,testFile3);
+                //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
