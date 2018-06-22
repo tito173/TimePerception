@@ -19,10 +19,8 @@ import android.widget.RadioGroup;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/*
-* Cuestionario de inicio de TPSmart
-*/
 
+//Cuestionario inicial de la app
 public class Questionnaire extends AppCompatActivity {
 
     private final String TAG = "Questionnaire";
@@ -35,6 +33,8 @@ public class Questionnaire extends AppCompatActivity {
         setContentView(R.layout.activity_questionnaire);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         EditText other = findViewById(R.id.question01Other);
+
+
         //set numberQuestion
         numberQuestion.add("question01");
         numberQuestion.add("question03");
@@ -50,6 +50,7 @@ public class Questionnaire extends AppCompatActivity {
 
         //mark every radiogroup option selected
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+//        questionnaireAnswers.edit().clear().commit();
         for (int i = 0 ; i < questions.size(); i++){
             RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
             int value = questionnaireAnswers.getInt(numberQuestion.get(i),-1);
@@ -153,7 +154,7 @@ public class Questionnaire extends AppCompatActivity {
         //Send file ect...
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         //set that the firt log are made
-        firtlog.edit().putBoolean("firstLog", true).apply();
+        firtlog.edit().putBoolean("llenoCuestionario?", true).apply();
 
         //set the app was installed
         if (firtlog.getBoolean("appInstaled", true) == true) {
@@ -167,8 +168,7 @@ public class Questionnaire extends AppCompatActivity {
             Log.d("Test", "Entre al else intalled");
         }
 
-
-        Intent intent = new Intent(getApplicationContext(), HomePage.class);
+        Intent intent = new Intent(getApplicationContext(), PerseptionQuestion.class);
         startActivity(intent);
 
         SendTheLogs();

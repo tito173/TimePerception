@@ -1,23 +1,21 @@
 package tito1.example.com.timeperception;
 
-import android.annotation.SuppressLint;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.MediaController;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.VideoView;
+
+import java.util.ArrayList;
+
 /* librerias para pobrar si funcionan
 
 import org.apache.http.HttpEntity;
@@ -32,7 +30,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EncodingUtils;
 import org.apache.http.util.EntityUtils;
 */
-import java.util.ArrayList;
 
 /*
 * Cuestionario final del estudio de TPSmart
@@ -51,9 +48,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         setContentView(R.layout.activity_final_questionnaire);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        VideoView videoView = findViewById(R.id.video);
-        videoView.setVideoPath("android.resource://"+getPackageName()+"/"+R.raw.video);
-        videoView.start();
+
 
         //        String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.video;
 //        Uri uri =Uri.parse(videoPath);

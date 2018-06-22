@@ -210,36 +210,43 @@
                     android:id="@+id/quesiton6-2"
                     android:text="Puerto Rico" />
             </RadioGroup>
+
         <LinearLayout
             android:id="@+id/radioGroup07"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
-                android:textColor="@android:color/black"
+                android:id="@+id/quesiton7-0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/radioGroup"
                 android:layout_marginTop="8dp"
-                android:id="@+id/quesiton7-0"
                 android:text="7. Enter the user ID assigned"
-                android:textSize="20dp"
-                android:layout_alignParentLeft="true" />
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/question07"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="UserID"
                 android:layout_marginLeft="5dp"
+                android:hint="UserID"
                 android:inputType="number" />
+
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+
+
 
             <Button
                 android:layout_width="wrap_content"
@@ -249,18 +256,10 @@
                 android:layout_gravity="left"
                 android:onClick="SaveQuestionnaire"/>
 
-            <!--<Button-->
-                <!--android:id="@+id/finishStudieButton"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="end"-->
-                <!--android:layout_marginLeft="85dp"-->
-                <!--android:onClick="endQuestionnaire"-->
-                <!--android:text="End Studie Questionnaire" />-->
+
+
+
         </LinearLayout>
-
-
-
 
         </LinearLayout>
 

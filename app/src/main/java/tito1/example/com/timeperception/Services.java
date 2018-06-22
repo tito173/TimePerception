@@ -2,6 +2,7 @@ package tito1.example.com.timeperception;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -55,7 +56,7 @@ public  class Services extends AccessibilityService {
         long vibrate[] = {0,100,100};
 
 //        action of click notification
-        Intent myIntent = new Intent(getApplicationContext(), HomePage.class);
+        Intent myIntent = new Intent(getApplicationContext(), AppStop.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this,
                 0,
@@ -64,7 +65,7 @@ public  class Services extends AccessibilityService {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 getBaseContext())
-                .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                .setSmallIcon(android.R.drawable.alert_dark_frame)
                 .setContentTitle("Accessibility Server stopped")
                 .setContentText("Pleas reactivate the service")
                 .setVibrate(vibrate)
@@ -131,9 +132,15 @@ public  class Services extends AccessibilityService {
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 //call eventCheck
                 eventCheck(event);
-                break;
-
-        }
+                break;}
+//        if(eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED){
+//            eventCheck(event);
+//
+//        }
+//        if(eventType == AccessibilityEvent.TYPE_VIEW_CLICKED){
+//            eventCheck(event);
+//
+//        }
     }
 
     @Override
@@ -154,6 +161,12 @@ public  class Services extends AccessibilityService {
         //Creation of variable to save the lunch app on the service.
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("tito1.example.com.accessibilityservice", Context.MODE_PRIVATE);
         String eventText = "";
+
+
+//        System.out.println("3."+event.getClassName());
+//        System.out.println("4."+event.getPackageName());
+
+
         String currentApp = event.getText().toString();
 //        if (!changeName.contains(currentApp)){
 //            currentApp = "[Another App]";
@@ -179,6 +192,15 @@ public  class Services extends AccessibilityService {
 //                    Log.d(TAG,eventText);
             saveEvent(eventText);
         }
+//        System.out.println("1."+event.getEventType());
+//        System.out.println("2."+event.getSource()+"\n");
+
+        KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+        if( myKM.inKeyguardRestrictedInputMode()) {
+            Log.d("Pantalla","Esta bloqueada");}
+            else {
+            Log.d("Pantalla","No Esta bloqueada");
+    }
 
     }
 

@@ -116,7 +116,7 @@ public class SendFile extends BroadcastReceiver {
                 String fileName = name.getString(question07.toString(),"NOID");
 //
 //                    Log.d("Test","file name " +fileName);
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 DateFormat dateFormat1 = new SimpleDateFormat("HH-mm-ss");
                 Date cal = Calendar.getInstance().getTime();
                 String timeStamp = fileName +"-" +dateFormat.format(cal) + "-" + dateFormat1.format(cal);
@@ -154,6 +154,9 @@ public class SendFile extends BroadcastReceiver {
 //                    //send the file
                     try {
                         Response response = client.newCall(request).execute();
+//                        response.body().close();
+
+
 //                        if (name.getBoolean("firstLog",false) == true){
 //                            Response response1 = client.newCall(request_installation).execute();
 //                            name.edit().putBoolean("firstLog",false).apply();
@@ -165,7 +168,7 @@ public class SendFile extends BroadcastReceiver {
 //                        }
 
                         if (!response.isSuccessful() ) {
-                            throw new IOException("Error : " + response);
+                            throw new IOException("Error of conection: " + response);
 
                         }
 

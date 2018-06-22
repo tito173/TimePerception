@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">TP Smart</string>
+    <string name="app_name">TP-Smart</string>
     <string name="change_lenguage">Change language</string>
-    <string name="title">WELCOME TO TP Smart</string>
+    <string name="title">WELCOME TO TP-Smart</string>
     <string name="Button">Submit</string>
     <string name="Edit_questionary">Edit questionary</string>
     <string name="GoToSeating" translatable="false">Activate</string>
@@ -43,7 +43,6 @@
     <!--<string name="question"></string>-->
     <!--<string name="question"></string>-->
     <!--<string name="question"></string>-->
-
 
 
 </resources>

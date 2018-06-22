@@ -1,6 +1,7 @@
 package tito1.example.com.timeperception;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,45 +21,42 @@ import javax.crypto.Cipher;
 
 public class HomePage extends AppCompatActivity {
 
-//    public void encriptacion (View view) {
-//        Intent intent = new Intent(getApplicationContext(),ClaseDePrueba.class);
-//        startActivity(intent);
-//
-//    }
 
 
-
-
+    @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);String key = "This is a secret";
+        super.onCreate(savedInstanceState);
+
+
+
+        String key = "This is a secret";
         Crypto crypto = new Crypto();
         final File testFile = new File(getApplicationContext().getExternalFilesDir(null), "TestFile.txt");
         final File testFile2 = new File(getApplicationContext().getExternalFilesDir(null), "TestFile2.txt");
         final File testFile3 = new File(getApplicationContext().getExternalFilesDir(null), "TestFileDes.txt");
 
         Crypto.fileProcessor(Cipher.DECRYPT_MODE,key,testFile2,testFile3);
-                //variable que guarda si ya lleno el cuestionario o no.
+
+        //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
-        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
-
-
-
-        if (firtlog.getBoolean("firstLog", false) == true){
+        Log.d("valor", String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
+        if (firtlog.getBoolean("llenoCuestionario?", false) == true){
             setContentView(R.layout.activity_home_page);
-
         }
         else{
-
             //enviar a la pagina del cuestionario
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
+            }
 
 
 
-    }
+
+
+        
     }
 
     //Menu de la app
@@ -80,13 +79,15 @@ public class HomePage extends AppCompatActivity {
             startActivity(intent);
 
             return true;
-        } else if (item.getItemId() == R.id.questionary) {
+        }
+         else if (item.getItemId() == R.id.questionary) {
             Intent intent = new Intent(getApplicationContext(), Questionnaire.class);
             startActivity(intent);
             return true;
         }
         return false;
     }
+
 
 
 

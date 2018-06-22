@@ -16,7 +16,10 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
+
+
 class Crypto {
+
 
     public static void fileProcessor(int cipherMode, String key, File inputFile, File outputFile){
         try {
