@@ -11,14 +11,18 @@ import android.util.Log;
 import java.util.Calendar;
 
 public class ActiveSendFile extends Service {
+    //tag para usar en los logs
     final String TAG = "SendFile";
 
 
+    //funcion para enviar los archivos de textos al servidor
     public void SendTheLogs() {
+        //variables de cambiar el tiempo de envio
         long minuto = 1000 * 60;
         long hora = minuto * 60;
         long dia = hora * 24;
-        //create new calendar instance
+
+        //log de para saber si se entra a esta funcion
         Log.d(TAG,"Entre a la alarma ActiveSendFile");
         Calendar SendfileStart = Calendar.getInstance();
 

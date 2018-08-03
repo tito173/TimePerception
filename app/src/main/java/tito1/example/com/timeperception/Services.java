@@ -1,14 +1,21 @@
 package tito1.example.com.timeperception;
 
+import android.Manifest;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaScannerConnection;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -25,35 +32,38 @@ import static java.util.Arrays.asList;
 
 
 /*Clase que registrad todos los eventos ocurridos en el celular*/
-public  class Services extends AccessibilityService {
+public class Services extends AccessibilityService {
     //some variables
-    final static private String TAG = "Service";
+    final static private String TAG = "ServiceTP";
     final static private String language = Locale.getDefault().getLanguage();
     private NotificationManager notificationManager;
     private static final int ID_NOTIFCATION = 45612;
 
+    //Variables para la geolocalizaicon
+    LocationManager locationManager;
+    String lattitude,longitude;
+
     //Know when the service start
     @Override
     public void onCreate() {
-        Log.d(TAG,"Service Create");
-        Log.d(TAG,language);
+        Log.d(TAG, "Service Create");
+        Log.d(TAG, language);
 
         //stop notification
-        notificationManager =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(ID_NOTIFCATION);
 
 
     }
 
 
-
     //Know when the service stop
     @Override
     public void onDestroy() {
-        Log.d(TAG,"ERROR ----------");
+        Log.d(TAG, "ERROR ----------");
 
         //patron de vibracion
-        long vibrate[] = {0,100,100};
+        long vibrate[] = {0, 100, 100};
 
 //        action of click notification
         Intent myIntent = new Intent(getApplicationContext(), AppStop.class);
@@ -72,13 +82,13 @@ public  class Services extends AccessibilityService {
                 .setContentIntent(pendingIntent)
                 .setWhen(System.currentTimeMillis());
 
-        notificationManager.notify(ID_NOTIFCATION,builder.build());
+        notificationManager.notify(ID_NOTIFCATION, builder.build());
 
 
-        Log.d(TAG,"Service Destroy");
+        Log.d(TAG, "Service Destroy");
         saveEventStopApp("An error occurred and the app stopped");
-        SharedPreferences name = getApplicationContext().getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-        name.edit().putBoolean("appStopped",true).apply();
+        SharedPreferences name = getApplicationContext().getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        name.edit().putBoolean("appStopped", true).apply();
     }
 
     //What to do, when the server connect
@@ -89,7 +99,7 @@ public  class Services extends AccessibilityService {
 
         // won't be passed to this service.
         info.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
-       |AccessibilityEvent.TYPE_VIEW_CLICKED;
+                | AccessibilityEvent.TYPE_VIEW_CLICKED;
          /*AccessibilityEvent.TYPE_VIEW_FOCUSED|
 
          If you only want this service to work with specific applications, set their
@@ -124,7 +134,7 @@ public  class Services extends AccessibilityService {
         final int eventType = event.getEventType();
 
         //switch case to know what is happen on the phone
-        switch(eventType) {
+        switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 //call eventCheck
                 eventCheck(event);
@@ -132,7 +142,8 @@ public  class Services extends AccessibilityService {
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 //call eventCheck
                 eventCheck(event);
-                break;}
+                break;
+        }
 //        if(eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED){
 //            eventCheck(event);
 //
@@ -145,16 +156,90 @@ public  class Services extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-        Log.d(TAG,"Service Interrupt");
+        Log.d(TAG, "Service Interrupt");
+    }
+
+    public void Localization (){
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            getLocation();
+        }
+    }
+        private void getLocation() {
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                    (getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+//                ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+
+            } else {
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                Location location2 = locationManager.getLastKnownLocation(LocationManager. PASSIVE_PROVIDER);
+                Log.d(TAG,"else of location");
+                if (location != null) {
+                    double latti = location.getLatitude();
+                    double longi = location.getLongitude();
+                    lattitude = String.valueOf(latti);
+                    longitude = String.valueOf(longi);
+
+
+
+                } else  if (location1 != null) {
+                    double latti = location1.getLatitude();
+                    double longi = location1.getLongitude();
+                    lattitude = String.valueOf(latti);
+                    longitude = String.valueOf(longi);
+
+
+                } else  if (location2 != null) {
+                    double latti = location2.getLatitude();
+                    double longi = location2.getLongitude();
+                    lattitude = String.valueOf(latti);
+                    longitude = String.valueOf(longi);
+
+
+                }else{
+
+                    lattitude = "No-Coordinate";
+                    longitude = "No-Coordinate";
+
+                }
+            }
+        }
+
+    protected void buildAlertMessageNoGps() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn ON your GPS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(Settings.LOCATION_SERVICE));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     public void eventCheck(AccessibilityEvent event) {
-    /*ver si se puede usar en ves de una lisat un set o un map*/
+        /*ver si se puede usar en ves de una lisat un set o un map*/
         //Array list of case that not matter check. for now only in spanish language.
+        String lock = "";
         ArrayList<String> omitEvent = new ArrayList<String>(asList(
                 "[]"));
         ArrayList<String> changeName = new ArrayList<String>(asList(
-                "[Facebook]","[Instagram]","[Twitter]","[WhatsApp]"));
+                "[Facebook]", "[Instagram]", "[Twitter]", "[WhatsApp]"));
 
 //        ArrayList<String> formatEvent = new ArrayList<>();
 
@@ -166,45 +251,51 @@ public  class Services extends AccessibilityService {
 //        System.out.println("3."+event.getClassName());
 //        System.out.println("4."+event.getPackageName());
 
-
+        KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+        if (myKM.inKeyguardRestrictedInputMode()) {
+            lock = "Bloqueado";
+            Log.d("Pantalla", "Esta bloqueada");
+        } else {
+            Log.d("Pantalla", "No Esta bloqueada");
+            lock = "Desbloqueado";
+        }
+        getLocation();
         String currentApp = event.getText().toString();
-//        if (!changeName.contains(currentApp)){
-//            currentApp = "[Another App]";
+        if (currentApp == "[]"){ }
+        else if(!changeName.contains(currentApp)){
+            currentApp = "[Another App]";}
 //
 //        }
         //        Log.d(TAG,"1"+currentApp.toString());
 
-        String lastApp = sharedPreferences.getString("currentApp","");
+        String lastApp = sharedPreferences.getString("currentApp", "");
 //           Log.d(TAG,"2"+lastApp.toString());
 
-        if(!omitEvent.contains(event.getText().toString()) && !currentApp.equals(lastApp)){
+//        if (!omitEvent.contains(event.getText().toString())) { //&& !currentApp.equals(lastApp)
 //            Log.d(TAG,lastApp.toString()+"-->"+currentApp.toString());
-            Log.d(TAG,currentApp.toString());
+//            Log.d(TAG, currentApp.toString());
 
-            sharedPreferences.edit().putString("currentApp",currentApp.toString()).apply();
+            sharedPreferences.edit().putString("currentApp", currentApp.toString()).apply();
 
 //            formatEvent.add(event.getText().toString());
 //            formatEvent.add(event.getEventTime()+"");
 //            formatEvent.add(Calendar.getInstance().getTime().toString());
             eventText = "";
-            eventText = eventText + event.getText() + " " + event.getEventTime() + " "+ Calendar.getInstance().getTime();
+            eventText = eventText + currentApp + " " + event.getEventTime() + " " + Calendar.getInstance().getTime()
+                    +" " + lattitude +" "+ longitude
+                    +" " + lock;
 //                  Toast.makeText(getApplicationContext(),eventText,Toast.LENGTH_SHORT).show();
-//                    Log.d(TAG,eventText);
+                    Log.d(TAG,eventText);
             saveEvent(eventText);
-        }
+//        }
 //        System.out.println("1."+event.getEventType());
 //        System.out.println("2."+event.getSource()+"\n");
 
-        KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-        if( myKM.inKeyguardRestrictedInputMode()) {
-            Log.d("Pantalla","Esta bloqueada");}
-            else {
-            Log.d("Pantalla","No Esta bloqueada");
-    }
+
 
     }
 
-    public void saveEvent(String string){
+    public void saveEvent(String string) {
 
         try {
             // Creates a file in the primary external storage space of the
@@ -239,7 +330,8 @@ public  class Services extends AccessibilityService {
         }
 
     }
-    public void saveEventStopApp(String string){
+
+    public void saveEventStopApp(String string) {
 
         try {
             // Creates a file in the primary external storage space of the
@@ -274,4 +366,8 @@ public  class Services extends AccessibilityService {
         }
 
     }
+
+    /*-----------------------------------------------------------------------*/
+    //parte de la geolocalizacion
+
 }

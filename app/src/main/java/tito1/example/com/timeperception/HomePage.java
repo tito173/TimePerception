@@ -54,10 +54,12 @@ public class HomePage extends AppCompatActivity {
 
 
 
-
-
         
     }
+//    public void geo(View view){
+//        Intent intent = new Intent(getApplicationContext(),Geolocalization.class);
+//        startActivity(intent);
+//    }
 
     //Menu de la app
     @Override

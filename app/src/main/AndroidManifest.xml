@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tito1.example.com.timeperception">
 
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -69,7 +70,7 @@
         <activity android:name=".Settings" />
         <activity android:name=".Questionnaire" />
         <activity android:name=".FinalQuestionnaire" />
-
+        <activity android:name=".Geolocalization" />
         <activity android:name=".PerseptionQuestion"></activity>
     </application>
 
