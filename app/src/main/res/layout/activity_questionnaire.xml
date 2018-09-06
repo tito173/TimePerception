@@ -13,6 +13,11 @@
         android:focusable="false"
         android:focusableInTouchMode="false" >
 
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <RadioGroup
             android:id="@+id/radioGroup01"
             android:layout_width="match_parent"
@@ -75,8 +80,8 @@
                 android:id="@+id/question02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Age"
                 android:layout_marginLeft="5dp"
+                android:hint="Age"
                 android:inputType="number" />
         </LinearLayout>
 

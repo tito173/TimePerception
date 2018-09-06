@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="365dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="82dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="110dp"
@@ -19,7 +19,7 @@
         android:text="@string/title"
         android:textColor="@android:color/black"
         android:textSize="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/userID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,26 +32,24 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="51dp"
-        android:text="Version 1.4.1"
+        android:text="Version 1.5.1"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/userID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="83dp"
-        android:layout_marginLeft="133dp"
-        android:layout_marginStart="133dp"
-        android:onClick="geo"
-        android:text="Button"
+        android:layout_marginBottom="154dp"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:text="geo" />
+        tools:ignore="MissingConstraints" />
 
 
 </android.support.constraint.ConstraintLayout>

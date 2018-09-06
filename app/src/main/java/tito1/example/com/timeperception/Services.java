@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -280,18 +281,24 @@ public class Services extends AccessibilityService {
 //            formatEvent.add(event.getText().toString());
 //            formatEvent.add(event.getEventTime()+"");
 //            formatEvent.add(Calendar.getInstance().getTime().toString());
-            eventText = "";
+     /*       eventText = "";
             eventText = eventText + currentApp + " " + event.getEventTime() + " " + Calendar.getInstance().getTime()
                     +" " + lattitude +" "+ longitude
                     +" " + lock;
 //                  Toast.makeText(getApplicationContext(),eventText,Toast.LENGTH_SHORT).show();
                     Log.d(TAG,eventText);
-            saveEvent(eventText);
+            saveEvent(eventText);*/
 //        }
 //        System.out.println("1."+event.getEventType());
 //        System.out.println("2."+event.getSource()+"\n");
 
+        AccessibilityNodeInfo source = event.getSource();
 
+        if (source!=null) {
+            eventText = source.getPackageName().toString() + " " + event.getEventTime() + " " + Calendar.getInstance().getTime();
+            Log.d("RafaPantallaPackage:", eventText);
+            saveEvent(eventText);
+        }
 
     }
 
