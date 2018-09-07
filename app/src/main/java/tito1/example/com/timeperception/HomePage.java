@@ -85,7 +85,7 @@ public class HomePage extends AppCompatActivity {
         mensaje = mensaje + "\nLast send was: " + questionnaireAnswers.getString("last","no hay");
 //        UserID.setText("User ID: "+questionnaireAnswers.getString(question07.toString(),"no hay"));
         UserID.setText(mensaje);
-
+ 
 
         if(isMyServiceRunning(Services.class)){
             active.setVisibility(INVISIBLE);
