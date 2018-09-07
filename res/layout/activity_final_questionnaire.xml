@@ -1,0 +1,357 @@
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:id="@+id/firtLiearLayoutFinalQuestionnaire">
+
+        <RadioGroup
+            android:id="@+id/radioGroup07"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton7-0"
+                android:text="7. Where do you commonly use the cellphone? (Check all that apply)"/>
+            <CheckBox
+                android:id="@+id/question7-1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="House" />
+            <CheckBox
+                android:id="@+id/question7-2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Car" />
+            <CheckBox
+                android:id="@+id/question7-3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Work" />
+            <CheckBox
+                android:id="@+id/question7-4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="University" />
+            <CheckBox
+                android:id="@+id/question7-5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bathroom" />
+            <CheckBox
+                android:id="@+id/question7-6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Waiting room (Doctor’s office, government agency)" />
+            <CheckBox
+                android:id="@+id/question7-7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="other" />
+
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radioGroup08"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton8-0"
+                android:text="8. When do you commonly use the cellphone? (Check all that apply)"/>
+            <CheckBox
+                android:id="@+id/question8-1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While waiting" />
+            <CheckBox
+                android:id="@+id/question8-2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While eating" />
+            <CheckBox
+                android:id="@+id/question8-3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While spending time with friends and family" />
+            <CheckBox
+                android:id="@+id/question8-5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While studying" />
+            <CheckBox
+                android:id="@+id/question8-6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While driving" />
+            <CheckBox
+                android:id="@+id/question8-7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While watching television" />
+            <CheckBox
+                android:id="@+id/question8-8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While listening to radio" />
+
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radioGroup09"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton9-0"
+                android:text="9. How do you access the internet from your cellphone?"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton9-1"
+                android:text="Data plan" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton9-2"
+                android:text="Wireless internet (Wi-Fi)" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton9-3"
+                android:text="I don’t know" />
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radioGroup10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton10-0"
+                android:text="10. Which 2 apps do you use most on your cellphone"/>
+            <CheckBox
+                android:id="@+id/question10-1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facebook"/>
+            <CheckBox
+                android:id="@+id/question10-2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Twitter"/>
+            <CheckBox
+                android:id="@+id/question10-3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instagram"/>
+            <CheckBox
+                android:id="@+id/question10-4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facebook Messenger "/>
+            <CheckBox
+                android:id="@+id/question10-5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Whatsapp"/>
+            <CheckBox
+                android:id="@+id/question10-6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Snapchat"/>
+            <CheckBox
+                android:id="@+id/question10-7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"/>
+            <CheckBox
+                android:id="@+id/question10-8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Games"/>
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radioGroup11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/quesiton11-0"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="11. When do you use your cellphone the most?"/>
+            <CheckBox
+                android:id="@+id/question11-1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Morning"/>
+            <CheckBox
+                android:id="@+id/question11-2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Afternoon"/>
+            <CheckBox
+                android:id="@+id/question11-3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Evening"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/radioGroup12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton12-0"
+                android:text="12. How many hours per day do you spend using Facebook on your cellphone?"/>
+            <EditText
+                android:id="@+id/question12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hour"
+                android:layout_marginLeft="30dp"
+                android:inputType="number" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/radioGroup13"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton13-0"
+                android:text="13. How many hours per day do you spend using Twitter on your cellphone?"/>
+            <EditText
+                android:id="@+id/question13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hour"
+                android:layout_marginLeft="30dp"
+                android:inputType="number" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/radioGroup14"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton14-0"
+                android:text="14. How many hours per day do you spend using Instagram on your cellphone?"/>
+            <EditText
+                android:id="@+id/question14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hour"
+                android:layout_marginLeft="30dp"
+                android:inputType="number" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/radioGroup15"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton15-0"
+                android:text="15. How many hours per day do you spend using Whatsapp on your cellphone?"/>
+            <EditText
+                android:id="@+id/question15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hour"
+                android:layout_marginLeft="30dp"
+                android:inputType="number" />
+
+        </LinearLayout>
+        <RadioGroup
+            android:id="@+id/radioGroup16"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/quesiton16-0"
+                android:text="16. Would you be interested in participating in an in-depth interview?"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton16-1"
+                android:text="Yes"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton16-2"
+                android:text="No"/>
+
+
+
+        </RadioGroup>
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/video"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sbumitButtonQuestionnaire"
+            android:text="Submit"
+            android:layout_gravity="left"
+            android:onClick="saveQuestionnaire"/>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

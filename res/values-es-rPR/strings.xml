@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TP Smart</string>
+    <string name="change_lenguage">Cambiar el lenguaje</string>
+    <string name="title">BIENVENIDOS A TP Smart</string>
+    <string name="Button">Guardar</string>
+    <string name="Edit_questionary">Editar el Cuestionario</string>
+    <string name="question1">1. Genero:</string>
+    <string name="question11">Hombre</string>
+    <string name="question12">Mujer</string>
+    <string name="question13">Otro (espesificar):</string>
+    <string name="question2">2. Edad:</string>
+    <string name="question3">3.	Nivel educativo más alto alcanzado:</string>
+    <string name="question31">Escuela superior o menos	</string>
+    <string name="question32">Bachillerato</string>
+    <string name="question33">Maestria</string>
+    <string name="question34">Doctorado</string>
+    <string name="question35">PosDoctorado</string>
+    <string name="question4">4.	Ocupación (Marcar todas las que apliquen): </string>
+    <string name="question41">Empleo asalariado</string>
+    <string name="question42">Negocio propio</string>
+    <string name="question43">Desempleado</string>
+    <string name="question44">Estudiante</string>
+</resources>

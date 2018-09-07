@@ -1,0 +1,275 @@
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/initialLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="false"
+        android:focusableInTouchMode="false" >
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton1-0"
+                android:text="@string/question1"
+                android:textSize="20dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton1-1"
+                android:text="@string/question11" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton1-2"
+                android:text="@string/question12" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton1-3"
+                android:text="@string/question13" />
+
+            <EditText
+                android:id="@+id/question01Other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="specify" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/radioGroup02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/radioGroup"
+                android:layout_marginTop="8dp"
+                android:id="@+id/quesiton2-0"
+                android:text="2. Age"
+                android:textSize="20dp"
+                android:layout_alignParentLeft="true" />
+
+            <EditText
+                android:id="@+id/question02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="Age"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton3-0"
+                android:text="3. Highest educational level achieved"
+                android:textSize="20dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton3-1"
+                android:text="High school or below" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton3-2"
+                android:text="Bachelor" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton3-3"
+                android:text="Master" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton3-4"
+                android:text="Doctorate" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton3-5"
+                android:text="Post-doctorate" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radioGroup04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton4-0"
+                android:text="4. Occupation (Check all that apply)"
+                android:textSize="20dp"/>
+
+            <CheckBox
+                android:id="@+id/question4-1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salaried employed"/>
+            <CheckBox
+                android:id="@+id/question4-2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Self-employed"/>
+            <CheckBox
+                android:id="@+id/question4-3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unemployed"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/question4-4"
+                android:text="Student"/>
+
+
+        </RadioGroup>
+
+
+
+            <RadioGroup
+                android:id="@+id/radioGroup05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quesiton5-0"
+                    android:text="5. Weekly hours of work (If you did not indicate that you currently have a job, go to the next question"
+                    android:textSize="20dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quesiton5-1"
+                    android:text="Full-time (30 or more hours)" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quesiton5-2"
+                    android:text="Part-time (29 hours or less)" />
+            </RadioGroup>
+            <RadioGroup
+                android:id="@+id/radioGroup06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/quesiton6-0"
+                    android:text="6. Country"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quesiton6-1"
+                    android:text="Greece" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quesiton6-2"
+                    android:text="Puerto Rico" />
+            </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/radioGroup07"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/quesiton7-0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/radioGroup"
+                android:layout_marginTop="8dp"
+                android:text="7. Enter the user ID assigned"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/question07"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="UserID"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sbumitButtonQuestionnaire"
+                android:text="Submit"
+                android:layout_gravity="left"
+                android:onClick="SaveQuestionnaire"/>
+
+
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
