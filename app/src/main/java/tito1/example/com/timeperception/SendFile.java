@@ -182,7 +182,11 @@ public class SendFile extends BroadcastReceiver {
             }
         });
 //        // uncomment this line to send the file every time set-up
+
          t.start();
+         Log.d(TAG,"send file to server");
+        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
 
     }
 

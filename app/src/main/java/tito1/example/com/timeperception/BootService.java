@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -21,7 +22,7 @@ public class BootService extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         contextAll = context;
-        SendTheLogs();
+        SendTheLogs(context);
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
 //            Toast.makeText(context,"Boot Complete",Toast.LENGTH_LONG).show();
             Log.d(TAG, "Boot Complete");
@@ -32,7 +33,7 @@ public class BootService extends BroadcastReceiver {
         }
 
     }
-        public void SendTheLogs()  {
+        public void SendTheLogs(Context context)  {
                 long minuto = 1000 * 60;
                 long hora = minuto * 60;
                 long dia = hora * 24;
@@ -53,8 +54,9 @@ public class BootService extends BroadcastReceiver {
                 PendingIntent midnightPI =  PendingIntent.getBroadcast(contextAll,0,intent1,0);
                 Log.d(TAG,"crear el repetidor");
 
-                am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), hora, midnightPI);
-
+                am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
+            SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+            mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
 
         }
 

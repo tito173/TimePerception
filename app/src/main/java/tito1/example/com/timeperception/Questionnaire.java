@@ -25,7 +25,7 @@ import java.util.Calendar;
 public class Questionnaire extends AppCompatActivity {
 
     private final String TAG = "Questionnaire";
-//    private static final String TAG = "test";
+
     ArrayList<String> numberQuestion = new ArrayList<String>();
 
     @Override
@@ -35,7 +35,7 @@ public class Questionnaire extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         EditText other = findViewById(R.id.question01Other);
 
-        //Errores
+        //Errores al llenar el questionario, aparecera un textView con los errores
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 
         TextView error  = findViewById(R.id.error);
@@ -55,8 +55,9 @@ public class Questionnaire extends AppCompatActivity {
         questions.add(R.id.radioGroup05);
         questions.add(R.id.radioGroup06);
 
-        //mark every radiogroup option selected
 //        questionnaireAnswers.edit().clear().commit();
+
+        //mark every radiogroup option selected
         for (int i = 0 ; i < questions.size(); i++){
             RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
             int value = questionnaireAnswers.getInt(numberQuestion.get(i),-1);
@@ -69,19 +70,21 @@ public class Questionnaire extends AppCompatActivity {
                 else if (i==0 && value != 3){
                     other.setText("");
                 }
-//                Log.d(TAG,Integer.toString(value));
             }
             catch (Exception  e){
 //                Log.d(TAG,"Error when open question "+i);
             }
 
         }
+
+        //mark evry box selected
         Object[] question04 = {R.id.question4_1,R.id.question4_2,R.id.question4_3,R.id.question4_4};
         for (int i = 0 ; i < question04.length;i++){
             CheckBox box = findViewById((Integer) question04[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question04[i].toString(),false));
         }
 
+        //fill question 2 and question 7
         Object question02 = R.id.question02;
         EditText valueOfQuestion = findViewById(R.id.question02);
         valueOfQuestion.setText(questionnaireAnswers.getString(question02.toString(),"0"));
@@ -90,21 +93,17 @@ public class Questionnaire extends AppCompatActivity {
         valueOfQuestion07.setText(questionnaireAnswers.getString(question07.toString(),""));
 
     }
-//    public void endQuestionnaire(View   view){
-//        Intent intent = new Intent(getApplicationContext(), FinalQuestionnaire.class);
-//        startActivity(intent);
-//
-//    }
 
+
+
+    //Validate and save the user answers
     public  void SaveQuestionnaire(View view) {
 
-
-
+        //create a list to contain the questions
         ArrayList questions = new ArrayList();
         EditText other = findViewById(R.id.question01Other);
 
-        //to erase the data save
-//        questions.clear();
+
         //save every option from radiogroup
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         questions.add(R.id.radioGroup01);
@@ -112,20 +111,21 @@ public class Questionnaire extends AppCompatActivity {
         questions.add(R.id.radioGroup05);
         questions.add(R.id.radioGroup06);
 
-
+        //flags for validation
         Boolean missOrNot = false;
+
+        //String to save the error and show to the user
         String missquestion = "";
+
+/*---------------------------------------------Radio Group--------------------------------------------------------*/
         for (int i = 0; i < questions.size(); i++) {
             RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
-
 
             //si alguna opcion de radiogroup no fue selesccionada reinicia el cuestionario
             if(radioButtonGroup.getCheckedRadioButtonId() == -1)
             {
                 missOrNot = true;
-                missquestion = missquestion + numberQuestion.get(i) + " ";
-                Log.d(TAG,"Entro en pregunta " + Integer.toString(i));
-
+                missquestion = missquestion + numberQuestion.get(i) + " \n";
             }else{
                 int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
                 View radioButton = radioButtonGroup.findViewById(radioButtonId);
@@ -159,44 +159,39 @@ public class Questionnaire extends AppCompatActivity {
 
             }
         }
-        if (selectOrNot == 0){ missOrNot = true; missquestion = missquestion + " question 4" + " ";}
+        if (selectOrNot == 0){ missOrNot = true; missquestion = missquestion + "question 4" + " \n";}
 
-
+/*----------------------------------------FILL QUESTION 2-----------------------------------------------*/
         Object question02 = R.id.question02;
-        Integer foo  = 0;
-        Integer foo1 = 0;
+        Integer question2  = 0;
+        Integer question7 = 0;
         EditText valueOfQuestion = findViewById(R.id.question02);
         try {
-            foo = Integer.valueOf(valueOfQuestion.getText().toString());
-        } catch (NumberFormatException e) {
-            //Will Throw exception!
-            //do something! anything to handle the exception.
-        }
+            question2 = Integer.valueOf(valueOfQuestion.getText().toString());
+        } catch (NumberFormatException e) {}
 
-        if (foo <= 10 || foo >= 100 || foo == null) {
-            questionnaireAnswers.edit().putString(question02.toString(), "").apply();
+        if (question2 <= 10 || question2 >= 100 || question2 == null) {
+            questionnaireAnswers.edit().putString(question02.toString(), "").commit();
             missOrNot = true;
-            missquestion = missquestion + "pregunta dos elija una edad dentro de <rango> ";
+            missquestion = missquestion + "pregunta dos elija una edad dentro de <rango> \n";
 
         } else {
-            questionnaireAnswers.edit().putString(question02.toString(), valueOfQuestion.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question02.toString(), valueOfQuestion.getText().toString()).commit();
         }
-/*-----------------------------------------------------*/
+/*-------------------------------------------FILL QUESTION 7--------------------------------------------*/
         Object question07 = R.id.question07;
         EditText valueOfQuestion07 = findViewById(R.id.question07);
         try {
-            foo1 = Integer.valueOf(valueOfQuestion07.getText().toString());
-        } catch (NumberFormatException e) {
-            //Will Throw exception!
-            //do something! anything to handle the exception.
-        }
-        if (foo1 <= 0 || foo1 >= 100 || foo1 == null) {
-            questionnaireAnswers.edit().putString(question07.toString(), "").apply();
+            question7 = Integer.valueOf(valueOfQuestion07.getText().toString());
+        } catch (NumberFormatException e) { }
+
+        if (question7 <= 0 || question7 >= 100 || question7 == null) {
+            questionnaireAnswers.edit().putString(question07.toString(), "").commit();
             missOrNot = true;
-            missquestion = missquestion + "pregunta siete elija un ID dentro de <rango> ";
+            missquestion = missquestion + "pregunta siete elija un ID dentro de <rango> \n";
 
         } else {
-            questionnaireAnswers.edit().putString(question07.toString(), valueOfQuestion07.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question07.toString(), valueOfQuestion07.getText().toString()).commit();
         }
 
 
@@ -207,26 +202,24 @@ public class Questionnaire extends AppCompatActivity {
 
         //set the app was installed
         if (firtlog.getBoolean("appInstaled", true) == true) {
-            //            false to no enter again.
-            Log.d("Test", "Entre al if intalled");
             firtlog.edit().putBoolean("appInstaled", false).apply();
-            Log.d("Test","function appWasInstaled");
-//            Intent intent = new Intent(getApplicationContext(),AppWasInstaled.class);
-//            startService(intent);
+
         } else {
-            Log.d("Test", "Entre al else intalled");
+            Log.d("Test", "La app no se a instalado");
         }
 
 
         if(missOrNot){
-            questionnaireAnswers.edit().putString("error","Select one option on " + missquestion).commit();
+            questionnaireAnswers.edit().putString("error", missquestion).commit();
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
             return;
         }
 
+        Log.d("Entrada","antes");
         Intent intent = new Intent(getApplicationContext(), PerseptionQuestion.class);
         startActivity(intent);
+        Log.d("Entrada","despues");
 
         SendTheLogs();
 
@@ -270,7 +263,8 @@ public class Questionnaire extends AppCompatActivity {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), hora, midnightPI);
-
+        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
+        SharedPreferences mensaje = getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
     }
 }

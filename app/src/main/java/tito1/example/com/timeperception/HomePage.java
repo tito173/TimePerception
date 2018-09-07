@@ -14,11 +14,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
 
 import javax.crypto.Cipher;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 
 public class HomePage extends AppCompatActivity {
@@ -30,9 +35,8 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        // varaibale para almacenar el ID del usuario.
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-
 
 
         //Llave para la encriotacion del file
@@ -51,15 +55,9 @@ public class HomePage extends AppCompatActivity {
         if (firtlog.getBoolean("llenoCuestionario?", false) == true){
             setContentView(R.layout.activity_home_page);
             Object question07 = R.id.question07;
-            TextView UserID = findViewById(R.id.userID);
-            UserID.setText("UserID: " + questionnaireAnswers.getString(question07.toString(),""));
-            if(isMyServiceRunning(Services.class)){
-                UserID.setText("SI esta funcionando");
-            }else{
-                startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);
-            }
-
-
+            TextView UserID = findViewById(R.id.ID);
+//            UserID.setText("UserID: " + questionnaireAnswers.getString(question07.toString(),"no hay"));
+            UserID.setText("HOla");
         }
         else{
             //enviar a la pagina del cuestionario
@@ -69,11 +67,47 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-//    public void geo(View view){
-//        Intent intent = new Intent(getApplicationContext(),Geolocalization.class);
-//        startActivity(intent);
-//    }
+    @Override
+    protected void onResume() {
+        setContentView(R.layout.activity_home_page);
+        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 
+        //saber si el servicio esta corriendo al volver entrar en la app
+        Button active = findViewById(R.id.active);
+        TextView goActiveService = findViewById(R.id.goActive);
+
+
+        String mensaje = "";
+
+        Object question07 = R.id.question07;
+        TextView UserID = findViewById(R.id.ID);
+        mensaje = mensaje + "User ID: "+questionnaireAnswers.getString(question07.toString(),"no hay");
+        mensaje = mensaje + "\nLast send was: " + questionnaireAnswers.getString("last","no hay");
+//        UserID.setText("User ID: "+questionnaireAnswers.getString(question07.toString(),"no hay"));
+        UserID.setText(mensaje);
+
+
+
+        if(isMyServiceRunning(Services.class)){
+            active.setVisibility(INVISIBLE);
+            goActiveService.setVisibility(INVISIBLE);
+
+        }else{
+            active.setVisibility(VISIBLE);
+            goActiveService.setText("Press that buttom to active a requiere service for the app");
+            goActiveService.setTextSize(20);
+            active.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);
+
+                }
+            });
+        }
+        super.onResume();
+    }
+
+    //metodo que verifica si algun servicio esta encendido
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -105,6 +139,7 @@ public class HomePage extends AppCompatActivity {
 
             return true;
         }
+        /*ELIMINAR ESTA OPCION PARA LA PRUEBA*/
          else if (item.getItemId() == R.id.questionary) {
             Intent intent = new Intent(getApplicationContext(), Questionnaire.class);
             startActivity(intent);

@@ -3,7 +3,9 @@ package tito1.example.com.timeperception;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -39,8 +41,9 @@ public class ActiveSendFile extends Service {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
         Log.d(TAG,"crear el repetidor");
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), hora, midnightPI);
-
+        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
+        SharedPreferences mensaje = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
     }
 
     @Override

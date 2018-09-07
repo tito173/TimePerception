@@ -9,8 +9,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.RadioButton;
+import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
@@ -19,47 +20,79 @@ public class PerseptionQuestion extends AppCompatActivity {
 
     ArrayList<String> numberQuestion = new ArrayList<String>();
 
+    //Information view
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perseption_question);
 
-        final VideoView videoView = findViewById(R.id.videoView2);
-        String path = ("android.resource://" + getPackageName() + "/" + R.raw.demo);
-        videoView.setVideoURI(Uri.parse(path));
-        videoView.start();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Execute code here
+    }
 
-                videoView.stopPlayback();
-                videoView.setVisibility(View.INVISIBLE);
-            }
-        }, 3000);
 
+    @Override
+    protected void onResume() {
+        setContentView(R.layout.activity_perseption_question);
 
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+
+        final TextView instruction =  findViewById(R.id.instruction);
+        final Button startPerseption = findViewById(R.id.startPerseption);
+        final Button save = findViewById(R.id.save);
+        final VideoView videoView = findViewById(R.id.videoView2);
+        final RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
+
         numberQuestion.add("questionvideo");
 
-//        ArrayList questions = new ArrayList();
-//        questions.add(R.id.radioGroupvideo);
-        RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
-        int value = questionnaireAnswers.getInt("questionvideo",0);
-        Log.d("valor del radiogroup", Integer.toString(value));
-        if (value != -1){
-            RadioButton rb = (RadioButton) radioButtonGroup.getChildAt(value);
-            rb.setChecked(true);
-        }
+//        int value = questionnaireAnswers.getInt("questionvideo",0);
+//        Log.d("valor del radiogroup ", Integer.toString(value));
+//        if (value != -1){
+//            RadioButton rb = (RadioButton) radioButtonGroup.getChildAt(value);
+//            rb.setChecked(true);
+//        }
+
+        videoView.setVisibility(View.INVISIBLE);
+        radioButtonGroup.setVisibility(View.INVISIBLE);
+        save.setVisibility(View.INVISIBLE);
+        instruction.setTextSize(20);
+        instruction.setText("Press the button to start the test");
+
+        startPerseption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startPerseption.setVisibility(View.INVISIBLE);
+                instruction.setVisibility(View.INVISIBLE);
+                videoView.setVisibility(View.VISIBLE);
+                save.setVisibility(View.VISIBLE);
+                radioButtonGroup.setVisibility(View.VISIBLE);
+                String path = ("android.resource://" + getPackageName() + "/" + R.raw.demo);
+                videoView.setVideoURI(Uri.parse(path));
+                videoView.start();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Execute code here
+
+                        videoView.stopPlayback();
+                        videoView.setVisibility(View.INVISIBLE);
+                        instruction.setVisibility(View.INVISIBLE);
+                        instruction.setText("Cuantos segundos duro el video?");
+                        instruction.setVisibility(View.VISIBLE);
+                    }
+                }, 3000);
+            }
+
+
+        });
 
 
 
 
-
-
+        super.onResume();
     }
+
     public  void Save(View view){
 
 
@@ -72,6 +105,12 @@ public class PerseptionQuestion extends AppCompatActivity {
         int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
         View radioButton = radioButtonGroup.findViewById(radioButtonId);
         int indice = radioButtonGroup.indexOfChild(radioButton);
+        if(indice == -1){
+
+            Intent intent = new Intent(getApplicationContext(),PerseptionQuestion.class);
+            startActivity(intent);
+            return;
+        }
         try {
                 questionnaireAnswers.edit().putInt("questionvideo", indice).commit();
 
@@ -79,9 +118,14 @@ public class PerseptionQuestion extends AppCompatActivity {
                 Log.d("ERROR Video", "Error");
             }
 
-        Intent intent = new Intent(getApplicationContext(), HomePage.class);
+        //close TP-Smart
+        Intent intent = new Intent(getApplicationContext(),HomePage.class);
         startActivity(intent);
+//        finish();
+//        moveTaskToBack(true);
+
         }
+
 
 
 
