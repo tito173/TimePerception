@@ -87,7 +87,6 @@ public class HomePage extends AppCompatActivity {
         UserID.setText(mensaje);
 
 
-
         if(isMyServiceRunning(Services.class)){
             active.setVisibility(INVISIBLE);
             goActiveService.setVisibility(INVISIBLE);
