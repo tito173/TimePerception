@@ -186,7 +186,7 @@ public class SendFile extends BroadcastReceiver {
          t.start();
          Log.d(TAG,"send file to server");
         SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
+        mensaje.edit().putString("last","sendFile"+Calendar.getInstance().getTime().toString()).commit();
 
     }
 

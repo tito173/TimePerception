@@ -265,6 +265,6 @@ public class Questionnaire extends AppCompatActivity {
 
         am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
         SharedPreferences mensaje = getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
+        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).commit();
     }
 }

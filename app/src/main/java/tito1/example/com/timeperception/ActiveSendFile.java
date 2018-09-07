@@ -43,7 +43,7 @@ public class ActiveSendFile extends Service {
 
         am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
         SharedPreferences mensaje = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
-        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
+        mensaje.edit().putString("last","Active "+Calendar.getInstance().getTime().toString()).commit();
     }
 
     @Override

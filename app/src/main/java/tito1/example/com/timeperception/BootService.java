@@ -56,7 +56,7 @@ public class BootService extends BroadcastReceiver {
 
                 am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
             SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-            mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).commit();
+            mensaje.edit().putString("last","Boost"+Calendar.getInstance().getTime().toString()).commit();
 
         }
 
