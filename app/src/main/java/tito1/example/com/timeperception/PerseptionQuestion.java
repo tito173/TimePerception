@@ -98,8 +98,8 @@ public class PerseptionQuestion extends AppCompatActivity {
         //close TP-Smart
         Intent intent = new Intent(getApplicationContext(),HomePage.class);
         startActivity(intent);
-        finish();
-        moveTaskToBack(true);
+//        finish();
+//        moveTaskToBack(true);
         }
 
 

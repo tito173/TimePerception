@@ -294,7 +294,7 @@ public class Services extends AccessibilityService {
 
         if (source!=null) {
             eventText = source.getPackageName().toString() + " " + event.getEventTime() + " " + Calendar.getInstance().getTime();
-            Log.d("RafaPantallaPackage:", eventText);
+            Log.d(TAG, eventText);
             saveEvent(eventText);
         }
 

@@ -153,6 +153,9 @@ public class SendFile extends BroadcastReceiver {
                 //send the file
                 try {
                     Response response = client.newCall(request).execute();
+                    Log.d(TAG,"SendFile El archivo se envio al servidor");
+                    SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+                    mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).apply();
                     //response.body().close();
 
                     //if (name.getBoolean("firstLog",false) == true){
@@ -173,9 +176,6 @@ public class SendFile extends BroadcastReceiver {
         });
 
         t.start();
-        Log.d(TAG,"send file to server");
-        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).apply();
     }
 
     //examine the type of the file
