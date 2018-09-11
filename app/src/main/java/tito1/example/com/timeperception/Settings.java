@@ -21,7 +21,7 @@ import static java.util.Arrays.asList;
 /*Clase para cambiar el idioma de la app y futuras opciones de la app*/
 public class Settings extends AppCompatActivity {
 
-    private static final String TAG = "test";
+    private static final String TAG = "TP-Smart";
 
 
     @Override

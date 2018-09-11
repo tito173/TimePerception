@@ -6,7 +6,6 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -35,7 +33,7 @@ import static java.util.Arrays.asList;
 /*Clase que registrad todos los eventos ocurridos en el celular*/
 public class Services extends AccessibilityService {
     //some variables
-    final static private String TAG = "ServiceTP";
+    final static private String TAG = "TP-Smart";
     final static private String language = Locale.getDefault().getLanguage();
     private NotificationManager notificationManager;
     private static final int ID_NOTIFCATION = 45612;
@@ -61,13 +59,13 @@ public class Services extends AccessibilityService {
     //Know when the service stop
     @Override
     public void onDestroy() {
-        Log.d(TAG, "ERROR ----------");
+        Log.d(TAG, "Service onDestroy ERROR");
 
         //patron de vibracion
         long vibrate[] = {0, 100, 100};
 
 //        action of click notification
-        Intent myIntent = new Intent(getApplicationContext(), AppStop.class);
+       /* Intent myIntent = new Intent(getApplicationContext(), AppStop.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this,
                 0,
@@ -84,7 +82,7 @@ public class Services extends AccessibilityService {
                 .setWhen(System.currentTimeMillis());
 
         notificationManager.notify(ID_NOTIFCATION, builder.build());
-
+*/
 
         Log.d(TAG, "Service Destroy");
         saveEventStopApp("An error occurred and the app stopped");

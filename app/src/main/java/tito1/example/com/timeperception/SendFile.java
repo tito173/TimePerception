@@ -37,7 +37,7 @@ import okhttp3.Response;
 * Clase que crea el file y http POST, para luego ser enviado al servidor
 */
 public class SendFile extends BroadcastReceiver {
-    final String TAG ="SendFile";
+    final String TAG ="TP-Smart";
 
 
     public static void fileProcessor(int cipherMode, String key, File inputFile, File outputFile) {
@@ -74,10 +74,6 @@ public class SendFile extends BroadcastReceiver {
         final File testFileOrigin = new File(context.getExternalFilesDir(null), "TestFile.txt");
         Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,testFileOrigin,testFile);
 
-        //file location of every event
-
-//        final File fileIntallation = new File(context.getExternalFilesDir(null),"FileInstallation.txt");
-//        final File appstopped = new File(context.getExternalFilesDir(null),"TPSmartStop.txt");
         if (!testFile.exists()) {
             try {
                 testFile.createNewFile();
@@ -93,101 +89,93 @@ public class SendFile extends BroadcastReceiver {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG,"Creacion del thread");
+                Log.d(TAG,"SendFile Creado el archivo a enviar");
 
 
                 //get the type of the file
                 String content_type = getMimeType(testFile.getPath());
-////                String content_type_installation = getMimeType(fileIntallation.getPath());
-////                String content_type_appStopped = getMimeType(fileIntallation.getPath());
-//
-//                //get the path, create http client, take the body content of file
+                //String content_type_installation = getMimeType(fileIntallation.getPath());
+                //String content_type_appStopped = getMimeType(fileIntallation.getPath());
+
+                //get the path, create http client, take the body content of file
                 String file_path = testFile.getAbsolutePath();
-////                String fiel_path_intallation = fileIntallation.getAbsolutePath();
-////                String fiel_path_appStopped = appstopped.getAbsolutePath();
+                //String fiel_path_intallation = fileIntallation.getAbsolutePath();
+                //String fiel_path_appStopped = appstopped.getAbsolutePath();
+
                 OkHttpClient client = new OkHttpClient();
                 RequestBody file_body = RequestBody.create(MediaType.parse(content_type), testFile);
-////                RequestBody file_body_intallation = RequestBody.create(MediaType.parse(content_type_installation),fileIntallation);
-////                RequestBody file_body_appStopped = RequestBody.create(MediaType.parse(content_type_appStopped),appstopped);
-//
+                //RequestBody file_body_intallation = RequestBody.create(MediaType.parse(content_type_installation),fileIntallation);
+                //RequestBody file_body_appStopped = RequestBody.create(MediaType.parse(content_type_appStopped),appstopped);
+
                 //form of date and time
                 Object question07 = R.id.question07;
                 SharedPreferences name = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
                 String fileName = name.getString(question07.toString(),"NOID");
-//
-//                    Log.d("Test","file name " +fileName);
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 DateFormat dateFormat1 = new SimpleDateFormat("HH-mm-ss");
                 Date cal = Calendar.getInstance().getTime();
                 String timeStamp = fileName +"-" +dateFormat.format(cal) + "-" + dateFormat1.format(cal);
 
-                    //combine the type and body
+                //combine the type and body
                 RequestBody request_body = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
                         .addFormDataPart("type", content_type)
                         .addFormDataPart("uploaded_file", timeStamp + file_path.substring(file_path.lastIndexOf("/") + 1), file_body)
                         .build();
-////                RequestBody request_body_intallation = new MultipartBody.Builder()
-////                        .setType(MultipartBody.FORM)
-////                        .addFormDataPart("type", content_type_installation)
-////                        .addFormDataPart("uploaded_file", timeStamp + fiel_path_intallation.substring(fiel_path_intallation.lastIndexOf("/") + 1), file_body_intallation)
-////                        .build();
-////                RequestBody request_body_appStoped = new MultipartBody.Builder()
-////                        .setType(MultipartBody.FORM)
-////                        .addFormDataPart("type", content_type_appStopped)
-////                        .addFormDataPart("uploaded_file", timeStamp + fiel_path_appStopped.substring(fiel_path_appStopped.lastIndexOf("/") + 1), file_body_intallation)
-////                        .build();
-//
-//                    //make the request
+                //RequestBody request_body_intallation = new MultipartBody.Builder()
+                    //.setType(MultipartBody.FORM)
+                    //.addFormDataPart("type", content_type_installation)
+                    //.addFormDataPart("uploaded_file", timeStamp + fiel_path_intallation.substring(fiel_path_intallation.lastIndexOf("/") + 1), file_body_intallation)
+                    //.build();
+
+                //RequestBody request_body_appStoped = new MultipartBody.Builder()
+                    //.setType(MultipartBody.FORM)
+                    //.addFormDataPart("type", content_type_appStopped)
+                    //.addFormDataPart("uploaded_file", timeStamp + fiel_path_appStopped.substring(fiel_path_appStopped.lastIndexOf("/") + 1), file_body_intallation)
+                    //.build();
+
+                //make the request
                 Request request = new Request.Builder()
                         .url(url)
                         .post(request_body)
                         .build();
-////                Request request_installation = new Request.Builder()
-////                        .url(url)
-////                        .post(request_body_intallation)
-////                        .build();
-////                Request request_appStopped = new Request.Builder()
-////                        .url(url)
-////                        .post(request_body_appStoped)
-////                        .build();
-//                    //send the file
-                    try {
-                        Response response = client.newCall(request).execute();
-//                        response.body().close();
 
+                //Request request_installation = new Request.Builder()
+                    //.url(url)
+                    //.post(request_body_intallation)
+                    //.build();
 
-//                        if (name.getBoolean("firstLog",false) == true){
-//                            Response response1 = client.newCall(request_installation).execute();
-//                            name.edit().putBoolean("firstLog",false).apply();
-//
-//                        }
-//                        if(name.getBoolean("appStopped",false)==true){
-//                            Response response2 = client.newCall(request_installation).execute();
-//                            name.edit().putBoolean("appStopped",false).apply();
-//                        }
+                //Request request_appStopped = new Request.Builder()
+                    //.url(url)
+                    //.post(request_body_appStoped)
+                    //.build();
 
-                        if (!response.isSuccessful() ) {
-                            throw new IOException("Error of conection: " + response);
+                //send the file
+                try {
+                    Response response = client.newCall(request).execute();
+                    //response.body().close();
 
-                        }
+                    //if (name.getBoolean("firstLog",false) == true){
+                        //Response response1 = client.newCall(request_installation).execute();
+                        //name.edit().putBoolean("firstLog",false).apply();}
 
-                    } catch (IOException e) {
+                    //if(name.getBoolean("appStopped",false)==true){
+                        //Response response2 = client.newCall(request_installation).execute();
+                        //name.edit().putBoolean("appStopped",false).apply();}
 
-                        e.printStackTrace();
+                    if (!response.isSuccessful() ) {
+                        throw new IOException("Error of conection: " + response);
                     }
-
-
-//
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
-//        // uncomment this line to send the file every time set-up
 
-         t.start();
-         Log.d(TAG,"send file to server");
+        t.start();
+        Log.d(TAG,"send file to server");
         SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-        mensaje.edit().putString("last","sendFile"+Calendar.getInstance().getTime().toString()).commit();
-
+        mensaje.edit().putString("last",Calendar.getInstance().getTime().toString()).apply();
     }
 
     //examine the type of the file
@@ -201,11 +189,6 @@ public class SendFile extends BroadcastReceiver {
         }
         return type;
     }
-
-
-
-
-
 }
 
 

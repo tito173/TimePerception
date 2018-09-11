@@ -14,22 +14,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import java.util.ArrayList;
-
 public class PerseptionQuestion extends AppCompatActivity {
 
-    ArrayList<String> numberQuestion = new ArrayList<String>();
-
-    //Information view
-
+    final String TAG = "TP-Smart";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perseption_question);
-
     }
-
 
     @Override
     protected void onResume() {
@@ -43,29 +36,20 @@ public class PerseptionQuestion extends AppCompatActivity {
         final VideoView videoView = findViewById(R.id.videoView2);
         final RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
 
-        numberQuestion.add("questionvideo");
-
-//        int value = questionnaireAnswers.getInt("questionvideo",0);
-//        Log.d("valor del radiogroup ", Integer.toString(value));
-//        if (value != -1){
-//            RadioButton rb = (RadioButton) radioButtonGroup.getChildAt(value);
-//            rb.setChecked(true);
-//        }
-
-        videoView.setVisibility(View.INVISIBLE);
-        radioButtonGroup.setVisibility(View.INVISIBLE);
-        save.setVisibility(View.INVISIBLE);
+        videoView.          setVisibility(View.INVISIBLE);
+        radioButtonGroup.   setVisibility(View.INVISIBLE);
+        save.               setVisibility(View.INVISIBLE);
         instruction.setTextSize(20);
         instruction.setText("Press the button to start the test");
 
         startPerseption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startPerseption.setVisibility(View.INVISIBLE);
-                instruction.setVisibility(View.INVISIBLE);
-                videoView.setVisibility(View.VISIBLE);
-                save.setVisibility(View.VISIBLE);
-                radioButtonGroup.setVisibility(View.VISIBLE);
+                startPerseption.    setVisibility(View.INVISIBLE);
+                instruction.        setVisibility(View.INVISIBLE);
+                videoView.          setVisibility(View.VISIBLE);
+                save.               setVisibility(View.VISIBLE);
+                radioButtonGroup.   setVisibility(View.VISIBLE);
                 String path = ("android.resource://" + getPackageName() + "/" + R.raw.demo);
                 videoView.setVideoURI(Uri.parse(path));
                 videoView.start();
@@ -76,54 +60,46 @@ public class PerseptionQuestion extends AppCompatActivity {
                         //Execute code here
 
                         videoView.stopPlayback();
-                        videoView.setVisibility(View.INVISIBLE);
+                        videoView.  setVisibility(View.INVISIBLE);
                         instruction.setVisibility(View.INVISIBLE);
-                        instruction.setText("Cuantos segundos duro el video?");
                         instruction.setVisibility(View.VISIBLE);
+                        instruction.setText("Cuantos segundos duro el video?");
                     }
                 }, 3000);
             }
 
 
         });
-
-
-
-
         super.onResume();
     }
 
     public  void Save(View view){
 
-
-        ArrayList questions = new ArrayList();
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
-        questions.add(R.id.radioGroupvideo);
-
-
         RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
         int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
         View radioButton = radioButtonGroup.findViewById(radioButtonId);
         int indice = radioButtonGroup.indexOfChild(radioButton);
-        if(indice == -1){
 
+        //Si no se selecciono una respuesta inicia la actividad, "Es provivionar a lo que se resuelve el error
+        //producidor por continuar sin seleccionar alguna opcion"
+        if(indice == -1){
             Intent intent = new Intent(getApplicationContext(),PerseptionQuestion.class);
             startActivity(intent);
             return;
         }
         try {
-                questionnaireAnswers.edit().putInt("questionvideo", indice).commit();
+                questionnaireAnswers.edit().putInt("questionvideo", indice).apply();
 
             } catch (Exception e) {
-                Log.d("ERROR Video", "Error");
+                Log.d(TAG, "PerseptionQuestion Error al saber la respues");
             }
 
         //close TP-Smart
         Intent intent = new Intent(getApplicationContext(),HomePage.class);
         startActivity(intent);
-//        finish();
-//        moveTaskToBack(true);
-
+        finish();
+        moveTaskToBack(true);
         }
 
 

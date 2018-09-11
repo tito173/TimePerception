@@ -38,8 +38,7 @@ import org.apache.http.util.EntityUtils;
 public class FinalQuestionnaire extends AppCompatActivity {
 
 
-    private final String TAG = "test";
-    //    private static final String TAG = "test";
+    private final String TAG = "TP-Smart";
     ArrayList<String> numberQuestion = new ArrayList<String>();
 
     @Override
@@ -47,17 +46,6 @@ public class FinalQuestionnaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final_questionnaire);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-
-
-        //        String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.video;
-//        Uri uri =Uri.parse(videoPath);
-//        videoView.setVideoURI(uri);
-//
-//        MediaController mediaController = new MediaController(this);
-//        videoView.setMediaController(mediaController);
-//        mediaController.setAnchorView(videoView);
-
 
         numberQuestion.add("question09");
         numberQuestion.add("question16");
@@ -75,38 +63,35 @@ public class FinalQuestionnaire extends AppCompatActivity {
             try {
                 ((RadioButton) radioButtonGroup.getChildAt(value)).setChecked(true);
             } catch (Exception e) {
-                Log.d(TAG, "Error when open" + i);
+                Log.d(TAG, "FinalQuestionanire Error when open question " + i);
             }
 
         }
 
+        //Marcar todos los check boxes que allan
         Object[] question07 = {R.id.question7_1,R.id.question7_2,R.id.question7_3,R.id.question7_4,R.id.question7_5,R.id.question7_6,R.id.question7_7};
         for (int i = 0 ; i < question07.length;i++){
             CheckBox box = findViewById((Integer) question07[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question07[i].toString(),false));
         }
+
         Object[] question08 = {R.id.question8_1,R.id.question8_2,R.id.question8_3,R.id.question8_8,R.id.question8_5,R.id.question8_6,R.id.question8_7};
         for (int i = 0 ; i < question08.length;i++){
             CheckBox box = findViewById((Integer) question08[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question08[i].toString(),false));
         }
+
         Object[] question10 = {R.id.question10_1,R.id.question10_2,R.id.question10_3,R.id.question10_4,R.id.question10_5,R.id.question10_6,R.id.question10_7,R.id.question10_8};
         for (int i = 0 ; i < question10.length;i++){
             CheckBox box = findViewById((Integer) question10[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question10[i].toString(),false));
         }
+
         Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
         for (int i = 0 ; i < question11.length;i++){
             CheckBox box = findViewById((Integer) question11[i]);
             box.setChecked(questionnaireAnswers.getBoolean(question11[i].toString(),false));
         }
-
-
-
-
-
-
-
 
         Object[] question02 = {R.id.question12,R.id.question13,R.id.question14,R.id.question15};
         for (int i = 0 ; i< question02.length; i++){
@@ -115,85 +100,88 @@ public class FinalQuestionnaire extends AppCompatActivity {
             valueOfQuestion.setText(questionnaireAnswers.getString(question02[i].toString(),"777"));
         }
 
-
-
     }
 
     public void saveQuestionnaire(View view){
+
         ArrayList questions = new ArrayList();
         ArrayList answerQuestions = new ArrayList();
 
+        //Para borrar toda las preguntas quite el comentario de la linea de abajo
+        //questions.clear();
 
-        //to erase the data save
-//        questions.clear();
         //save every option from radiogroup
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-
         questions.add(R.id.radioGroup09);questions.add(R.id.radioGroup16);
+
         for (int i = 0 ; i < questions.size(); i++){
             RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
             int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
             View radioButton = radioButtonGroup.findViewById(radioButtonId);
             int indice = radioButtonGroup.indexOfChild(radioButton);
             try {
-                questionnaireAnswers.edit().putInt(numberQuestion.get(i),indice).commit();
+                questionnaireAnswers.edit().putInt(numberQuestion.get(i),indice).apply();
             }catch (Exception  e){
                 Log.d(TAG,"Error");
             }
         }
 
+        //crear los objetos a guardar.
+        Object[] question02 = {R.id.question12,R.id.question13,R.id.question14,R.id.question15};
         Object[] question07 = {R.id.question7_1,R.id.question7_2,R.id.question7_3,R.id.question7_4,R.id.question7_5,R.id.question7_6,R.id.question7_7};
         Object[] question08 = {R.id.question8_1,R.id.question8_2,R.id.question8_3,R.id.question8_5,R.id.question8_6,R.id.question8_7,R.id.question8_8};
         Object[] question10 = {R.id.question10_1,R.id.question10_2,R.id.question10_3,R.id.question10_4,R.id.question10_5,R.id.question10_6,R.id.question10_7,R.id.question10_8};
         Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
 
+
         for (int i = 0 ; i < question07.length;i++){
             CheckBox box = findViewById((Integer) question07[i]);
             if(box.isChecked()){
-                questionnaireAnswers.edit().putBoolean(question07[i].toString(),true).commit();
+                questionnaireAnswers.edit().putBoolean(question07[i].toString(),true).apply();
             }
             else {
-                questionnaireAnswers.edit().putBoolean(question07[i].toString(),false).commit();
+                questionnaireAnswers.edit().putBoolean(question07[i].toString(),false).apply();
             }
         }
 
         for (int i = 0 ; i < question08.length;i++){
             CheckBox box = findViewById((Integer) question08[i]);
             if(box.isChecked()){
-                questionnaireAnswers.edit().putBoolean(question08[i].toString(),true).commit();
+                questionnaireAnswers.edit().putBoolean(question08[i].toString(),true).apply();
             }
             else {
-                questionnaireAnswers.edit().putBoolean(question08[i].toString(),false).commit();
-            }
-        }
-        for (int i = 0 ; i < question10.length;i++){
-            CheckBox box = findViewById((Integer) question10[i]);
-            if(box.isChecked()){
-                questionnaireAnswers.edit().putBoolean(question10[i].toString(),true).commit();
-            }
-            else {
-                questionnaireAnswers.edit().putBoolean(question10[i].toString(),false).commit();
-            }
-        }
-        for (int i = 0 ; i < question11.length;i++){
-            CheckBox box = findViewById((Integer) question11[i]);
-            if(box.isChecked()){
-                questionnaireAnswers.edit().putBoolean(question11[i].toString(),true).commit();
-            }
-            else {
-                questionnaireAnswers.edit().putBoolean(question11[i].toString(),false).commit();
+                questionnaireAnswers.edit().putBoolean(question08[i].toString(),false).apply();
             }
         }
 
-        Object[] question02 = {R.id.question12,R.id.question13,R.id.question14,R.id.question15};
+        for (int i = 0 ; i < question10.length;i++){
+            CheckBox box = findViewById((Integer) question10[i]);
+            if(box.isChecked()){
+                questionnaireAnswers.edit().putBoolean(question10[i].toString(),true).apply();
+            }
+            else {
+                questionnaireAnswers.edit().putBoolean(question10[i].toString(),false).apply();
+            }
+        }
+
+        for (int i = 0 ; i < question11.length;i++){
+            CheckBox box = findViewById((Integer) question11[i]);
+            if(box.isChecked()){
+                questionnaireAnswers.edit().putBoolean(question11[i].toString(),true).apply();
+            }
+            else {
+                questionnaireAnswers.edit().putBoolean(question11[i].toString(),false).apply();
+            }
+        }
+
 
         for (int i = 0 ; i< question02.length; i++) {
             EditText valueOfQuestion = findViewById((Integer) question02[i]);
             if (valueOfQuestion == null ){
-                questionnaireAnswers.edit().putString(question02[i].toString(),"").commit();
+                questionnaireAnswers.edit().putString(question02[i].toString(),"").apply();
 
             }else {
-                questionnaireAnswers.edit().putString(question02[i].toString(), valueOfQuestion.getText().toString()).commit();
+                questionnaireAnswers.edit().putString(question02[i].toString(), valueOfQuestion.getText().toString()).apply();
             }
         }
     }
@@ -205,7 +193,6 @@ public class FinalQuestionnaire extends AppCompatActivity {
         if (item.getItemId() == R.id.language){
             Intent intent = new Intent(getApplicationContext(), Settings.class);
             startActivity(intent);
-
             return  true;
         }
         return  false;

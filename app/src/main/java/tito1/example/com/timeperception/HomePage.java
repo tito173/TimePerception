@@ -6,6 +6,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -28,6 +29,7 @@ import static android.view.View.VISIBLE;
 
 public class HomePage extends AppCompatActivity {
 
+    final String TAG = "TP-Smart";
 
     @SuppressLint({"WrongConstant", "SetTextI18n"})
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -42,6 +44,7 @@ public class HomePage extends AppCompatActivity {
         //Llave para la encriotacion del file
         String key = "This is a secret";
         Crypto crypto = new Crypto();
+
         final File testFile = new File(getApplicationContext().getExternalFilesDir(null), "TestFile.txt");
         final File testFile2 = new File(getApplicationContext().getExternalFilesDir(null), "TestFile2.txt");
         final File testFile3 = new File(getApplicationContext().getExternalFilesDir(null), "TestFileDes.txt");
@@ -51,42 +54,38 @@ public class HomePage extends AppCompatActivity {
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
-        Log.d("valor", String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
+        Log.d(TAG, "HomePage Se lleno el questionario: "+String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
         if (firtlog.getBoolean("llenoCuestionario?", false) == true){
-            setContentView(R.layout.activity_home_page);
-            Object question07 = R.id.question07;
-            TextView UserID = findViewById(R.id.ID);
-//            UserID.setText("UserID: " + questionnaireAnswers.getString(question07.toString(),"no hay"));
-            UserID.setText("HOla");
+            //Nose se hace nada Porque fun onResume se encarga.
         }
         else{
             //enviar a la pagina del cuestionario
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
             }
-
     }
 
     @Override
     protected void onResume() {
         setContentView(R.layout.activity_home_page);
+
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 
         //saber si el servicio esta corriendo al volver entrar en la app
         Button active = findViewById(R.id.active);
         TextView goActiveService = findViewById(R.id.goActive);
-
-
         String mensaje = "";
-
         Object question07 = R.id.question07;
         TextView UserID = findViewById(R.id.ID);
+
+        //llenar cada mensaje con su respuesta
         mensaje = mensaje + "User ID: "+questionnaireAnswers.getString(question07.toString(),"no hay");
         mensaje = mensaje + "\nLast send was: " + questionnaireAnswers.getString("last","no hay");
-//        UserID.setText("User ID: "+questionnaireAnswers.getString(question07.toString(),"no hay"));
+        UserID.setTextSize(15);
+        UserID.setTextColor(Color.parseColor("#000000"));
         UserID.setText(mensaje);
 
-
+        //Si el sevicio esta corriendo no aparecera nada, si no esta aparecera una opcion para activarlo
         if(isMyServiceRunning(Services.class)){
             active.setVisibility(INVISIBLE);
             goActiveService.setVisibility(INVISIBLE);
@@ -94,12 +93,13 @@ public class HomePage extends AppCompatActivity {
         }else{
             active.setVisibility(VISIBLE);
             goActiveService.setText("Press that buttom to active a requiere service for the app");
-            goActiveService.setTextSize(20);
+            goActiveService.setTextSize(15);
+            goActiveService.setTextColor(Color.parseColor("#000000"));
             active.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);
-
+                    startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                            , 0);
                 }
             });
         }
@@ -146,9 +146,4 @@ public class HomePage extends AppCompatActivity {
         }
         return false;
     }
-
-
-
-
-
 }
