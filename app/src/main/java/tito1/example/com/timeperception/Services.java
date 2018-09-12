@@ -4,7 +4,6 @@ import android.Manifest;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.AlertDialog;
-import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,16 +22,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
-import static java.util.Arrays.asList;
 
 
 /*Clase que registrad todos los eventos ocurridos en el celular*/
 public class Services extends AccessibilityService {
-    //some variables
+
+    //varibales
     final static private String TAG = "TP-Smart";
     final static private String language = Locale.getDefault().getLanguage();
     private NotificationManager notificationManager;
@@ -46,7 +43,7 @@ public class Services extends AccessibilityService {
     @Override
     public void onCreate() {
         Log.d(TAG, "Service Create");
-        Log.d(TAG, language);
+        Log.d(TAG, "Idioma del celular es: " + language);
 
         //stop notification
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -57,15 +54,16 @@ public class Services extends AccessibilityService {
 
 
     //Know when the service stop
+    //Por el momento desactivada la funcion, hasta testear otras pastes
     @Override
     public void onDestroy() {
-        Log.d(TAG, "Service onDestroy ERROR");
+//        Log.d(TAG, "Service onDestroy ERROR");
 
         //patron de vibracion
         long vibrate[] = {0, 100, 100};
 
-//        action of click notification
-       /* Intent myIntent = new Intent(getApplicationContext(), AppStop.class);
+        //action of click notification
+        /* Intent myIntent = new Intent(getApplicationContext(), AppStop.class);notificationChannel vs NotificationManager
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this,
                 0,
@@ -82,7 +80,7 @@ public class Services extends AccessibilityService {
                 .setWhen(System.currentTimeMillis());
 
         notificationManager.notify(ID_NOTIFCATION, builder.build());
-*/
+        */
 
         Log.d(TAG, "Service Destroy");
         saveEventStopApp("An error occurred and the app stopped");
@@ -93,19 +91,21 @@ public class Services extends AccessibilityService {
     //What to do, when the server connect
     @Override
     protected void onServiceConnected() {
+
         //Make a Accessibility variable to attach the necessary info
         AccessibilityServiceInfo info = new AccessibilityServiceInfo();
 
         // won't be passed to this service.
-        info.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
-                | AccessibilityEvent.TYPE_VIEW_CLICKED;
+        info.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED;
+        //| AccessibilityEvent.TYPE_VIEW_CLICKED;
          /*AccessibilityEvent.TYPE_VIEW_FOCUSED|
 
          If you only want this service to work with specific applications, set their
          package names here.  Otherwise, when the service is activated, it will listen
          to events from all applications.
         info.packageNames = new String[]
-               {"com.example.android.myFirstApp", "com.example.android.mySecondApp"};*/
+               {"com.motorola.launcher3", "com.instagram.android","com.facebook.katana"};
+        */
 
 
         // Set the type of feedback your service will provide.
@@ -138,19 +138,11 @@ public class Services extends AccessibilityService {
                 //call eventCheck
                 eventCheck(event);
                 break;
-            case AccessibilityEvent.TYPE_VIEW_CLICKED:
-                //call eventCheck
-                eventCheck(event);
-                break;
+//            case AccessibilityEvent.TYPE_VIEW_CLICKED:
+//                //call eventCheck
+//                eventCheck(event);
+//                break;
         }
-//        if(eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED){
-//            eventCheck(event);
-//
-//        }
-//        if(eventType == AccessibilityEvent.TYPE_VIEW_CLICKED){
-//            eventCheck(event);
-//
-//        }
     }
 
     @Override
@@ -160,6 +152,7 @@ public class Services extends AccessibilityService {
 
     public void Localization (){
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        assert locationManager != null;
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
 
@@ -172,7 +165,7 @@ public class Services extends AccessibilityService {
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                     (getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-//                ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                    //ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
 
             } else {
                 Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -232,63 +225,12 @@ public class Services extends AccessibilityService {
     }
 
     public void eventCheck(AccessibilityEvent event) {
-        /*ver si se puede usar en ves de una lisat un set o un map*/
-        //Array list of case that not matter check. for now only in spanish language.
-        String lock = "";
-        ArrayList<String> omitEvent = new ArrayList<String>(asList(
-                "[]"));
-        ArrayList<String> changeName = new ArrayList<String>(asList(
-                "[Facebook]", "[Instagram]", "[Twitter]", "[WhatsApp]"));
-
-//        ArrayList<String> formatEvent = new ArrayList<>();
 
         //Creation of variable to save the lunch app on the service.
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("tito1.example.com.accessibilityservice", Context.MODE_PRIVATE);
         String eventText = "";
 
-
-//        System.out.println("3."+event.getClassName());
-//        System.out.println("4."+event.getPackageName());
-
-        KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-        if (myKM.inKeyguardRestrictedInputMode()) {
-            lock = "Bloqueado";
-            Log.d("Pantalla", "Esta bloqueada");
-        } else {
-            Log.d("Pantalla", "No Esta bloqueada");
-            lock = "Desbloqueado";
-        }
         getLocation();
-        String currentApp = event.getText().toString();
-        if (currentApp == "[]"){ }
-        else if(!changeName.contains(currentApp)){
-            currentApp = "[Another App]";}
-//
-//        }
-        //        Log.d(TAG,"1"+currentApp.toString());
-
-        String lastApp = sharedPreferences.getString("currentApp", "");
-//           Log.d(TAG,"2"+lastApp.toString());
-
-//        if (!omitEvent.contains(event.getText().toString())) { //&& !currentApp.equals(lastApp)
-//            Log.d(TAG,lastApp.toString()+"-->"+currentApp.toString());
-//            Log.d(TAG, currentApp.toString());
-
-            sharedPreferences.edit().putString("currentApp", currentApp.toString()).apply();
-
-//            formatEvent.add(event.getText().toString());
-//            formatEvent.add(event.getEventTime()+"");
-//            formatEvent.add(Calendar.getInstance().getTime().toString());
-     /*       eventText = "";
-            eventText = eventText + currentApp + " " + event.getEventTime() + " " + Calendar.getInstance().getTime()
-                    +" " + lattitude +" "+ longitude
-                    +" " + lock;
-//                  Toast.makeText(getApplicationContext(),eventText,Toast.LENGTH_SHORT).show();
-                    Log.d(TAG,eventText);
-            saveEvent(eventText);*/
-//        }
-//        System.out.println("1."+event.getEventType());
-//        System.out.println("2."+event.getSource()+"\n");
 
         AccessibilityNodeInfo source = event.getSource();
 
@@ -301,7 +243,6 @@ public class Services extends AccessibilityService {
     }
 
     public void saveEvent(String string) {
-
         try {
             // Creates a file in the primary external storage space of the
             // current application.
@@ -311,16 +252,15 @@ public class Services extends AccessibilityService {
             if (!testFile.exists())
                 testFile.createNewFile();
 
-            // Adds a line to the file
-//          to eraise the content of file
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, false ));
-//            writer.write("");
+            //to eraise the content of file uncomment the next two line
+            //BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, false ));
+            //writer.write("");
 
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, true /*append*/));
             writer.write(string);
             writer.newLine();
-//
+
             writer.close();
             // Refresh the data so it can seen when the device is plugged in a
             // computer. You may have to unplug and replug the device to see the
@@ -347,16 +287,14 @@ public class Services extends AccessibilityService {
             if (!testFile.exists())
                 testFile.createNewFile();
 
-            // Adds a line to the file
-//          to eraise the content of file
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, false ));
-//            writer.write("");
-
+            //to eraise the content of file uncomment the next two line
+            //BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, false ));
+            //writer.write("");
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(testFile, true /*append*/));
             writer.write(string);
             writer.newLine();
-//
+
             writer.close();
             // Refresh the data so it can seen when the device is plugged in a
             // computer. You may have to unplug and replug the device to see the
@@ -369,10 +307,5 @@ public class Services extends AccessibilityService {
         } catch (IOException e) {
             Log.e("Test", "Unable to write to the TestFile.txt file.");
         }
-
     }
-
-    /*-----------------------------------------------------------------------*/
-    //parte de la geolocalizacion
-
 }

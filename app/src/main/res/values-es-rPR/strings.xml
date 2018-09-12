@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">TP Smart</string>
     <string name="change_lenguage">Cambiar el lenguaje</string>
-    <string name="title">BIENVENIDOS A TP Smart</string>
+    <string name="title">BIENVENIDOS A TP-Smart</string>
     <string name="Button">Guardar</string>
     <string name="Edit_questionary">Editar el Cuestionario</string>
     <string name="question1">1. Genero:</string>

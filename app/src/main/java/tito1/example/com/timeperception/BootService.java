@@ -52,7 +52,7 @@ public class BootService extends BroadcastReceiver {
         //create a pending intent to be called at midnight
         Intent intent1 = new Intent(contextAll,SendFile.class);
         PendingIntent midnightPI =  PendingIntent.getBroadcast(contextAll,0,intent1,0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), hora, midnightPI);
         SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
         mensaje.edit().putString("last","Boost "+Calendar.getInstance().getTime().toString()).commit();
 

@@ -29,7 +29,12 @@ import static android.view.View.VISIBLE;
 
 public class HomePage extends AppCompatActivity {
 
+
     final String TAG = "TP-Smart";
+//    private Button boton;
+//    private NotificationManagerCompat notificacionManager;
+
+
 
     @SuppressLint({"WrongConstant", "SetTextI18n"})
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -37,9 +42,9 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // varaibale para almacenar el ID del usuario.
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-
 
         //Llave para la encriotacion del file
         String key = "This is a secret";
@@ -68,6 +73,23 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onResume() {
         setContentView(R.layout.activity_home_page);
+        /*/////////////////////////////////////////////////////////////
+
+        boton = (Button) findViewById(R.id.boton);
+
+
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendOnChannel1(view);
+
+            }
+        });
+
+
+
+
+        /////////////////////////////////////////////////////////*/
 
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 
@@ -92,7 +114,7 @@ public class HomePage extends AppCompatActivity {
 
         }else{
             active.setVisibility(VISIBLE);
-            goActiveService.setText("Press that buttom to active a requiere service for the app");
+            goActiveService.setText("Press that button \"Active Service\" and active TP-Smart service to start the app");
             goActiveService.setTextSize(15);
             goActiveService.setTextColor(Color.parseColor("#000000"));
             active.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +128,29 @@ public class HomePage extends AppCompatActivity {
         super.onResume();
     }
 
+    /*//////////////////////////////////////////////////////
+    public void sendOnChannel1(View view){
+
+        Intent intent = new Intent(this, PerseptionQuestion.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+
+        Notification notifiaction = new NotificationCompat.Builder(this,App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_one)
+                .setContentTitle("Titulo")
+                .setContentText("Mensaje")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(Color.GREEN)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .build();
+        notificacionManager.notify(1,notifiaction);
+
+    }
+    ///////////////////////////////////////////////////////////*/
+
+
     //metodo que verifica si algun servicio esta encendido
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -116,6 +161,8 @@ public class HomePage extends AppCompatActivity {
         }
         return false;
     }
+
+
 
     //Menu de la app
     @Override
@@ -146,4 +193,5 @@ public class HomePage extends AppCompatActivity {
         }
         return false;
     }
+
 }

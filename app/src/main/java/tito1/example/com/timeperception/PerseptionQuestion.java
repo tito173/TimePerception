@@ -1,11 +1,19 @@
 package tito1.example.com.timeperception;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,16 +25,36 @@ import android.widget.VideoView;
 public class PerseptionQuestion extends AppCompatActivity {
 
     final String TAG = "TP-Smart";
+    private NotificationManagerCompat notificacionManager;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perseption_question);
+
+        notificacionManager = NotificationManagerCompat.from(this);
+        AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        int hora = 1000 * 60;
+
+        Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
+
+
+
+        //create a pending intent to be called at midnight
+        Intent intent = new Intent(getApplicationContext(),SetNotification.class);
+        PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), hora, midnightPI);
+
+
     }
 
     @Override
     protected void onResume() {
         setContentView(R.layout.activity_perseption_question);
+
+//        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        notificationManager.cancel(ID_NOTIFCATION);
 
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
@@ -70,6 +98,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
 
         });
+
         super.onResume();
     }
 
@@ -98,11 +127,29 @@ public class PerseptionQuestion extends AppCompatActivity {
         //close TP-Smart
         Intent intent = new Intent(getApplicationContext(),HomePage.class);
         startActivity(intent);
+//        sendOnChannel1(view);
 //        finish();
 //        moveTaskToBack(true);
         }
 
+    public void sendOnChannel1(){
 
+        Intent intent = new Intent(this, PerseptionQuestion.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+
+        Notification notifiaction = new NotificationCompat.Builder(this,App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_one)
+                .setContentTitle("Titulo")
+                .setContentText("Mensaje")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(Color.GREEN)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .build();
+
+        }
 
 
 

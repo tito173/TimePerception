@@ -1,13 +1,11 @@
 package tito1.example.com.timeperception;
 
 import android.content.Intent;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 /*Clase para detectar cuadno la app se a detenido "Aun esta en desarollo"*/
 public class TheAppStopped extends AppCompatActivity {
 
@@ -16,8 +14,6 @@ public class TheAppStopped extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_app_stopped);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

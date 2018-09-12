@@ -194,7 +194,7 @@ public class Questionnaire extends AppCompatActivity {
         if (firtlog.getBoolean("appInstaled", true)) {
             firtlog.edit().putBoolean("appInstaled", false).apply();
         } else {
-            Log.d(TAG, "Questionnaire La app no se a instalado");
+//            Log.d(TAG, "Questionnaire La app no se a instalado");
         }
 
         //Si falta alguna contestacion reiniciar el cuestionario con las opciones previas
@@ -231,13 +231,6 @@ public class Questionnaire extends AppCompatActivity {
         long dia = hora * 24;
         //create new calendar instance
         Log.d(TAG,"Questionnaire Prepare el pendingintent");
-        Calendar SendfileStart = Calendar.getInstance();
-
-        //set the time to midnight tonight
-
-        SendfileStart.set(Calendar.HOUR_OF_DAY, 0);
-        SendfileStart.set(Calendar.MINUTE,0);
-        SendfileStart.set(Calendar.SECOND, 0);
 
         AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 
@@ -246,8 +239,9 @@ public class Questionnaire extends AppCompatActivity {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, SendfileStart.getTimeInMillis(), minuto, midnightPI);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), hora, midnightPI);
         SharedPreferences mensaje = getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
         mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
     }
+
 }
