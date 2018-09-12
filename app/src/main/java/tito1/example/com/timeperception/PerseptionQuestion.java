@@ -35,7 +35,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
         notificacionManager = NotificationManagerCompat.from(this);
         AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        int hora = 1000 * 60;
+        int hora = 1000 * 60 * 60;
 
         Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
 
