@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -26,6 +27,7 @@ public class Questionnaire extends AppCompatActivity {
 
     final String TAG = "TP-Smart";
     ArrayList<String> numberQuestion = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,19 +88,19 @@ public class Questionnaire extends AppCompatActivity {
         //fill question 2 and question 7
         Object question02 = R.id.question02;
         EditText valueOfQuestion = findViewById(R.id.question02);
-        valueOfQuestion.setText(questionnaireAnswers.getString(question02.toString(),"0"));
+        valueOfQuestion.setText(questionnaireAnswers.getString(question02.toString(),""));
         Object question07 = R.id.question07;
         EditText valueOfQuestion07 = findViewById(R.id.question07);
         valueOfQuestion07.setText(questionnaireAnswers.getString(question07.toString(),""));
     }
 
     //Validate and save the user answers
-    public  void SaveQuestionnaire(View view) {
+    public  void SaveQuestionnaire(View view) throws IOException {
 
+
+        EditText other = findViewById(R.id.question01Other);
         //create a list to contain the questions
         ArrayList questions = new ArrayList();
-        EditText other = findViewById(R.id.question01Other);
-
 
         //save every option from radiogroup
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
@@ -209,6 +211,7 @@ public class Questionnaire extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), PerseptionQuestion.class);
         startActivity(intent);
         SendTheLogs();
+        SendFile.SendResCuestionario(this,questionnaireAnswer());
     }
 
     @Override
@@ -222,7 +225,6 @@ public class Questionnaire extends AppCompatActivity {
         }
         return  false;
     }
-
 
     //funcion que repite el envio de los logs recopilados
     public void SendTheLogs() {
@@ -242,6 +244,46 @@ public class Questionnaire extends AppCompatActivity {
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), hora, midnightPI);
         SharedPreferences mensaje = getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
         mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
+    }
+
+    //pasar a un string con los resultados del cuestionario
+    public String questionnaireAnswer(){
+
+        SharedPreferences a = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        String respuesta = "";
+
+        //set numberQuestion
+        numberQuestion.add("question 1");
+        Object question02 = R.id.question02;
+        numberQuestion.add("question 3");
+        Object[] question04 = {R.id.question4_1,R.id.question4_2,R.id.question4_3,R.id.question4_4};
+        numberQuestion.add("question 5");
+        numberQuestion.add("question 6");
+        Object question07 = R.id.question07;
+
+        //Respuestas
+        int value = a.getInt(numberQuestion.get(0),-1);
+        respuesta = respuesta + "Pregunta 1: "+ Integer.toString(value);
+
+        respuesta = respuesta + "\nPregutna 2: " + a.getString(question02.toString(),"");
+
+        value = a.getInt(numberQuestion.get(1),-1);
+        respuesta = respuesta + "\nPregunta 3: "+ Integer.toString(value);
+
+        respuesta = respuesta + "\nPregunta 4.1: " + a.getBoolean(question04[0].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.2: " + a.getBoolean(question04[1].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.3: " + a.getBoolean(question04[2].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.4: " + a.getBoolean(question04[3].toString(),false);
+
+        value = a.getInt(numberQuestion.get(2),-1);
+        respuesta = respuesta + "\nPregunta 5: "+ Integer.toString(value);
+
+        value = a.getInt(numberQuestion.get(3),-1);
+        respuesta = respuesta + "\nPregunta 6: "+ Integer.toString(value);
+
+        respuesta = respuesta + "\nPregutna 7: " + a.getString(question07.toString(),"");
+
+        return respuesta;
     }
 
 }

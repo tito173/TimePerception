@@ -8,9 +8,11 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -69,7 +71,11 @@ public class SendFile extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
 
         String key = "This is a secret";
-        Crypto crypto = new Crypto();
+
+        //Archivo de respuestas de cuestionario
+        final File resCuestionario = new File(context.getExternalFilesDir(null),"RespuestasCuestionario.txt");
+
+
         final File testFile = new File(context.getExternalFilesDir(null), "EncrypFile.txt");
         final File testFileOrigin = new File(context.getExternalFilesDir(null), "TestFile.txt");
         Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,testFileOrigin,testFile);
@@ -123,16 +129,16 @@ public class SendFile extends BroadcastReceiver {
                         .addFormDataPart("uploaded_file", timeStamp + file_path.substring(file_path.lastIndexOf("/") + 1), file_body)
                         .build();
                 //RequestBody request_body_intallation = new MultipartBody.Builder()
-                    //.setType(MultipartBody.FORM)
-                    //.addFormDataPart("type", content_type_installation)
-                    //.addFormDataPart("uploaded_file", timeStamp + fiel_path_intallation.substring(fiel_path_intallation.lastIndexOf("/") + 1), file_body_intallation)
-                    //.build();
+                //.setType(MultipartBody.FORM)
+                //.addFormDataPart("type", content_type_installation)
+                //.addFormDataPart("uploaded_file", timeStamp + fiel_path_intallation.substring(fiel_path_intallation.lastIndexOf("/") + 1), file_body_intallation)
+                //.build();
 
                 //RequestBody request_body_appStoped = new MultipartBody.Builder()
-                    //.setType(MultipartBody.FORM)
-                    //.addFormDataPart("type", content_type_appStopped)
-                    //.addFormDataPart("uploaded_file", timeStamp + fiel_path_appStopped.substring(fiel_path_appStopped.lastIndexOf("/") + 1), file_body_intallation)
-                    //.build();
+                //.setType(MultipartBody.FORM)
+                //.addFormDataPart("type", content_type_appStopped)
+                //.addFormDataPart("uploaded_file", timeStamp + fiel_path_appStopped.substring(fiel_path_appStopped.lastIndexOf("/") + 1), file_body_intallation)
+                //.build();
 
                 //make the request
                 Request request = new Request.Builder()
@@ -141,14 +147,14 @@ public class SendFile extends BroadcastReceiver {
                         .build();
 
                 //Request request_installation = new Request.Builder()
-                    //.url(url)
-                    //.post(request_body_intallation)
-                    //.build();
+                //.url(url)
+                //.post(request_body_intallation)
+                //.build();
 
                 //Request request_appStopped = new Request.Builder()
-                    //.url(url)
-                    //.post(request_body_appStoped)
-                    //.build();
+                //.url(url)
+                //.post(request_body_appStoped)
+                //.build();
 
                 //send the file
                 try {
@@ -159,12 +165,12 @@ public class SendFile extends BroadcastReceiver {
                     //response.body().close();
 
                     //if (name.getBoolean("firstLog",false) == true){
-                        //Response response1 = client.newCall(request_installation).execute();
-                        //name.edit().putBoolean("firstLog",false).apply();}
+                    //Response response1 = client.newCall(request_installation).execute();
+                    //name.edit().putBoolean("firstLog",false).apply();}
 
                     //if(name.getBoolean("appStopped",false)==true){
-                        //Response response2 = client.newCall(request_installation).execute();
-                        //name.edit().putBoolean("appStopped",false).apply();}
+                    //Response response2 = client.newCall(request_installation).execute();
+                    //name.edit().putBoolean("appStopped",false).apply();}
 
                     if (!response.isSuccessful() ) {
                         throw new IOException("Error of conection: " + response);
@@ -188,6 +194,89 @@ public class SendFile extends BroadcastReceiver {
 
         }
         return type;
+    }
+
+    public static void SendResCuestionario(final Context context, String string) throws IOException {
+
+        final String TAG = "TP-Smart";
+
+        String key = "This is a secret";
+        final File respuesta = new File(context.getExternalFilesDir(null), "ResCuesEncryp.txt");
+        final File archivoOriginal = new File(context.getExternalFilesDir(null), "ResCuestionario.txt");
+
+        if (!respuesta.exists() || !archivoOriginal.exists()) {
+            try {
+                respuesta.createNewFile();
+                archivoOriginal.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, false /*append*/));
+        writer.write(string);
+        writer.close();
+        Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,archivoOriginal,respuesta);
+
+        //server where we will save every file of event
+        final String url = "http://104.131.32.115/save_file.php";
+
+        //thread to execute the process to send the file
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG,"SendFile Creado el archivo a enviar");
+
+
+                //get the type of the file
+                String content_type = getMimeType(respuesta.getPath());
+
+
+                //get the path, create http client, take the body content of file
+                String file_path = respuesta.getAbsolutePath();
+
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), respuesta);
+
+                //form of date and time
+                Object question07 = R.id.question07;
+                SharedPreferences name = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+                String fileName = name.getString(question07.toString(),"NOID");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat dateFormat1 = new SimpleDateFormat("HH-mm-ss");
+                Date cal = Calendar.getInstance().getTime();
+                String timeStamp = fileName +"-" +dateFormat.format(cal) + "-" + dateFormat1.format(cal);
+
+                //combine the type and body
+                RequestBody request_body = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("type", content_type)
+                        .addFormDataPart("uploaded_file", timeStamp + file_path.substring(file_path.lastIndexOf("/") + 1), file_body)
+                        .build();
+
+                //make the request
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(request_body)
+                        .build();
+
+                //send the file
+                try {
+                    Response response = client.newCall(request).execute();
+                    Log.d(TAG,"SendFile El archivo Respuestas al servidor");
+
+                    if (!response.isSuccessful() ) {
+                        throw new IOException("Error of conection: " + response);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t.start();
+
     }
 }
 

@@ -30,8 +30,8 @@ public class SetNotification extends BroadcastReceiver{
 
         Notification notifiaction = new NotificationCompat.Builder(context1,App.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle("Titulo")
-                .setContentText("Mensaje")
+                .setContentTitle("Test Perception")
+                .setContentText("Complete the next test.")
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)

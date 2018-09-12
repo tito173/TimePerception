@@ -19,10 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.File;
-
-import javax.crypto.Cipher;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
@@ -45,16 +41,6 @@ public class HomePage extends AppCompatActivity {
 
         // varaibale para almacenar el ID del usuario.
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-
-        //Llave para la encriotacion del file
-        String key = "This is a secret";
-        Crypto crypto = new Crypto();
-
-        final File testFile = new File(getApplicationContext().getExternalFilesDir(null), "TestFile.txt");
-        final File testFile2 = new File(getApplicationContext().getExternalFilesDir(null), "TestFile2.txt");
-        final File testFile3 = new File(getApplicationContext().getExternalFilesDir(null), "TestFileDes.txt");
-
-        Crypto.fileProcessor(Cipher.DECRYPT_MODE,key,testFile2,testFile3);
 
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
