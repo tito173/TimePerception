@@ -42,12 +42,13 @@ public class Questionnaire extends AppCompatActivity {
         TextView error  = findViewById(R.id.error);
         String fillError = questionnaireAnswers.getString("error","");
         error.setText(fillError);
+        questionnaireAnswers.edit().remove("error").apply();
 
         //set numberQuestion
-        numberQuestion.add("question 1");
-        numberQuestion.add("question 3");
-        numberQuestion.add("question 5");
-        numberQuestion.add("question 6");
+        numberQuestion.add("pregunta 1");
+        numberQuestion.add("pregunta 3");
+        numberQuestion.add("pregunta 5");
+        numberQuestion.add("pregunta 6");
 
         //set the values saved
         ArrayList questions = new ArrayList();
@@ -123,7 +124,7 @@ public class Questionnaire extends AppCompatActivity {
             if(radioButtonGroup.getCheckedRadioButtonId() == -1)
             {
                 missOrNot = true;
-                missquestion = missquestion + numberQuestion.get(i) + " \n";
+                missquestion = missquestion +"Por favor conteste la " + numberQuestion.get(i) + " \n";
             }else{
                 int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
                 View radioButton = radioButtonGroup.findViewById(radioButtonId);
@@ -153,7 +154,8 @@ public class Questionnaire extends AppCompatActivity {
                 questionnaireAnswers.edit().putBoolean(question04[i].toString(), false).apply();
             }
         }
-        if (selectOrNot == 0){ missOrNot = true; missquestion = missquestion + "question 4" + " \n";}
+        if (selectOrNot == 0){ missOrNot = true; missquestion = missquestion + "Por favor conteste la " +
+                "pregunta 4" + " \n";}
 
 /*----------------------------------------FILL QUESTION 2-----------------------------------------------*/
         Object question02 = R.id.question02;
@@ -179,10 +181,12 @@ public class Questionnaire extends AppCompatActivity {
             question7 = Integer.valueOf(valueOfQuestion07.getText().toString());
         } catch (NumberFormatException e) { }
 
-        if (question7 <= 0 || question7 >= 100 || question7 == null) {
+        //condicion previa para el proximo if
+        //question7 <= 0 || question7 >= 100 || question7 == null
+        if (question7 == 0||question7 == null) {
             questionnaireAnswers.edit().putString(question07.toString(), "").apply();
             missOrNot = true;
-            missquestion = missquestion + "Ingrese su ID de usuario asignado <1-99> \n";
+            missquestion = missquestion + "Ingrese su ID de usuario asignado\n";
         } else {
             questionnaireAnswers.edit().putString(question07.toString(), valueOfQuestion07.getText().toString()).apply();
         }
@@ -208,10 +212,12 @@ public class Questionnaire extends AppCompatActivity {
         }
 
         //al terminar el cuestionario comenzar la primera prueba de persepcion
-        Intent intent = new Intent(getApplicationContext(), PerseptionQuestion.class);
+        Intent intent = new Intent(getApplicationContext(), HomePage.class);
         startActivity(intent);
-        SendTheLogs();
+        SendTheLogs(getApplicationContext());
         SendFile.SendResCuestionario(this,questionnaireAnswer());
+//        finish();
+//        moveTaskToBack(true);
     }
 
     @Override
@@ -226,26 +232,6 @@ public class Questionnaire extends AppCompatActivity {
         return  false;
     }
 
-    //funcion que repite el envio de los logs recopilados
-    public void SendTheLogs() {
-        long minuto = 1000 * 60;
-        long hora = minuto * 60;
-        long dia = hora * 24;
-        //create new calendar instance
-        Log.d(TAG,"Questionnaire Prepare el pendingintent");
-
-        AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-
-        //create a pending intent to be called at midnight
-        Intent intent = new Intent(getApplicationContext(),SendFile.class);
-        PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-
-
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), hora, midnightPI);
-        SharedPreferences mensaje = getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
-    }
-
     //pasar a un string con los resultados del cuestionario
     public String questionnaireAnswer(){
 
@@ -253,19 +239,19 @@ public class Questionnaire extends AppCompatActivity {
         String respuesta = "";
 
         //set numberQuestion
-        numberQuestion.add("question 1");
+        numberQuestion.add("pregunta 1");
         Object question02 = R.id.question02;
-        numberQuestion.add("question 3");
+        numberQuestion.add("pregunta 3");
         Object[] question04 = {R.id.question4_1,R.id.question4_2,R.id.question4_3,R.id.question4_4};
-        numberQuestion.add("question 5");
-        numberQuestion.add("question 6");
+        numberQuestion.add("pregunta 5");
+        numberQuestion.add("pregunta 6");
         Object question07 = R.id.question07;
 
         //Respuestas
         int value = a.getInt(numberQuestion.get(0),-1);
         respuesta = respuesta + "Pregunta 1: "+ Integer.toString(value);
 
-        respuesta = respuesta + "\nPregutna 2: " + a.getString(question02.toString(),"");
+        respuesta = respuesta + "\nPregunta 2: " + a.getString(question02.toString(),"");
 
         value = a.getInt(numberQuestion.get(1),-1);
         respuesta = respuesta + "\nPregunta 3: "+ Integer.toString(value);
@@ -281,9 +267,32 @@ public class Questionnaire extends AppCompatActivity {
         value = a.getInt(numberQuestion.get(3),-1);
         respuesta = respuesta + "\nPregunta 6: "+ Integer.toString(value);
 
-        respuesta = respuesta + "\nPregutna 7: " + a.getString(question07.toString(),"");
+        respuesta = respuesta + "\nPregunta 7: " + a.getString(question07.toString(),"");
 
         return respuesta;
     }
+
+    //funcion que repite el envio de los logs recopilados
+    public static void SendTheLogs(Context context) {
+        String TAG = "TP-Smart";
+        long minuto = 1000 * 60;
+        long hora = minuto * 60;
+        long dia = hora * 24;
+        //create new calendar instance
+        Log.d(TAG,"Questionnaire Prepare el pendingintent");
+
+        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+        //create a pending intent to be called at midnight
+        Intent intent = new Intent(context,SendFile.class);
+        PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,0);
+
+
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5*minuto, midnightPI);
+        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
+    }
+
+
 
 }

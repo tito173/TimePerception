@@ -18,9 +18,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class PerseptionQuestion extends AppCompatActivity {
 
     final String TAG = "TP-Smart";
+    int duracion;
 //    private NotificationManagerCompat notificacionManager;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -28,20 +33,6 @@ public class PerseptionQuestion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perseption_question);
-
-//        notificacionManager = NotificationManagerCompat.from(this);
-        AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        int hora = 1000 * 60 * 60;
-
-        Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
-
-
-
-        //create a pending intent to be called at midnight
-        Intent intent = new Intent(getApplicationContext(),SetNotification.class);
-        PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), hora, midnightPI);
-
 
     }
 
@@ -65,6 +56,12 @@ public class PerseptionQuestion extends AppCompatActivity {
     @Override
     protected void onResume() {
         setContentView(R.layout.activity_perseption_question);
+        final ArrayList<Long> durationOp = new ArrayList<Long>();
+        durationOp.add((long) 1000);
+        durationOp.add((long) 2000);
+        durationOp.add((long) 3000);
+        duracion = (int) (Math.random()* (3));
+        Log.d("numero ramdom",Long.toString(duracion));
 
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
@@ -103,7 +100,7 @@ public class PerseptionQuestion extends AppCompatActivity {
                         instruction.setVisibility(View.VISIBLE);
                         instruction.setText("Cuantos segundos duro el video?");
                     }
-                }, 3000);
+                }, durationOp.get(duracion));
             }
 
 
@@ -112,7 +109,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         super.onResume();
     }
 
-    public void Save(View view){
+    public void Save(View view) throws IOException {
 
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
@@ -123,8 +120,6 @@ public class PerseptionQuestion extends AppCompatActivity {
         //Si no se selecciono una respuesta inicia la actividad, "Es provivionar a lo que se resuelve el error
         //producidor por continuar sin seleccionar alguna opcion"
         if(indice == -1){
-//            Intent intent = new Intent(getApplicationContext(),PerseptionQuestion.class);
-//            startActivity(intent);
             onRestart();
             return;
         }
@@ -138,6 +133,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         //close TP-Smart
         Intent intent = new Intent(getApplicationContext(),HomePage.class);
         startActivity(intent);
+        SendFile.SendResPerseptionTest(getApplicationContext(),duracion);
 //        sendOnChannel1(view);
 //        finish();
 //        moveTaskToBack(true);

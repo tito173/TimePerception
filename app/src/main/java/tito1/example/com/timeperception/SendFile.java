@@ -5,6 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.AlphabeticIndex;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -17,10 +20,13 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -92,7 +98,7 @@ public class SendFile extends BroadcastReceiver {
         final String url = "http://104.131.32.115/save_file.php";
 
         //thread to execute the process to send the file
-        Thread t = new Thread(new Runnable() {
+        final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG,"SendFile Creado el archivo a enviar");
@@ -100,18 +106,12 @@ public class SendFile extends BroadcastReceiver {
 
                 //get the type of the file
                 String content_type = getMimeType(testFile.getPath());
-                //String content_type_installation = getMimeType(fileIntallation.getPath());
-                //String content_type_appStopped = getMimeType(fileIntallation.getPath());
 
                 //get the path, create http client, take the body content of file
                 String file_path = testFile.getAbsolutePath();
-                //String fiel_path_intallation = fileIntallation.getAbsolutePath();
-                //String fiel_path_appStopped = appstopped.getAbsolutePath();
 
                 OkHttpClient client = new OkHttpClient();
                 RequestBody file_body = RequestBody.create(MediaType.parse(content_type), testFile);
-                //RequestBody file_body_intallation = RequestBody.create(MediaType.parse(content_type_installation),fileIntallation);
-                //RequestBody file_body_appStopped = RequestBody.create(MediaType.parse(content_type_appStopped),appstopped);
 
                 //form of date and time
                 Object question07 = R.id.question07;
@@ -128,33 +128,12 @@ public class SendFile extends BroadcastReceiver {
                         .addFormDataPart("type", content_type)
                         .addFormDataPart("uploaded_file", timeStamp + file_path.substring(file_path.lastIndexOf("/") + 1), file_body)
                         .build();
-                //RequestBody request_body_intallation = new MultipartBody.Builder()
-                //.setType(MultipartBody.FORM)
-                //.addFormDataPart("type", content_type_installation)
-                //.addFormDataPart("uploaded_file", timeStamp + fiel_path_intallation.substring(fiel_path_intallation.lastIndexOf("/") + 1), file_body_intallation)
-                //.build();
-
-                //RequestBody request_body_appStoped = new MultipartBody.Builder()
-                //.setType(MultipartBody.FORM)
-                //.addFormDataPart("type", content_type_appStopped)
-                //.addFormDataPart("uploaded_file", timeStamp + fiel_path_appStopped.substring(fiel_path_appStopped.lastIndexOf("/") + 1), file_body_intallation)
-                //.build();
 
                 //make the request
                 Request request = new Request.Builder()
                         .url(url)
                         .post(request_body)
                         .build();
-
-                //Request request_installation = new Request.Builder()
-                //.url(url)
-                //.post(request_body_intallation)
-                //.build();
-
-                //Request request_appStopped = new Request.Builder()
-                //.url(url)
-                //.post(request_body_appStoped)
-                //.build();
 
                 //send the file
                 try {
@@ -174,10 +153,12 @@ public class SendFile extends BroadcastReceiver {
 
                     if (!response.isSuccessful() ) {
                         throw new IOException("Error of conection: " + response);
+
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                    }
             }
         });
 
@@ -196,7 +177,7 @@ public class SendFile extends BroadcastReceiver {
         return type;
     }
 
-    public static void SendResCuestionario(final Context context, String string) throws IOException {
+    public static void SendResCuestionario(final Context context, final String string) throws IOException {
 
         final String TAG = "TP-Smart";
 
@@ -215,6 +196,114 @@ public class SendFile extends BroadcastReceiver {
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, false /*append*/));
         writer.write(string);
+        writer.close();
+        Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,archivoOriginal,respuesta);
+
+        //server where we will save every file of event
+        final String url = "http://104.131.32.115/save_file.php";
+
+        //thread to execute the process to send the file
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG,"SendFile Creado el archivo a enviar");
+
+
+                //get the type of the file
+                String content_type = getMimeType(respuesta.getPath());
+
+
+                //get the path, create http client, take the body content of file
+                String file_path = respuesta.getAbsolutePath();
+
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), respuesta);
+
+                //form of date and time
+                Object question07 = R.id.question07;
+                SharedPreferences name = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+                String fileName = name.getString(question07.toString(),"NOID");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat dateFormat1 = new SimpleDateFormat("HH-mm-ss");
+                Date cal = Calendar.getInstance().getTime();
+                String timeStamp = fileName +"-" +dateFormat.format(cal) + "-" + dateFormat1.format(cal);
+
+                //combine the type and body
+                RequestBody request_body = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("type", content_type)
+                        .addFormDataPart("uploaded_file", timeStamp + file_path.substring(file_path.lastIndexOf("/") + 1), file_body)
+                        .build();
+
+                //make the request
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(request_body)
+                        .build();
+
+                //send the file
+                try {
+                    Response response = client.newCall(request).execute();
+                    Log.d(TAG,"SendFile El archivo Respuestas al servidor");
+
+                    if (!response.isSuccessful() ) {
+                        throw new IOException("Error of conection: " + response);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            t.start();
+        }
+        else {
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        SendResCuestionario( context, string);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            Timer time = new Timer();
+            time.schedule(timerTask,0,1000*60*10);
+
+
+        }
+    }
+
+
+    public static void SendResPerseptionTest(final Context context,long l) throws IOException {
+
+        final String TAG = "TP-Smart";
+
+        String key = "This is a secret";
+        final File respuesta = new File(context.getExternalFilesDir(null), "ResPerseptionEncryp.txt");
+        final File archivoOriginal = new File(context.getExternalFilesDir(null), "ResPerseptionTest.txt");
+        SharedPreferences questionnaireAnswers = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+
+
+        if (!respuesta.exists() || !archivoOriginal.exists()) {
+            try {
+                respuesta.createNewFile();
+                archivoOriginal.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, true /*append*/));
+        writer.write("Correct answer is: " + Long.toString(l)+" the user select option: "+
+                Integer.toString(questionnaireAnswers.getInt("questionvideo", -1))+"\n");
         writer.close();
         Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,archivoOriginal,respuesta);
 
@@ -278,6 +367,7 @@ public class SendFile extends BroadcastReceiver {
         t.start();
 
     }
+
 }
 
 

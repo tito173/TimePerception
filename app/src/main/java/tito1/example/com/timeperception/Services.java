@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -126,6 +128,7 @@ public class Services extends AccessibilityService {
     }
 
     //What to do, when occurred and event on the phone.
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
 
@@ -224,6 +227,7 @@ public class Services extends AccessibilityService {
         alert.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void eventCheck(AccessibilityEvent event) {
 
         //Creation of variable to save the lunch app on the service.
@@ -231,11 +235,17 @@ public class Services extends AccessibilityService {
         String eventText = "";
 
         getLocation();
-
-        AccessibilityNodeInfo source = event.getSource();
-
-        if (source!=null) {
-            eventText = source.getPackageName().toString() + " " + event.getEventTime() + " " + Calendar.getInstance().getTime();
+//        event.getSource();
+//        AccessibilityNodeInfo source = getRootInActiveWindow();
+//
+//        if (source!=null) {
+//            eventText = source.getPackageName().toString() + " " + event.getEventTime() + " " + Calendar.getInstance().getTime();
+//            Log.d(TAG, eventText);
+//            saveEvent(eventText);
+//        }
+        AccessibilityNodeInfo source01 =  getRootInActiveWindow();
+        if (source01 != null) {
+            eventText = source01.getPackageName().toString() + " " + Long.toString(event.getEventTime()) + " " + Calendar.getInstance().getTime().toString();
             Log.d(TAG, eventText);
             saveEvent(eventText);
         }

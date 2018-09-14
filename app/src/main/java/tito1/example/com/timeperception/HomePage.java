@@ -3,6 +3,8 @@ package tito1.example.com.timeperception;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -38,44 +42,40 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        // varaibale para almacenar el ID del usuario.
-        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
         Log.d(TAG, "HomePage Se lleno el questionario: "+String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
         if (firtlog.getBoolean("llenoCuestionario?", false) == true){
             //Nose se hace nada Porque fun onResume se encarga.
+
         }
         else{
             //enviar a la pagina del cuestionario
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
-            }
+
+            //preparando las notificaciones
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY,12);
+            calendar.set(Calendar.MINUTE,30);
+            calendar.set(Calendar.SECOND,0);
+
+            AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+
+            Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
+
+            //create a pending intent to be called at midnight
+            Intent intent = new Intent(getApplicationContext(),SetNotification.class);
+            PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, midnightPI);
+
+        }
     }
 
     @Override
     protected void onResume() {
         setContentView(R.layout.activity_home_page);
-        /*/////////////////////////////////////////////////////////////
-
-        boton = (Button) findViewById(R.id.boton);
-
-
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendOnChannel1(view);
-
-            }
-        });
-
-
-
-
-        /////////////////////////////////////////////////////////*/
 
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 
@@ -100,8 +100,8 @@ public class HomePage extends AppCompatActivity {
 
         }else{
             active.setVisibility(VISIBLE);
-            goActiveService.setText("Press that button \"Active Service\" and active TP-Smart service to start the app");
-            goActiveService.setTextSize(15);
+            goActiveService.setText("Press the button \"Activate Service\" and activate the TP-Smart service to begin monitoring social media usage.");
+            goActiveService.setTextSize(20);
             goActiveService.setTextColor(Color.parseColor("#000000"));
             active.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -114,29 +114,6 @@ public class HomePage extends AppCompatActivity {
         super.onResume();
     }
 
-    /*//////////////////////////////////////////////////////
-    public void sendOnChannel1(View view){
-
-        Intent intent = new Intent(this, PerseptionQuestion.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
-
-        Notification notifiaction = new NotificationCompat.Builder(this,App.CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle("Titulo")
-                .setContentText("Mensaje")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setColor(Color.GREEN)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
-                .build();
-        notificacionManager.notify(1,notifiaction);
-
-    }
-    ///////////////////////////////////////////////////////////*/
-
-
     //metodo que verifica si algun servicio esta encendido
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -147,8 +124,6 @@ public class HomePage extends AppCompatActivity {
         }
         return false;
     }
-
-
 
     //Menu de la app
     @Override

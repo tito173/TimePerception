@@ -38,6 +38,7 @@ public class SetNotification extends BroadcastReceiver{
                 .setColor(Color.BLUE)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
+                .setOngoing(true)
                 .setOnlyAlertOnce(true)
                 .build();
         notificacionManager.notify(1,notifiaction);
