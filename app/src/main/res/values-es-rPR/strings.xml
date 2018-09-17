@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--PAGINA INICIAL-->
     <string name="app_name">TP Smart</string>
-    <string name="change_lenguage">Cambiar el lenguaje</string>
     <string name="title">BIENVENIDOS A TP-Smart</string>
-    <string name="Button">Guardar</string>
+
+    <!--CONFIGURACINES-->
+    <string name="change_lenguage">Cambiar el lenguaje</string>
     <string name="Edit_questionary">Editar el Cuestionario</string>
+
+    <!--CUESTIONARIO-->
+    <string name="Button">Guardar</string>
     <string name="question1">1. Genero:</string>
     <string name="question11">Hombre</string>
     <string name="question12">Mujer</string>
@@ -21,4 +27,12 @@
     <string name="question42">Negocio propio</string>
     <string name="question43">Desempleado</string>
     <string name="question44">Estudiante</string>
+
+    <string name="Errorquesiton1">Por favor conteste la pregunta </string>
+    <string name="Errorquesiton2">Question 2: Enter an age between 18 and 70</string>
+    <string name="Errorquesiton4">Por favor conteste la pregunta 4 </string>
+    <string name="Errorquesiton7">Question 7: Enter your assigned user ID</string>
+
+    <!--PRUEBA DE PERSEPCION-->
+
 </resources>

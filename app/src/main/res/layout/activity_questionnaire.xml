@@ -14,9 +14,12 @@
         android:focusableInTouchMode="false" >
 
         <TextView
-            android:id="@+id/error"
+            android:id="@+id/error1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
+
+
 
         <RadioGroup
             android:id="@+id/radioGroup01"
@@ -73,7 +76,7 @@
                 android:layout_below="@+id/radioGroup"
                 android:layout_marginTop="8dp"
                 android:id="@+id/quesiton2-0"
-                android:text="2. Age"
+                android:text="@string/question2"
                 android:textSize="20dp"
                 android:layout_alignParentLeft="true" />
 

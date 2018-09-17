@@ -2,6 +2,7 @@ package tito1.example.com.timeperception;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -22,7 +23,6 @@ import static java.util.Arrays.asList;
 public class Settings extends AppCompatActivity {
 
     private static final String TAG = "TP-Smart";
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,12 +50,12 @@ public class Settings extends AppCompatActivity {
                                 Resources res = getResources();
                                 DisplayMetrics dm = res.getDisplayMetrics();
                                 Locale myLocale;
-                                android.content.res.Configuration conf = res.getConfiguration();
+                                Configuration conf = getResources().getConfiguration();
                                 //code to change the language
                                 switch (i){
                                     case 0:
                                         Log.d(TAG,"case 0");
-                                        myLocale = new Locale("en");
+                                        myLocale = new Locale("en_US");
                                         conf.locale = myLocale;
                                         break;
                                     case 1:
@@ -69,8 +69,8 @@ public class Settings extends AppCompatActivity {
                                         conf.locale = myLocale;
                                 }
                                 res.updateConfiguration(conf, dm);
-                                Intent refresh = new Intent(getApplicationContext(), HomePage.class);
-                                startActivity(refresh);
+//                                Intent refresh = new Intent(getApplicationContext(), HomePage.class);
+//                                startActivity(refresh);
                                 finish();
 
                             }

@@ -75,7 +75,9 @@ public class PerseptionQuestion extends AppCompatActivity {
         radioButtonGroup.   setVisibility(View.INVISIBLE);
         save.               setVisibility(View.INVISIBLE);
         instruction.setTextSize(20);
-        instruction.setText("Press the button to start the test");
+        instruction.setText("A Continuación se te presentará una imagen para " +
+                "que estimes el tiempo que dura la imagen en la pantalla. Para " +
+                "comenzar precione el boton");
 
         startPerseption.setOnClickListener(new View.OnClickListener() {
             @Override

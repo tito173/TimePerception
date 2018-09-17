@@ -42,6 +42,8 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
@@ -68,7 +70,7 @@ public class HomePage extends AppCompatActivity {
             //create a pending intent to be called at midnight
             Intent intent = new Intent(getApplicationContext(),SetNotification.class);
             PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, midnightPI);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, midnightPI);
 
         }
     }
