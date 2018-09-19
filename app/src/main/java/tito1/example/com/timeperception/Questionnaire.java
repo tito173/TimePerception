@@ -47,7 +47,7 @@ public class Questionnaire extends AppCompatActivity {
         String fillError = questionnaireAnswers.getString("error","");
         error.setText(fillError);
         error.setTextSize(20);
-        error.setTextColor(Color.parseColor("#000000"));
+        error.setTextColor(Color.parseColor("#FF0040"));
         questionnaireAnswers.edit().remove("error").apply();
 
         //set numberQuestion
@@ -127,11 +127,35 @@ public class Questionnaire extends AppCompatActivity {
 
         //flags for validation
         Boolean missOrNot = false;
+        Boolean pregunta5 = false;
 
         //String to save the error and show to the user
         String missquestion = "";
 
+        /*---------------------------------MULTIPLE CHOICE-------------------------------------------------------*/
 
+        Object[] question04 = {R.id.question4_1, R.id.question4_2, R.id.question4_3, R.id.question4_4};
+        int selectOrNot = 0;
+
+        for (int i = 0; i < question04.length; i++) {
+            CheckBox box = findViewById((Integer) question04[i]);
+            if (box.isChecked()) {
+                questionnaireAnswers.edit().putBoolean(question04[i].toString(), true).apply();
+                selectOrNot++;
+                if (i == 2){
+                    pregunta5 = true;
+                }
+
+            } else {
+                questionnaireAnswers.edit().putBoolean(question04[i].toString(), false).apply();
+            }
+        }
+        if (selectOrNot == 0){
+            missOrNot = true; missquestion = missquestion +
+                    getString(R.string.Errorquesiton4)+ " \n";
+
+
+        }
 /*---------------------------------------------Radio Group--------------------------------------------------------*/
         for (int i = 0; i < questions.size(); i++) {
             RadioGroup radioButtonGroup = findViewById((Integer) questions.get(i));
@@ -141,7 +165,11 @@ public class Questionnaire extends AppCompatActivity {
             if(radioButtonGroup.getCheckedRadioButtonId() == -1)
             {
                 missOrNot = true;
-                missquestion = missquestion + getString(R.string.Errorquesiton1)+ " "+questionNumber[1] + " \n";
+                if(i==2 && pregunta5){
+                    missOrNot = false;
+                }else {
+                    missquestion = missquestion + getString(R.string.Errorquesiton1)+ " "+questionNumber[1] + " \n";
+                }
 
             }else{
                 int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
@@ -157,23 +185,6 @@ public class Questionnaire extends AppCompatActivity {
                 }
             }
         }
-
-/*---------------------------------MULTIPLE CHOICE-------------------------------------------------------*/
-
-        Object[] question04 = {R.id.question4_1, R.id.question4_2, R.id.question4_3, R.id.question4_4};
-        int selectOrNot = 0;
-
-        for (int i = 0; i < question04.length; i++) {
-            CheckBox box = findViewById((Integer) question04[i]);
-            if (box.isChecked()) {
-                questionnaireAnswers.edit().putBoolean(question04[i].toString(), true).apply();
-                selectOrNot++;
-            } else {
-                questionnaireAnswers.edit().putBoolean(question04[i].toString(), false).apply();
-            }
-        }
-        if (selectOrNot == 0){ missOrNot = true; missquestion = missquestion +
-                getString(R.string.Errorquesiton4)+ " \n";}
 
 /*----------------------------------------FILL QUESTION 2-----------------------------------------------*/
         Object question02 = R.id.question02;

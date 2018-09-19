@@ -27,12 +27,34 @@
     <string name="question42">Negocio propio</string>
     <string name="question43">Desempleado</string>
     <string name="question44">Estudiante</string>
+    <string name="question5">5. Weekly hours of work (If you did not indicate that you currently have a job, go to the next question</string>
+    <string name="question51">Full-time (30 or more hours)</string>
+    <string name="question52">Part-time (29 hours or less)</string>
+    <string name="question6">6. Country</string>
+    <string name="question61">Greece</string>
+    <string name="question62">Puerto Rico</string>
+    <string name="question7">7. Enter the user ID assigned</string>
+
 
     <string name="Errorquesiton1">Por favor conteste la pregunta </string>
-    <string name="Errorquesiton2">Question 2: Enter an age between 18 and 70</string>
+    <string name="Errorquesiton2">Pregunta 2: Entre una edad entre 18 y 70</string>
     <string name="Errorquesiton4">Por favor conteste la pregunta 4 </string>
-    <string name="Errorquesiton7">Question 7: Enter your assigned user ID</string>
+    <string name="Errorquesiton7">Pregunta 7: Entre su ID de usuario asignado</string>
 
     <!--PRUEBA DE PERSEPCION-->
+
+    <string name="startTest">Comenzar la prueba</string>
+    <string name="instriction">A Continuación se te presentará una imagen
+        para que estimes el tiempo que dura la imagen en la pantalla.
+        Para comenzar precione el boton "Comenzar la prueba"</string>
+    <string name="instriction1">¿Cuanto duró?</string>
+    <string name="Save">Guardar</string>
+    <string name="respuesta1">0.4 Segundo</string>
+    <string name="respuesta2">0.5 Segundo</string>
+    <string name="respuesta3">1   Segundo</string>
+    <string name="respuesta4">2   Segundo</string>
+    <string name="respuesta5">5   Segundo</string>
+    <string name="respuesta6">6   Segundo</string>
+
 
 </resources>

@@ -43,6 +43,18 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,12);
+        calendar.set(Calendar.MINUTE,30);
+        calendar.set(Calendar.SECOND,0);
+        AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+
+
+        //create a pending intent to be called at midnight
+        Intent intent = new Intent(getApplicationContext(),SetNotification.class);
+        PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, midnightPI);
 
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
@@ -58,19 +70,6 @@ public class HomePage extends AppCompatActivity {
             startActivity(intent1);
 
             //preparando las notificaciones
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY,12);
-            calendar.set(Calendar.MINUTE,30);
-            calendar.set(Calendar.SECOND,0);
-
-            AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-
-            Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
-
-            //create a pending intent to be called at midnight
-            Intent intent = new Intent(getApplicationContext(),SetNotification.class);
-            PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, midnightPI);
 
         }
     }

@@ -282,8 +282,9 @@ public class SendFile extends BroadcastReceiver {
     }
 
 
-    public static void SendResPerseptionTest(final Context context,long l) throws IOException {
+    public static void SendResPerseptionTest(final Context context,long l1,long l2,long l3,long l4) throws IOException {
 
+        Log.d("Valores",""+l1+" "+l2+" "+l3+" "+l4+" ");
         final String TAG = "TP-Smart";
 
         String key = "This is a secret";
@@ -302,8 +303,18 @@ public class SendFile extends BroadcastReceiver {
         }
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, true /*append*/));
-        writer.write("Correct answer is: " + Long.toString(l)+" the user select option: "+
-                Integer.toString(questionnaireAnswers.getInt("questionvideo", -1))+"\n");
+        writer.write("Correct answer is: " + Long.toString(l1)+
+                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+                "TestResp1", -1))+"\n");
+        writer.write("Correct answer is: " + Long.toString(l2)+
+                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+                "TestResp2", -1))+"\n");
+        writer.write("Correct answer is: " + Long.toString(l3)+
+                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+                "TestResp3", -1))+"\n");
+        writer.write("Correct answer is: " + Long.toString(l4)+
+                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+                "TestResp4", -1))+"\n");
         writer.close();
         Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,archivoOriginal,respuesta);
 

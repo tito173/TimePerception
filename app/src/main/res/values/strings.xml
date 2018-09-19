@@ -27,6 +27,13 @@
     <string name="question42">Self-employed</string>
     <string name="question43">Unemployed</string>
     <string name="question44">Student</string>
+    <string name="question5">5. Horas semanales de trabajo (si no indicó que actualmente tiene un trabajo, pase a la siguiente pregunta</string>
+    <string name="question51">Tiempo completo (30 horas o mas)</string>
+    <string name="question52">Tiempo parcial (29 horas o menos)</string>
+    <string name="question6">6. Pais</string>
+    <string name="question61">Grecia</string>
+    <string name="question62">Puerto Rico</string>
+    <string name="question7">7. Ingrese el ID asignado</string>
 
     <string name="Errorquesiton1">Please answer the question </string>
     <string name="Errorquesiton2">Question 2: Enter an age between 18 and 70</string>
@@ -34,6 +41,19 @@
     <string name="Errorquesiton7">Question 7: Enter your assigned user ID</string>
 
     <!--PRUEBA DE PERSEPCION-->
+    <string name="startTest">Start the test</string>
+    <string name="instriction">Then you will be presented with an image to estimate the time the image lasts on the screen.
+        To start press the button "Start the test"</string>
+    <string name="instriction1">How long did it last?</string>
+    <string name="Save">Save</string>
+    <string name="respuesta1">0.4 Seconds</string>
+    <string name="respuesta2">0.5 Seconds</string>
+    <string name="respuesta3">1   Seconds</string>
+    <string name="respuesta4">2   Seconds</string>
+    <string name="respuesta5">5   Seconds</string>
+    <string name="respuesta6">6   Seconds</string>
+
+
 
 
 </resources>
