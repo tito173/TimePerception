@@ -35,6 +35,11 @@
                 android:id="@+id/quesiton1-0"
                 android:text="@string/question1"
                 android:textSize="20dp" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quesiton1-1"
+                android:text="@string/question11" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -53,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:hint="specify" />
+                android:hint="@string/hint1"></EditText>
 
         </RadioGroup>
 
@@ -79,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:hint="Age"
+                android:hint="@string/hint2"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -237,7 +242,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:hint="UserID"
+                android:hint="@string/hint7"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -246,17 +251,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/sbumitButtonQuestionnaire"
-                android:text="Submit"
-                android:layout_gravity="left"
+                android:text="@string/botonEnviar"
+                android:layout_gravity="center"
                 android:onClick="SaveQuestionnaire"/>
 
 

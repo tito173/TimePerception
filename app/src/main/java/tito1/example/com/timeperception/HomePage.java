@@ -8,11 +8,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +25,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -42,19 +46,31 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
+        //configuracion del idioma
+        Log.d(TAG,"Este es el idioma" +idioma.getString("idoma",""));
+        Configuration conf = getResources().getConfiguration();
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        if(idioma.getString("idioma","")== ""){
+            Locale myLocale = new Locale("es");
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+        }else{
+            Locale myLocale = new Locale(idioma.getString("idioma",""));
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+        }
+
+
+        //configuracion del las notificaciones
         Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY,12);
         calendar.set(Calendar.MINUTE,30);
         calendar.set(Calendar.SECOND,0);
         AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-
-
-        //create a pending intent to be called at midnight
-        Intent intent = new Intent(getApplicationContext(),SetNotification.class);
-        PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, midnightPI);
 
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
@@ -69,7 +85,11 @@ public class HomePage extends AppCompatActivity {
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
 
-            //preparando las notificaciones
+            //create a pending intent to be called at midnight
+            Intent intent = new Intent(getApplicationContext(),SetNotification.class);
+            PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, midnightPI);
+
 
         }
     }

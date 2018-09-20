@@ -1,7 +1,9 @@
 package tito1.example.com.timeperception;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.annotation.Nullable;
@@ -51,22 +53,27 @@ public class Settings extends AppCompatActivity {
                                 DisplayMetrics dm = res.getDisplayMetrics();
                                 Locale myLocale;
                                 Configuration conf = getResources().getConfiguration();
+                                SharedPreferences idioma = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+
                                 //code to change the language
                                 switch (i){
                                     case 0:
                                         Log.d(TAG,"case 0");
                                         myLocale = new Locale("en_US");
                                         conf.locale = myLocale;
+                                        idioma.edit().putString("idoma","en_US").apply();
                                         break;
                                     case 1:
                                         Log.d(TAG,"case 1");
                                         myLocale = new Locale("es");
                                         conf.locale = myLocale;
+                                        idioma.edit().putString("idoma","es").apply();
                                         break;
                                     default:
                                         Log.d(TAG, Integer.toString(i));
                                         myLocale = new Locale("en");
                                         conf.locale = myLocale;
+                                        idioma.edit().putString("idoma","en").apply();
                                 }
                                 res.updateConfiguration(conf, dm);
 //                                Intent refresh = new Intent(getApplicationContext(), HomePage.class);

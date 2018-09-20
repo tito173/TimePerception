@@ -27,13 +27,18 @@
     <string name="question42">Negocio propio</string>
     <string name="question43">Desempleado</string>
     <string name="question44">Estudiante</string>
-    <string name="question5">5. Weekly hours of work (If you did not indicate that you currently have a job, go to the next question</string>
-    <string name="question51">Full-time (30 or more hours)</string>
-    <string name="question52">Part-time (29 hours or less)</string>
-    <string name="question6">6. Country</string>
-    <string name="question61">Greece</string>
+    <string name="question5">5. Horas semanales de trabajo (si no indicó que actualmente tiene un trabajo, pase a la siguiente pregunta</string>
+    <string name="question51">Tiempo completo (30 horas o mas)</string>
+    <string name="question52">Tiempo parcial (29 horas o menos)</string>
+    <string name="question6">6. País</string>
+    <string name="question61">Grecia</string>
     <string name="question62">Puerto Rico</string>
-    <string name="question7">7. Enter the user ID assigned</string>
+    <string name="question7">7. Ingrese el ID asignado</string>
+    <string name="hint1">Especificar</string>
+    <string name="hint2">Edad</string>
+    <string name="hint7">ID de usuario</string>
+    <string name="botonEnviar">Someter</string>
+
 
 
     <string name="Errorquesiton1">Por favor conteste la pregunta </string>

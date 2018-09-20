@@ -27,18 +27,22 @@
     <string name="question42">Self-employed</string>
     <string name="question43">Unemployed</string>
     <string name="question44">Student</string>
-    <string name="question5">5. Horas semanales de trabajo (si no indicó que actualmente tiene un trabajo, pase a la siguiente pregunta</string>
-    <string name="question51">Tiempo completo (30 horas o mas)</string>
-    <string name="question52">Tiempo parcial (29 horas o menos)</string>
-    <string name="question6">6. Pais</string>
+    <string name="question5">5. Weekly hours of work (If you did not indicate that you currently have a job, go to the next question</string>
+    <string name="question51">Full-time (30 or more hours)</string>
+    <string name="question52">Part-time (29 hours or less)</string>
+    <string name="question6">6. Country</string>
     <string name="question61">Grecia</string>
     <string name="question62">Puerto Rico</string>
-    <string name="question7">7. Ingrese el ID asignado</string>
-
+    <string name="question7">7. Enter the user ID assigned</string>
     <string name="Errorquesiton1">Please answer the question </string>
     <string name="Errorquesiton2">Question 2: Enter an age between 18 and 70</string>
     <string name="Errorquesiton4">Please answer the question 4</string>
     <string name="Errorquesiton7">Question 7: Enter your assigned user ID</string>
+    <string name="hint1">Specify</string>
+    <string name="hint2">Age</string>
+    <string name="hint7">User ID</string>
+    <string name="botonEnviar">Submit</string>
+
 
     <!--PRUEBA DE PERSEPCION-->
     <string name="startTest">Start the test</string>
