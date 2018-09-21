@@ -53,13 +53,11 @@ public class HomePage extends AppCompatActivity {
         Configuration conf = getResources().getConfiguration();
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
-        if(idioma.getString("idioma","")== ""){
-            Locale myLocale = new Locale("es");
-            conf.locale = myLocale;
+        if(idioma.getString("idioma", "").equals("")){
+            conf.locale = new Locale("es");
             res.updateConfiguration(conf, dm);
         }else{
-            Locale myLocale = new Locale(idioma.getString("idioma",""));
-            conf.locale = myLocale;
+            conf.locale = new Locale(idioma.getString("idioma",""));
             res.updateConfiguration(conf, dm);
         }
 
@@ -108,22 +106,20 @@ public class HomePage extends AppCompatActivity {
         TextView UserID = findViewById(R.id.ID);
 
         //llenar cada mensaje con su respuesta
-        mensaje = mensaje + "User ID: "+questionnaireAnswers.getString(question07.toString(),"no hay");
-        mensaje = mensaje + "\nLast send was: " + questionnaireAnswers.getString("last","no hay");
-        UserID.setTextSize(15);
-        UserID.setTextColor(Color.parseColor("#000000"));
+        mensaje = mensaje + getString(R.string.userID)+" "+
+                questionnaireAnswers.getString(question07.toString(),"no hay");
+        mensaje = mensaje + "\n"+getString(R.string.ultimoEnvio)+" "
+                + questionnaireAnswers.getString("last","no hay");
         UserID.setText(mensaje);
 
         //Si el sevicio esta corriendo no aparecera nada, si no esta aparecera una opcion para activarlo
         if(isMyServiceRunning(Services.class)){
-            active.setVisibility(INVISIBLE);
-            goActiveService.setVisibility(INVISIBLE);
+            active.setVisibility(View.GONE);
+            goActiveService.setVisibility(View.GONE);
 
         }else{
             active.setVisibility(VISIBLE);
-            goActiveService.setText("Press the button \"Activate Service\" and activate the TP-Smart service to begin monitoring social media usage.");
-            goActiveService.setTextSize(20);
-            goActiveService.setTextColor(Color.parseColor("#000000"));
+            goActiveService.setText(getString(R.string.activarServicio));
             active.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

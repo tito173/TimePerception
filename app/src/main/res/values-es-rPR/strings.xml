@@ -3,7 +3,12 @@
 
     <!--PAGINA INICIAL-->
     <string name="app_name">TP Smart</string>
-    <string name="title">BIENVENIDOS A TP-Smart</string>
+    <string name="title">Bienvenidos a TP-Smart</string>
+    <string name="activarServicio">Preciona el boton "Activar Servicio", y luego activar el servicio de
+        TP-Smart para comenzar a monitorizar el uso de las redes sociales.</string>
+    <string name="butonActivar">Activar Servicio</string>
+    <string name="userID">Id de usuario: </string>
+    <string name="ultimoEnvio">Ultimo envio: </string>
 
     <!--CONFIGURACINES-->
     <string name="change_lenguage">Cambiar el lenguaje</string>
@@ -38,9 +43,6 @@
     <string name="hint2">Edad</string>
     <string name="hint7">ID de usuario</string>
     <string name="botonEnviar">Someter</string>
-
-
-
     <string name="Errorquesiton1">Por favor conteste la pregunta </string>
     <string name="Errorquesiton2">Pregunta 2: Entre una edad entre 18 y 70</string>
     <string name="Errorquesiton4">Por favor conteste la pregunta 4 </string>
@@ -60,6 +62,8 @@
     <string name="respuesta4">2   Segundo</string>
     <string name="respuesta5">5   Segundo</string>
     <string name="respuesta6">6   Segundo</string>
+
+    <!---->
 
 
 </resources>

@@ -45,6 +45,8 @@ public class Questionnaire extends AppCompatActivity {
 
         TextView error  = findViewById(R.id.error1);
         String fillError = questionnaireAnswers.getString("error","");
+        if(fillError.equals(""))
+            error.setVisibility(View.GONE);
         error.setText(fillError);
         error.setTextSize(20);
         error.setTextColor(Color.parseColor("#FF0040"));
@@ -292,9 +294,7 @@ public class Questionnaire extends AppCompatActivity {
     //funcion que repite el envio de los logs recopilados
     public static void SendTheLogs(Context context) {
         String TAG = "TP-Smart";
-        long minuto = 1000 * 60;
-        long hora = minuto * 60;
-        long dia = hora * 24;
+
         //create new calendar instance
         Log.d(TAG,"Questionnaire Prepare el pendingintent");
 
@@ -305,9 +305,9 @@ public class Questionnaire extends AppCompatActivity {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5*minuto, midnightPI);
-        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
-        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR, midnightPI);
+//        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+//        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

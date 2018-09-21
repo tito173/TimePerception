@@ -3,7 +3,13 @@
 
     <!--PAGINA INICIAL-->
     <string name="app_name">TP-Smart</string>
-    <string name="title">WELCOME TO TP-Smart</string>
+    <string name="title">Welcome to TP-Smart</string>
+    <string name="activarServicio">Press the button "Activate Service" and activate the TP-Smart service to begin monitoring social media usage.</string>
+    <string name="butonActivar">Activete Service</string>
+    <string name="userID">User Id: </string>
+    <string name="ultimoEnvio">Last send was: </string>
+
+
 
     <!--CONFIGURACINES-->
     <string name="change_lenguage">Change language</string>

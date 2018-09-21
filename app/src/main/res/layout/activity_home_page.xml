@@ -31,29 +31,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Version 1.5.1"
+            android:text="Version 1.6.0"
             android:textSize="30dp"
             android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/ID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/active"
-            app:layout_constraintEnd_toEndOf="@+id/active"
-            app:layout_constraintStart_toStartOf="@+id/active"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="MissingConstraints" />
-
         <TextView
             android:id="@+id/goActive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/active"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,15 +51,30 @@
 
         <Button
             android:id="@+id/active"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="activetedService"
-            android:text="Active Service"
+            android:text="@string/butonActivar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ID" />
+
+        <TextView
+            android:id="@+id/ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/active"
+            app:layout_constraintEnd_toEndOf="@+id/active"
+            app:layout_constraintStart_toStartOf="@+id/active"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="MissingConstraints" />
+
+
 
 
     </LinearLayout>
