@@ -52,22 +52,6 @@ public class PerseptionQuestion extends AppCompatActivity {
 
     }
 
-//    //Si el usuario no ha seleccionado respuesta mantener lo en la misma activdad sin poder ver el video.
-//    @Override
-//    protected void onRestart() {
-//        setContentView(R.layout.activity_perseption_question);
-//        final TextView instruction =  findViewById(R.id.instruction);
-//        final Button startPerseption = findViewById(R.id.startPerseption);
-//        final ImageView cuadrado   = findViewById(R.id.imagen);
-//
-//
-//        startPerseption.    setVisibility(View.INVISIBLE);
-//        instruction.setVisibility(View.VISIBLE);
-//        instruction.setTextSize(20);
-//        instruction.setText("Cuantos segundos duro el video?");
-//
-//        super.onRestart();
-//    }
 
     @SuppressLint("SetTextI18n")
     @Override

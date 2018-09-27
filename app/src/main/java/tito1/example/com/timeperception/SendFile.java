@@ -379,6 +379,108 @@ public class SendFile extends BroadcastReceiver {
 
     }
 
+    public static void senResFinalQues(final Context context, final String string) throws IOException {
+        final String TAG = "TP-Smart";
+
+        String key = "This is a secret";
+        final File respuesta = new File(context.getExternalFilesDir(null), "ResCuesFinalEncryp.txt");
+        final File archivoOriginal = new File(context.getExternalFilesDir(null), "ResCuestionarioFinal.txt");
+
+        if (!respuesta.exists() || !archivoOriginal.exists()) {
+            try {
+                respuesta.createNewFile();
+                archivoOriginal.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, false /*append*/));
+        writer.write(string);
+        writer.close();
+        Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,archivoOriginal,respuesta);
+
+        //server where we will save every file of event
+        final String url = "http://104.131.32.115/save_file.php";
+
+        //thread to execute the process to send the file
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG,"SendFile Creado el archivo a enviar");
+
+
+                //get the type of the file
+                String content_type = getMimeType(respuesta.getPath());
+
+
+                //get the path, create http client, take the body content of file
+                String file_path = respuesta.getAbsolutePath();
+
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), respuesta);
+
+                //form of date and time
+                Object question07 = R.id.question07;
+                SharedPreferences name = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+                String fileName = name.getString(question07.toString(),"NOID");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat dateFormat1 = new SimpleDateFormat("HH-mm-ss");
+                Date cal = Calendar.getInstance().getTime();
+                String timeStamp = fileName +"-" +dateFormat.format(cal) + "-" + dateFormat1.format(cal);
+
+                //combine the type and body
+                RequestBody request_body = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("type", content_type)
+                        .addFormDataPart("uploaded_file", timeStamp + file_path.substring(file_path.lastIndexOf("/") + 1), file_body)
+                        .build();
+
+                //make the request
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(request_body)
+                        .build();
+
+                //send the file
+                try {
+                    Response response = client.newCall(request).execute();
+                    Log.d(TAG,"SendFile El archivo Respuestas al servidor");
+
+                    if (!response.isSuccessful() ) {
+                        throw new IOException("Error of conection: " + response);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            t.start();
+        }
+        else {
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        SendResCuestionario( context, string);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            Timer time = new Timer();
+            time.schedule(timerTask,0,1000*60*10);
+
+
+        }
+    }
 }
 
 

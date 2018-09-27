@@ -20,7 +20,6 @@
             />
 
 
-
         <RadioGroup
             android:id="@+id/radioGroup01"
             android:layout_width="match_parent"

@@ -1,17 +1,26 @@
 <ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
+        android:id="@+id/initialLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:id="@+id/firtLiearLayoutFinalQuestionnaire">
+        android:focusableInTouchMode="false" >
+
+    <TextView
+        android:id="@+id/error1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
         <RadioGroup
             android:id="@+id/radioGroup07"
@@ -25,44 +34,45 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton7-0"
-                android:text="7. Where do you commonly use the cellphone? (Check all that apply)"/>
+                android:text="@string/question8"/>
             <CheckBox
                 android:id="@+id/question7-1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="House" />
+                android:text="@string/question81" />
             <CheckBox
                 android:id="@+id/question7-2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Car" />
+                android:text="@string/question82" />
             <CheckBox
                 android:id="@+id/question7-3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Work" />
+                android:text="@string/question83" />
             <CheckBox
                 android:id="@+id/question7-4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="University" />
+                android:text="@string/question84" />
             <CheckBox
                 android:id="@+id/question7-5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bathroom" />
+                android:text="@string/question85" />
             <CheckBox
                 android:id="@+id/question7-6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Waiting room (Doctor’s office, government agency)" />
+                android:text="@string/question86" />
             <CheckBox
                 android:id="@+id/question7-7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="other" />
+                android:text="@string/question87" />
 
         </RadioGroup>
+
         <RadioGroup
             android:id="@+id/radioGroup08"
             android:layout_width="wrap_content"
@@ -75,42 +85,42 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton8-0"
-                android:text="8. When do you commonly use the cellphone? (Check all that apply)"/>
+                android:text="@string/question9"/>
             <CheckBox
                 android:id="@+id/question8-1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="While waiting" />
+                android:text="@string/question91" />
             <CheckBox
                 android:id="@+id/question8-2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="While eating" />
+                android:text="@string/question92" />
             <CheckBox
                 android:id="@+id/question8-3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="While spending time with friends and family" />
+                android:text="@string/question93" />
+            <CheckBox
+                android:id="@+id/question8-4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question94" />
             <CheckBox
                 android:id="@+id/question8-5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="While studying" />
+                android:text="@string/question95" />
             <CheckBox
                 android:id="@+id/question8-6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="While driving" />
+                android:text="@string/question96" />
             <CheckBox
                 android:id="@+id/question8-7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="While watching television" />
-            <CheckBox
-                android:id="@+id/question8-8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="While listening to radio" />
+                android:text="@string/question97" />
 
         </RadioGroup>
         <RadioGroup
@@ -125,22 +135,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton9-0"
-                android:text="9. How do you access the internet from your cellphone?"/>
+                android:text="@string/quesiton10"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/quesiton9-1"
-                android:text="Data plan" />
+                android:text="@string/quesiton101" />
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/quesiton9-2"
-                android:text="Wireless internet (Wi-Fi)" />
+                android:text="@string/quesiton102" />
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/quesiton9-3"
-                android:text="I don’t know" />
+                android:text="@string/quesiton103" />
         </RadioGroup>
         <RadioGroup
             android:id="@+id/radioGroup10"
@@ -154,47 +164,47 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton10-0"
-                android:text="10. Which 2 apps do you use most on your cellphone"/>
+                android:text="@string/quesiton11"/>
             <CheckBox
                 android:id="@+id/question10-1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Facebook"/>
+                android:text="@string/quesiton111"/>
             <CheckBox
                 android:id="@+id/question10-2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Twitter"/>
+                android:text="@string/quesiton112"/>
             <CheckBox
                 android:id="@+id/question10-3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Instagram"/>
+                android:text="@string/quesiton113"/>
             <CheckBox
                 android:id="@+id/question10-4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Facebook Messenger "/>
+                android:text="@string/quesiton114"/>
             <CheckBox
                 android:id="@+id/question10-5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Whatsapp"/>
+                android:text="@string/quesiton115"/>
             <CheckBox
                 android:id="@+id/question10-6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Snapchat"/>
+                android:text="@string/quesiton116"/>
             <CheckBox
                 android:id="@+id/question10-7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"/>
+                android:text="@string/quesiton117"/>
             <CheckBox
                 android:id="@+id/question10-8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Games"/>
+                android:text="@string/quesiton118"/>
         </RadioGroup>
         <RadioGroup
             android:id="@+id/radioGroup11"
@@ -208,24 +218,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="11. When do you use your cellphone the most?"/>
+                android:text="@string/quesiton12"/>
             <CheckBox
                 android:id="@+id/question11-1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Morning"/>
+                android:text="@string/quesiton121"/>
             <CheckBox
                 android:id="@+id/question11-2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Afternoon"/>
+                android:text="@string/quesiton122"/>
             <CheckBox
                 android:id="@+id/question11-3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Evening"/>
+                android:text="@string/quesiton123"/>
         </RadioGroup>
-
         <LinearLayout
             android:id="@+id/radioGroup12"
             android:layout_width="wrap_content"
@@ -237,12 +246,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton12-0"
-                android:text="12. How many hours per day do you spend using Facebook on your cellphone?"/>
+                android:text="@string/quesiton13"/>
             <EditText
                 android:id="@+id/question12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Hour"
+                android:hint="@string/quesiton131"
                 android:layout_marginLeft="30dp"
                 android:inputType="number" />
 
@@ -258,12 +267,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton13-0"
-                android:text="13. How many hours per day do you spend using Twitter on your cellphone?"/>
+                android:text="@string/quesiton14"/>
             <EditText
                 android:id="@+id/question13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Hour"
+                android:hint="@string/quesiton131"
                 android:layout_marginLeft="30dp"
                 android:inputType="number" />
 
@@ -279,12 +288,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton14-0"
-                android:text="14. How many hours per day do you spend using Instagram on your cellphone?"/>
+                android:text="@string/quesiton15"/>
             <EditText
                 android:id="@+id/question14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Hour"
+                android:hint="@string/quesiton131"
                 android:layout_marginLeft="30dp"
                 android:inputType="number" />
 
@@ -300,12 +309,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton15-0"
-                android:text="15. How many hours per day do you spend using Whatsapp on your cellphone?"/>
+                android:text="@string/quesiton16"/>
             <EditText
                 android:id="@+id/question15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Hour"
+                android:hint="@string/quesiton131"
                 android:layout_marginLeft="30dp"
                 android:inputType="number" />
 
@@ -321,12 +330,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/quesiton16-0"
-                android:text="16. Would you be interested in participating in an in-depth interview?"/>
+                android:text="@string/quesiton17"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/quesiton16-1"
-                android:text="Yes"/>
+                android:text="@string/quesiton171"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -336,11 +345,6 @@
 
 
         </RadioGroup>
-        <VideoView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/video"
-            />
 
         <Button
             android:layout_width="wrap_content"
@@ -349,6 +353,8 @@
             android:text="Submit"
             android:layout_gravity="left"
             android:onClick="saveQuestionnaire"/>
+
+
 
     </LinearLayout>
 

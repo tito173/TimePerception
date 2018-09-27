@@ -63,7 +63,47 @@
     <string name="respuesta5">5   Segundo</string>
     <string name="respuesta6">6   Segundo</string>
 
-    <!---->
+    <!--Cuestionario final-->
+    <string name="question8">1. ¿Dónde utilizas el teléfono celular generalmente? (Marca todas las que apliquen)</string>
+    <string name="question81">Hogar</string>
+    <string name="question82">Carro</string>
+    <string name="question83">Trabajo</string>
+    <string name="question84">Universidad</string>
+    <string name="question85">Baño</string>
+    <string name="question86">Sala de espera (Oficina médica, agencia gubernamental)</string>
+    <string name="question87">Otro</string>
+    <string name="question9">2. ¿Cuándo utilizas el teléfono celular generalmente? (Marca todas las que apliquen)</string>
+    <string name="question91">Mientas espero</string>
+    <string name="question92">Mientas como</string>
+    <string name="question93">Mientas comparto con amistades o familiares</string>
+    <string name="question94">Mientras estudio</string>
+    <string name="question95">Mientras conduzco</string>
+    <string name="question96">Mientras veo televisión</string>
+    <string name="question97">Mientras escucho radio</string>
+    <string name="quesiton10">3. ¿Cómo accedes al internet desde tu celular?</string>
+    <string name="quesiton101">Plan de datos</string>
+    <string name="quesiton102">Internet inalámbrico (Wi-Fi)</string>
+    <string name="quesiton103">No sé</string>
+    <string name="quesiton11">4. ¿Cuáles son las 2 aplicaciones que más utilizas en tu teléfono celular?</string>
+    <string name="quesiton111">Facebook</string>
+    <string name="quesiton112">Twitter</string>
+    <string name="quesiton113">Instagram</string>
+    <string name="quesiton114">Facebook Messenger</string>
+    <string name="quesiton115">Whatsapp</string>
+    <string name="quesiton116">Snapchat</string>
+    <string name="quesiton117">Correo electrónico</string>
+    <string name="quesiton118">Juegos</string>
+    <string name="quesiton12">5. ¿Cuándo utilizas más tu teléfono celular?</string>
+    <string name="quesiton121">Mañana</string>
+    <string name="quesiton122">Tarde</string>
+    <string name="quesiton123">Noche</string>
+    <string name="quesiton13">6. ¿Cuántas horas al día utilizas Facebook en tu teléfono celular? </string>
+    <string name="quesiton131">Horas</string>
+    <string name="quesiton14">7. ¿Cuántas horas al día utilizas Twitter en tu teléfono celular? </string>
+    <string name="quesiton15">8. ¿Cuántas horas al día utilizas Instagram en tu teléfono celular? </string>
+    <string name="quesiton16">9. ¿Cuántas horas al día utilizas Whatsapp en tu teléfono celular?</string>
+    <string name="quesiton17">10. ¿Estarías interesado en participar en una entrevista a profundidad?</string>
+    <string name="quesiton171">Si</string>
 
 
 </resources>

@@ -63,6 +63,49 @@
     <string name="respuesta5">5   Seconds</string>
     <string name="respuesta6">6   Seconds</string>
 
+    <!--Cuestionario final-->
+    <string name="question8">1. Where do you commonly use the cellphone? (Check all that apply)</string>
+    <string name="question81">House</string>
+    <string name="question82">Car</string>
+    <string name="question83">Work</string>
+    <string name="question84">University</string>
+    <string name="question85">Bathroom</string>
+    <string name="question86">Waiting room (Doctor’s office, government agency)</string>
+    <string name="question87">other</string>
+    <string name="question9">2. When do you commonly use the cellphone? (Check all that apply)</string>
+    <string name="question91">While waiting</string>
+    <string name="question92">While eating</string>
+    <string name="question93">While spending time with friends and family</string>
+    <string name="question94">While studying</string>
+    <string name="question95">While driving</string>
+    <string name="question96">While watching television</string>
+    <string name="question97">While listening to radio</string>
+    <string name="quesiton10">3. How do you access the internet from your cellphone?</string>
+    <string name="quesiton101">Data plan</string>
+    <string name="quesiton102">Wireless internet (Wi-Fi)</string>
+    <string name="quesiton103">I don’t know</string>
+    <string name="quesiton11">4. Which 2 apps do you use most on your cellphone</string>
+    <string name="quesiton111">Facebook</string>
+    <string name="quesiton112">Twitter</string>
+    <string name="quesiton113">Instagram</string>
+    <string name="quesiton114">Facebook Messenger</string>
+    <string name="quesiton115">Whatsapp</string>
+    <string name="quesiton116">Snapchat</string>
+    <string name="quesiton117">Email</string>
+    <string name="quesiton118">Games</string>
+    <string name="quesiton12">5. When do you use your cellphone the most?</string>
+    <string name="quesiton121">Morning</string>
+    <string name="quesiton122">Afternoon</string>
+    <string name="quesiton123">Evening</string>
+    <string name="quesiton13">6. How many hours per day do you spend using Facebook on your cellphone?</string>
+    <string name="quesiton131">Hour</string>
+    <string name="quesiton14">7. How many hours per day do you spend using Twitter on your cellphone?</string>
+    <string name="quesiton15">8. How many hours per day do you spend using Instagram on your cellphone?</string>
+    <string name="quesiton16">9. How many hours per day do you spend using Whatsapp on your cellphone?</string>
+    <string name="quesiton17">10. Would you be interested in participating in an in-depth interview?</string>
+    <string name="quesiton171">Yes</string>
+
+
 
 
 
