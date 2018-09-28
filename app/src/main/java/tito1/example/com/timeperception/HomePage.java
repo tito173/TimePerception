@@ -93,8 +93,8 @@ public class HomePage extends AppCompatActivity {
 ////            Intent intent = new Intent(getApplicationContext(),SetNotification.class);
 ////            PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
 ////            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),1000*60, midnightPI);
-            SetNotificationFinal.setAlarmFinalQuestionnaire(this);
-            SetNotification.setAlarmPerseption(this);
+//            SetNotificationFinal.setAlarmFinalQuestionnaire(this);
+//            SetNotification.setAlarmPerseption(this);
 
 
 

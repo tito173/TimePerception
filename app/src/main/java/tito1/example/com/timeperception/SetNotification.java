@@ -28,7 +28,7 @@ public class SetNotification extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         Log.d("case","SetNotification fun onReceive la noficacion");
         notificacionManager = NotificationManagerCompat.from(context);
-            sendOnChannel1(context);
+//            sendOnChannel1(context);
             Log.d("cases", "este es el 0");
 
     }
@@ -54,20 +54,20 @@ public class SetNotification extends BroadcastReceiver{
         notificacionManager.notify(1,notifiaction);
 
     }
-    public static void setAlarmPerseption(Context context) {
-
-        Log.d("case","configuracion de notificacion");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,12);
-        calendar.set(Calendar.MINUTE,30);
-        calendar.set(Calendar.SECOND,0);
-        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(context,SetNotification.class);
-        PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,0);
-        assert am != null;
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, midnightPI);
-
-    }
+//    public static void setAlarmPerseption(Context context) {
+//
+//        Log.d("case","configuracion de notificacion");
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY,12);
+//        calendar.set(Calendar.MINUTE,30);
+//        calendar.set(Calendar.SECOND,0);
+//        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+//        Intent intent = new Intent(context,SetNotification.class);
+//        PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        assert am != null;
+//        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, midnightPI);
+//
+//    }
 
 
 

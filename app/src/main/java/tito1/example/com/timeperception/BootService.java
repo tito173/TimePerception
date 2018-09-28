@@ -34,8 +34,8 @@ public class BootService extends BroadcastReceiver {
 
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Log.d(TAG, "Alarm reset for PerseptionTest");
-            SetNotification.setAlarmPerseption(context);
-            SetNotificationFinal.setAlarmFinalQuestionnaire(context);
+//            SetNotification.setAlarmPerseption(context);
+//            SetNotificationFinal.setAlarmFinalQuestionnaire(context);
 
         }
 

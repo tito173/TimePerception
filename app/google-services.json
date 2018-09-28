@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "969180652865",
+    "firebase_url": "https://tp-smart-73066.firebaseio.com",
+    "project_id": "tp-smart-73066",
+    "storage_bucket": "tp-smart-73066.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969180652865:android:c9edb26581cd1fa1",
+        "android_client_info": {
+          "package_name": "tito1.example.com.timeperception"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969180652865-c211skjjhoj2olpc2hhtlsi3hrjlvvdj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tito1.example.com.timeperception",
+            "certificate_hash": "e979b138e67af6bafdecd69ac9ad64a3b0029dfd"
+          }
+        },
+        {
+          "client_id": "969180652865-nv0otie18evp3u1f741ksjl3gvghfb4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt6EnL1qwy5FwKrUxUZHBXlzIcqQ8COGE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969180652865-nv0otie18evp3u1f741ksjl3gvghfb4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

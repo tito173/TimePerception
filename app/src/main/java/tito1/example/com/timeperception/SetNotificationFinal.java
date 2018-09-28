@@ -49,23 +49,23 @@ public class SetNotificationFinal extends BroadcastReceiver {
 
     }
 
-    public static void setAlarmFinalQuestionnaire(Context context) {
-
-        Log.d("case","configuracion de notificacion final");
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.MONTH,8);
-        calendar.set(Calendar.YEAR,2018);
-        calendar.set(Calendar.DAY_OF_MONTH,27);
-        calendar.set(Calendar.HOUR_OF_DAY,12);
-        calendar.set(Calendar.MINUTE,30);
-        Log.d("TIEMPO",calendar.getTime().toString());
-
-        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(context,SetNotificationFinal.class);
-        PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,0);
-        assert am != null;
-        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), midnightPI);
-
-    }
+//    public static void setAlarmFinalQuestionnaire(Context context) {
+//
+//        Log.d("case","configuracion de notificacion final");
+//        Calendar calendar = Calendar.getInstance();
+//
+//        calendar.set(Calendar.MONTH,8);
+//        calendar.set(Calendar.YEAR,2018);
+//        calendar.set(Calendar.DAY_OF_MONTH,25);
+//        calendar.set(Calendar.HOUR_OF_DAY,12);
+//        calendar.set(Calendar.MINUTE,30);
+//        Log.d("TIEMPO",calendar.getTime().toString());
+//
+//        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+//        Intent intent = new Intent(context,SetNotificationFinal.class);
+//        PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        assert am != null;
+//        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), midnightPI);
+//
+//    }
 }
