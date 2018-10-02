@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +22,6 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 
 
 //Cuestionario inicial de la app
@@ -32,6 +29,7 @@ public class Questionnaire extends AppCompatActivity {
 
     final String TAG = "TP-Smart";
     ArrayList<String> numberQuestion = new ArrayList<String>();
+    static Boolean bool = false;
 
     @Override
     protected void onResume() {
@@ -233,7 +231,12 @@ public class Questionnaire extends AppCompatActivity {
         } else {
 //            Log.d(TAG, "Questionnaire La app no se a instalado");
         }
-
+//        Log.d("Prueba1", "Valor de bool"checkId(getApplicationContext()))
+        if(!checkId(getApplicationContext())){
+            bool = false; 
+            missOrNot = true;
+            missquestion += "\nUtilizar otro ID";
+        }
         //Si falta alguna contestacion reiniciar el cuestionario con las opciones previas
         if(missOrNot){
             questionnaireAnswers.edit().putString("error", missquestion).apply();
@@ -245,6 +248,7 @@ public class Questionnaire extends AppCompatActivity {
         //al terminar el cuestionario comenzar la primera prueba de persepcion
         Intent intent = new Intent(getApplicationContext(), HomePage.class);
         startActivity(intent);
+        firstAccess(getApplicationContext());
         SendTheLogs(getApplicationContext());
         SendFile.SendResCuestionario(this,questionnaireAnswer());
 //        finish();
@@ -327,6 +331,25 @@ public class Questionnaire extends AppCompatActivity {
         }
         return  false;
     }
+
+    public static void firstAccess(Context context) throws IOException {
+        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        Object question07 = R.id.question07;
+
+        FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"firstaccess");
+        process.execute();
+
+    }
+    public static Boolean checkId(Context context) throws IOException {
+        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        Object question07 = R.id.question07;
+        FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"checkID");
+        process.execute();
+        return bool;
+
+
+    }
+
 
 
 

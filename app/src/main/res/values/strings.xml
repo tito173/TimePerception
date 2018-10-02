@@ -71,7 +71,7 @@
     <string name="question84">University</string>
     <string name="question85">Bathroom</string>
     <string name="question86">Waiting room (Doctor’s office, government agency)</string>
-    <string name="question87">other</string>
+    <string name="question87">Other</string>
     <string name="question9">2. When do you commonly use the cellphone? (Check all that apply)</string>
     <string name="question91">While waiting</string>
     <string name="question92">While eating</string>
@@ -84,7 +84,7 @@
     <string name="quesiton101">Data plan</string>
     <string name="quesiton102">Wireless internet (Wi-Fi)</string>
     <string name="quesiton103">I don’t know</string>
-    <string name="quesiton11">4. Which 2 apps do you use most on your cellphone</string>
+    <string name="quesiton11">4. Which 2 apps do you use most on your cellphone?</string>
     <string name="quesiton111">Facebook</string>
     <string name="quesiton112">Twitter</string>
     <string name="quesiton113">Instagram</string>

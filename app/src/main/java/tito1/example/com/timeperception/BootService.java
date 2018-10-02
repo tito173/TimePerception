@@ -29,15 +29,12 @@ public class BootService extends BroadcastReceiver {
             Log.d(TAG, "Boot Complete");
             Intent intent1 = new Intent(context, Services.class);
             context.startService(intent1);
+//            Intent intent2 = new Intent(context,ServiceFetchData.class);
+//            context.startService(intent2);
 
         }
 
-        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Log.d(TAG, "Alarm reset for PerseptionTest");
-//            SetNotification.setAlarmPerseption(context);
-//            SetNotificationFinal.setAlarmFinalQuestionnaire(context);
 
-        }
 
 
 

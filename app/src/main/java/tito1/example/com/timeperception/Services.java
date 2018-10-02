@@ -14,6 +14,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -50,7 +51,6 @@ public class Services extends AccessibilityService {
         //stop notification
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(ID_NOTIFCATION);
-
 
     }
 

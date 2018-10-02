@@ -24,30 +24,30 @@ public class SetNotificationFinal extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         notificacionManager = NotificationManagerCompat.from(context);
-        sendOnChannel2(context);
+//        sendOnChannel2(context);
         Log.d("cases", "este es el 1");
     }
-    public  void sendOnChannel2(Context context1){
-
-        Intent intent = new Intent(context1, FinalQuestionnaire.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context1,0,intent,0);
-
-        Notification notifiaction = new NotificationCompat.Builder(context1,App.CHANNEL_2_ID)
-                .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle("Final Questionnaire")
-                .setContentText("Pleas complete the following questionnaire.")
-                .setWhen(System.currentTimeMillis())
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setColor(Color.RED)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .setOngoing(true)
-                .setOnlyAlertOnce(true)
-                .build();
-        notificacionManager.notify(2,notifiaction);
-
-    }
+//    public  void sendOnChannel2(Context context1){
+//
+//        Intent intent = new Intent(context1, FinalQuestionnaire.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context1,0,intent,0);
+//
+//        Notification notifiaction = new NotificationCompat.Builder(context1,App.CHANNEL_2_ID)
+//                .setSmallIcon(R.drawable.ic_one)
+//                .setContentTitle("Final Questionnaire")
+//                .setContentText("Pleas complete the following questionnaire.")
+//                .setWhen(System.currentTimeMillis())
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+//                .setColor(Color.RED)
+//                .setContentIntent(pendingIntent)
+//                .setAutoCancel(true)
+//                .setOngoing(true)
+//                .setOnlyAlertOnce(true)
+//                .build();
+//        notificacionManager.notify(2,notifiaction);
+//
+//    }
 
 //    public static void setAlarmFinalQuestionnaire(Context context) {
 //

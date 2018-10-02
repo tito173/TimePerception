@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -38,6 +40,7 @@ public class HomePage extends AppCompatActivity {
 //    private Button boton;
 //    private NotificationManagerCompat notificacionManager;
 
+    public  static TextView data;
 
 
     @SuppressLint({"WrongConstant", "SetTextI18n"})
@@ -45,6 +48,10 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//
+//        Intent intent4 = new Intent(getApplicationContext(),ServiceFetchData.class);
+//        startService(intent4);
 
         SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
@@ -61,11 +68,10 @@ public class HomePage extends AppCompatActivity {
             res.updateConfiguration(conf, dm);
         }
 
+/*----------------------------*/
 
 
-
-
-
+/*------------------------------------*/
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
@@ -74,6 +80,7 @@ public class HomePage extends AppCompatActivity {
             //Nose se hace nada Porque fun onResume se encarga.
 //            SetNotificationFinal.setAlarmFinalQuestionnaire(this);
 //            SetNotification.setAlarmPerseption(this);
+
 
         }
         else{
@@ -137,6 +144,11 @@ public class HomePage extends AppCompatActivity {
                 }
             });
         }
+//        data = (TextView) findViewById(R.id.fetcheddata);
+
+
+
+
         super.onResume();
     }
 
@@ -184,5 +196,6 @@ public class HomePage extends AppCompatActivity {
         }
         return false;
     }
+
 
 }
