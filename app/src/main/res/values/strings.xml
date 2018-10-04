@@ -10,7 +10,6 @@
     <string name="ultimoEnvio">Last send was: </string>
 
 
-
     <!--CONFIGURACINES-->
     <string name="change_lenguage">Change language</string>
     <string name="Edit_questionary">Edit questionary</string>
@@ -105,8 +104,8 @@
     <string name="quesiton17">10. Would you be interested in participating in an in-depth interview?</string>
     <string name="quesiton171">Yes</string>
 
-
-
+    <!--finalpage-->
+    <string name="finalMessage">Thanks for complete the test.</string>
 
 
 </resources>

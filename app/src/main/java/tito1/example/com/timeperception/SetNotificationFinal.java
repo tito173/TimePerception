@@ -1,32 +1,32 @@
-package tito1.example.com.timeperception;
-
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
-
-import java.util.Calendar;
-
-import static android.content.Context.ALARM_SERVICE;
-
-
-public class SetNotificationFinal extends BroadcastReceiver {
-    final String TAG = "TP-Smart";
-    private NotificationManagerCompat notificacionManager;
-
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        notificacionManager = NotificationManagerCompat.from(context);
+//package tito1.example.com.timeperception;
+//
+//import android.app.AlarmManager;
+//import android.app.Notification;
+//import android.app.PendingIntent;
+//import android.content.BroadcastReceiver;
+//import android.content.Context;
+//import android.content.Intent;
+//import android.graphics.Color;
+//import android.support.v4.app.NotificationCompat;
+//import android.support.v4.app.NotificationManagerCompat;
+//import android.util.Log;
+//
+//import java.util.Calendar;
+//
+//import static android.content.Context.ALARM_SERVICE;
+//
+//
+//public class SetNotificationFinal extends BroadcastReceiver {
+//    final String TAG = "TP-Smart";
+//    private NotificationManagerCompat notificacionManager;
+//
+//
+//    @Override
+//    public void onReceive(Context context, Intent intent) {
+//        notificacionManager = NotificationManagerCompat.from(context);
 //        sendOnChannel2(context);
-        Log.d("cases", "este es el 1");
-    }
+//        Log.d("cases", "este es el 1");
+//    }
 //    public  void sendOnChannel2(Context context1){
 //
 //        Intent intent = new Intent(context1, FinalQuestionnaire.class);
@@ -48,7 +48,7 @@ public class SetNotificationFinal extends BroadcastReceiver {
 //        notificacionManager.notify(2,notifiaction);
 //
 //    }
-
+//
 //    public static void setAlarmFinalQuestionnaire(Context context) {
 //
 //        Log.d("case","configuracion de notificacion final");
@@ -68,4 +68,4 @@ public class SetNotificationFinal extends BroadcastReceiver {
 //        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), midnightPI);
 //
 //    }
-}
+//}

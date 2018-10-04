@@ -28,9 +28,11 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static tito1.example.com.timeperception.Questionnaire.SendTheLogs;
 
 
 public class HomePage extends AppCompatActivity {
@@ -49,10 +51,6 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//
-//        Intent intent4 = new Intent(getApplicationContext(),ServiceFetchData.class);
-//        startService(intent4);
-
         SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
         //configuracion del idioma
@@ -68,19 +66,22 @@ public class HomePage extends AppCompatActivity {
             res.updateConfiguration(conf, dm);
         }
 
-/*----------------------------*/
-
-
-/*------------------------------------*/
         //variable que guarda si ya lleno el cuestionario o no.
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
         Log.d(TAG, "HomePage Se lleno el questionario: "+String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
-        if (firtlog.getBoolean("llenoCuestionario?", false) == true){
-            //Nose se hace nada Porque fun onResume se encarga.
-//            SetNotificationFinal.setAlarmFinalQuestionnaire(this);
-//            SetNotification.setAlarmPerseption(this);
-
+        if (firtlog.getBoolean("llenoCuestionario?", false)){
+            try {
+                SetNotification.setAlarmPerseption(this);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
+            SendTheLogs(getApplicationContext());
 
         }
         else{
@@ -88,23 +89,15 @@ public class HomePage extends AppCompatActivity {
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
 
-
-//          configuracion del las notificaciones
-//            Log.d(TAG,"PerseptionQuestion Llamando la noficacion");
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.set(Calendar.HOUR_OF_DAY,12);
-//            calendar.set(Calendar.MINUTE,30);
-//            calendar.set(Calendar.SECOND,0);
-//            AlarmManager am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-//            //create a pending intent to be called at midnight
-////            Intent intent = new Intent(getApplicationContext(),SetNotification.class);
-////            PendingIntent midnightPI =  PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-////            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),1000*60, midnightPI);
-//            SetNotificationFinal.setAlarmFinalQuestionnaire(this);
-//            SetNotification.setAlarmPerseption(this);
-
-
-
+            try {
+                SetNotification.setAlarmPerseption(this);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
     }
@@ -197,5 +190,13 @@ public class HomePage extends AppCompatActivity {
         return false;
     }
 
+//    public static void notifycationDay(Context context) throws IOException, InterruptedException, ExecutionException {
+//        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+//        Object question07 = R.id.question07;
+//        FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"notificacion");
+//        process.execute().get();
+//
+//
+//    }
 
 }

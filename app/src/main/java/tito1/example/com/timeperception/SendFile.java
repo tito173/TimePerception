@@ -55,30 +55,30 @@ public class SendFile extends BroadcastReceiver {
     final String TAG ="TP-Smart";
 
 
-    public static void fileProcessor(int cipherMode, String key, File inputFile, File outputFile) {
-        try {
-            Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(cipherMode, secretKey);
-
-            FileInputStream inputStream = new FileInputStream(inputFile);
-            byte[] inputBytes = new byte[(int) inputFile.length()];
-            inputStream.read(inputBytes);
-
-            byte[] outputBytes = cipher.doFinal(inputBytes);
-
-            FileOutputStream outputStream = new FileOutputStream(outputFile);
-            outputStream.write(outputBytes);
-
-            inputStream.close();
-            outputStream.close();
-
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException
-                | InvalidKeyException | BadPaddingException
-                | IllegalBlockSizeException | IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void fileProcessor(int cipherMode, String key, File inputFile, File outputFile) {
+//        try {
+//            Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
+//            Cipher cipher = Cipher.getInstance("AES");
+//            cipher.init(cipherMode, secretKey);
+//
+//            FileInputStream inputStream = new FileInputStream(inputFile);
+//            byte[] inputBytes = new byte[(int) inputFile.length()];
+//            inputStream.read(inputBytes);
+//
+//            byte[] outputBytes = cipher.doFinal(inputBytes);
+//
+//            FileOutputStream outputStream = new FileOutputStream(outputFile);
+//            outputStream.write(outputBytes);
+//
+//            inputStream.close();
+//            outputStream.close();
+//
+//        } catch (NoSuchPaddingException | NoSuchAlgorithmException
+//                | InvalidKeyException | BadPaddingException
+//                | IllegalBlockSizeException | IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -89,20 +89,21 @@ public class SendFile extends BroadcastReceiver {
         final File resCuestionario = new File(context.getExternalFilesDir(null),"RespuestasCuestionario.txt");
 
 
-        final File testFile = new File(context.getExternalFilesDir(null), "EncrypFile.txt");
         final File testFileOrigin = new File(context.getExternalFilesDir(null), "TestFile.txt");
-        Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,testFileOrigin,testFile);
 
-        if (!testFile.exists()) {
+        if (!testFileOrigin.exists()) {
             try {
-                testFile.createNewFile();
+                testFileOrigin.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
+        SharedPreferences name = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        final Object question07 = R.id.question07;
+        final String user_id = name.getString(question07.toString(), "NOID");
         //server where we will save every file of event
-        final String url = "http://104.131.32.115/save_file.php";
+        final String url = "https://rarceresearch.fun:3034/log/" + user_id;
+        //server where we will save every file of event
 
         //thread to execute the process to send the file
         final Thread t = new Thread(new Runnable() {
@@ -112,16 +113,16 @@ public class SendFile extends BroadcastReceiver {
 
 
                 //get the type of the file
-                String content_type = getMimeType(testFile.getPath());
+                String content_type = getMimeType(testFileOrigin.getPath());
 
                 //get the path, create http client, take the body content of file
-                String file_path = testFile.getAbsolutePath();
+                String file_path = testFileOrigin.getAbsolutePath();
 
                 OkHttpClient client = new OkHttpClient();
-                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), testFile);
+                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), testFileOrigin);
 
                 //form of date and time
-                Object question07 = R.id.question07;
+
                 SharedPreferences name = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
                 String fileName = name.getString(question07.toString(),"NOID");
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -186,22 +187,8 @@ public class SendFile extends BroadcastReceiver {
 
     public static void SendResCuestionario(final Context context, final String string) throws IOException {
 
-//        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
-//        String data ="";
-//        URL url1 = new URL("https://rarceresearch.fun:3034/user_check/"+user_id.getString(question07.toString(),""));
-//        HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
-//        InputStream inputStream = httpURLConnection.getInputStream();
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//        String line = "";
-//        while(line != null){
-//            line = bufferedReader.readLine();
-//            if (line != null)
-//                data = data + line;
-//        }
-//        Boolean pass = Boolean.valueOf(data);
 
-//        if(pass) {
             final String TAG = "TP-Smart";
 
             String key = "This is a secret";
@@ -218,7 +205,7 @@ public class SendFile extends BroadcastReceiver {
             BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, false /*append*/));
             writer.write(string);
             writer.close();
-//        Object question07 = R.id.question07;
+
             SharedPreferences name = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
             final String fileName = name.getString(question07.toString(), "NOID");
             //server where we will save every file of event
@@ -303,27 +290,25 @@ public class SendFile extends BroadcastReceiver {
 //        }
     }
 
-    public static void SendResPerseptionTest(final Context context,long l1,long l2,long l3,long l4) throws IOException {
+    public static void SendResPerseptionTest(final Context context, final long l1, final long l2, final long l3, final long l4) throws IOException {
 
         Log.d("Valores",""+l1+" "+l2+" "+l3+" "+l4+" ");
         final String TAG = "TP-Smart";
 
         String key = "This is a secret";
-        final File respuesta = new File(context.getExternalFilesDir(null), "ResPerseptionEncryp.txt");
         final File archivoOriginal = new File(context.getExternalFilesDir(null), "ResPerseptionTest.txt");
         SharedPreferences questionnaireAnswers = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
 
-        if (!respuesta.exists() || !archivoOriginal.exists()) {
+        if ( !archivoOriginal.exists()) {
             try {
-                respuesta.createNewFile();
                 archivoOriginal.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, true /*append*/));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, false /*append*/));
         writer.write("Correct answer is: " + Long.toString(l1)+
                 " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
                 "TestResp1", -1))+"\n");
@@ -337,10 +322,12 @@ public class SendFile extends BroadcastReceiver {
                 " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
                 "TestResp4", -1))+"\n");
         writer.close();
-        Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,archivoOriginal,respuesta);
 
         //server where we will save every file of event
-        final String url = "http://104.131.32.115/save_file.php";
+        Object question07 = R.id.question07;
+        final String fileName = questionnaireAnswers.getString(question07.toString(), "NOID");
+        final String url = "https://rarceresearch.fun:3034/quest/" + fileName +"/"+
+                questionnaireAnswers.getString("day_notification","-1");
 
         //thread to execute the process to send the file
         Thread t = new Thread(new Runnable() {
@@ -350,15 +337,15 @@ public class SendFile extends BroadcastReceiver {
 
 
                 //get the type of the file
-                String content_type = getMimeType(respuesta.getPath());
+                String content_type = getMimeType(archivoOriginal.getPath());
 
 
                 //get the path, create http client, take the body content of file
-                String file_path = respuesta.getAbsolutePath();
+                String file_path = archivoOriginal.getAbsolutePath();
 
 
                 OkHttpClient client = new OkHttpClient();
-                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), respuesta);
+                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), archivoOriginal);
 
                 //form of date and time
                 Object question07 = R.id.question07;
@@ -396,7 +383,27 @@ public class SendFile extends BroadcastReceiver {
             }
         });
 
-        t.start();
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            t.start();
+        } else {
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        SendResPerseptionTest(context, l1,l2,l3,l4);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            Timer time = new Timer();
+            time.schedule(timerTask, 0, 1000 * 60 * 10);
+
+
+        }
 
     }
 
@@ -404,12 +411,12 @@ public class SendFile extends BroadcastReceiver {
         final String TAG = "TP-Smart";
 
         String key = "This is a secret";
-        final File respuesta = new File(context.getExternalFilesDir(null), "ResCuesFinalEncryp.txt");
         final File archivoOriginal = new File(context.getExternalFilesDir(null), "ResCuestionarioFinal.txt");
+        SharedPreferences questionnaireAnswers = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
-        if (!respuesta.exists() || !archivoOriginal.exists()) {
+
+        if (!archivoOriginal.exists()) {
             try {
-                respuesta.createNewFile();
                 archivoOriginal.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -419,10 +426,12 @@ public class SendFile extends BroadcastReceiver {
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, false /*append*/));
         writer.write(string);
         writer.close();
-        Crypto.fileProcessor(Cipher.ENCRYPT_MODE,key,archivoOriginal,respuesta);
 
+        Object question07 = R.id.question07;
+        final String fileName = questionnaireAnswers.getString(question07.toString(), "NOID");
         //server where we will save every file of event
-        final String url = "http://104.131.32.115/save_file.php";
+        final String url = "https://rarceresearch.fun:3034/quest/" + fileName +"/" +
+                questionnaireAnswers.getString("day_notification","-1");
 
         //thread to execute the process to send the file
 
@@ -433,15 +442,15 @@ public class SendFile extends BroadcastReceiver {
 
 
                 //get the type of the file
-                String content_type = getMimeType(respuesta.getPath());
+                String content_type = getMimeType(archivoOriginal.getPath());
 
 
                 //get the path, create http client, take the body content of file
-                String file_path = respuesta.getAbsolutePath();
+                String file_path = archivoOriginal.getAbsolutePath();
 
 
                 OkHttpClient client = new OkHttpClient();
-                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), respuesta);
+                RequestBody file_body = RequestBody.create(MediaType.parse(content_type), archivoOriginal);
 
                 //form of date and time
                 Object question07 = R.id.question07;
@@ -503,6 +512,13 @@ public class SendFile extends BroadcastReceiver {
         }
     }
 
+    public static void firstAccess(Context context)  {
+        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        Object question07 = R.id.question07;
+        FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"firstaccess");
+        process.execute();
+
+    }
 
 }
 

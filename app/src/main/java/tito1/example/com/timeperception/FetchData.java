@@ -1,55 +1,33 @@
 package tito1.example.com.timeperception;
 
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javax.crypto.Cipher;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-public class FetchData extends AsyncTask<Void,Void,Void>  {
-    String data ="";
-    String dataParsed = "";
+public class FetchData extends AsyncTask<Void, Void, Void> {
+    String TAG = "FetchData";
+    static String data ="";
+    static String data1 ="";
+    static String dataParsed = "";
     String singleParsed ="";
     String user_id = "";
-    Boolean quest = false;
+    Boolean quest0 = false;
     Boolean checkId = false;
-    Boolean boolean1 = false;
+    Boolean noty = false;
+//    Boolean ques1_8 = false;
+    static Boolean boolean1;
+    static Boolean timeconection;
+    static JSONArray JA;
+
 
 
 
@@ -57,7 +35,11 @@ public class FetchData extends AsyncTask<Void,Void,Void>  {
         if(s == "checkID")
             checkId = true;
         else if(s == "firstaccess")
-            quest = true;
+            quest0 = true;
+        else if(s == "notificacion")
+            noty = true;
+//        else if(s == "questDay")
+//            ques1_8 = true;
         user_id = string;
 
     }
@@ -66,11 +48,24 @@ public class FetchData extends AsyncTask<Void,Void,Void>  {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        if (checkId){
+        if (checkId) {
             try {
+                data = "";
+                //Verificar si el usuraio esta registrado
+                Log.d(TAG + " CHECKID", "Verificando " + user_id);
+                //crear el link con metodo get
                 URL url = new URL("https://rarceresearch.fun:3034/user_check/" + user_id);
+                //establecer la coneccion
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                //varibale para determinar si occurio un timeout en la coneccion, indicando que hay problema con el servidor
+                timeconection = true;
+                //variable que idica la validez del usuario
+                boolean1 = false;
+                //seter el tiempo del timeout
+                httpURLConnection.setConnectTimeout(5000);
+                //optener la la respuesta
                 InputStream inputStream = httpURLConnection.getInputStream();
+                //procesar la respuesta
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 String line = "";
                 while (line != null) {
@@ -78,67 +73,70 @@ public class FetchData extends AsyncTask<Void,Void,Void>  {
                     if (line != null)
                         data = data + line;
                 }
-                Log.d("Prueba1", "response check: " + data);
+                Log.d(TAG + " CHECKID", "response check: " + data);
                 boolean1 = Boolean.valueOf(data);
-                Log.d("Prueba1", "BOOLean: " + boolean1);
-            }catch (MalformedURLException e) {
+                //varibale para determinar si occurio un timeout en la coneccion, si llego a este punto no occurio
+                timeconection = false;
+                checkId =false;
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();}
-        }else if(quest) {
+                e.printStackTrace();
+            }
+            //
+        } else if (quest0) {
             try {
-
+                data = "";
+                //Proceso similar al anterior, esta vez para insetar un usuario valido a la base de datos
                 URL url = new URL("https://rarceresearch.fun:3034/initial/" + user_id);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line = "";
-                while (line != null) {
-                    line = bufferedReader.readLine();
-                    if (line != null)
-                        data = data + line;
-                }
-                Log.d("Prueba1", "response initial: " + data);
-
-//            Log.d("String",data);
-
-//            JSONArray JA = new JSONArray(data);
-//            for(int i =0 ;i <JA.length(); i++){
-//                JSONObject JO = (JSONObject) JA.get(i);
-//                singleParsed =  "Name:" + JO.get("name") + "\n"+
-//                        "Password:" + JO.get("password") + "\n"+
-//                        "Contact:" + JO.get("contact") + "\n"+
-//                        "Country:" + JO.get("country") + "\n";
-//
-//                dataParsed = dataParsed + singleParsed +"\n" ;
-
-
-//            }
+                int inputStream = httpURLConnection.getResponseCode();
+                Log.d(TAG + "initial", "ResponseCode" + inputStream);
+                quest0 = false;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+
+            //Tarea para saber si se debe mostrar alguna notificacion al usuario.
+        } else if (noty) {
+            data = "";
+            //Se utiliza el mismo proceso que las demas
+            try {
+                Log.d(TAG + "Notficaciones", "Verificando el usuario " + user_id);
+                URL url = new URL("https://rarceresearch.fun:3034/status/" + user_id);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                timeconection = true;
+                httpURLConnection.setConnectTimeout(5000);
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = "";
+                while (line != null) {
+                    line = bufferedReader.readLine();
+                    if (line != null)
+                        data = data + line;
+                }
+                Log.d(TAG + "Notficaciones ", "data cruda: " + data);
+                timeconection = false;
+                noty = false;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+            }
         }
         return null;
     }
 
+
+
     @Override
     protected void onPostExecute(Void aVoid) {
-
-//        HomePage.data.setText(this.data);
-        Questionnaire.bool = boolean1;
-
-
-        /*Solo es una prueba*/
-
-
+        //Isentar codigo para una vez finalizado la tarea backgorud se realize esta.
 
     }
+
 
 
 }

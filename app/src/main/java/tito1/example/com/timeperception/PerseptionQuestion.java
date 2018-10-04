@@ -30,6 +30,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.Arrays.asList;
 
@@ -80,6 +81,11 @@ public class PerseptionQuestion extends AppCompatActivity {
         lista.add(R.drawable.estrella);
 
         prueba1(arr,lista);
+
+        TextView finalMessage = (TextView) findViewById(R.id.finalText);
+        finalMessage.setText(R.string.finalMessage);
+        finalMessage.setTextSize(30);
+
 
     }
 
@@ -376,10 +382,10 @@ public class PerseptionQuestion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences questionnaireAnswers = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
-                RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
-                int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
-                View radioButton = radioButtonGroup.findViewById(radioButtonId);
-                int indice = radioButtonGroup.indexOfChild(radioButton);
+                RadioGroup radioButtonGroup1 = findViewById(R.id.radioGroupvideo);
+                int radioButtonId = radioButtonGroup1.getCheckedRadioButtonId();
+                View radioButton = radioButtonGroup1.findViewById(radioButtonId);
+                int indice = radioButtonGroup1.indexOfChild(radioButton);
 
                 //Si no se selecciono una respuesta inicia la actividad, "Es provivionar a lo que se resuelve el error
                 //producidor por continuar sin seleccionar alguna opcion"
@@ -388,7 +394,9 @@ public class PerseptionQuestion extends AppCompatActivity {
                     return;
                 }
 
-
+                imageView.setVisibility(View.INVISIBLE);
+                save.setVisibility(View.INVISIBLE);
+                radioButtonGroup.setVisibility(View.INVISIBLE);
                 try {
                     questionnaireAnswers.edit().putInt("TestResp4", indice+1).apply();
 
@@ -401,8 +409,19 @@ public class PerseptionQuestion extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(getApplicationContext(),HomePage.class);
-                startActivity(intent);
+                SharedPreferences day = getApplicationContext().getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+                TextView finalMessage = (TextView) findViewById(R.id.finalText);
+                finalMessage.setText(R.string.finalMessage+" " + day.getString("day_notification",""));
+                finalMessage.setVisibility(View.VISIBLE);
+                finalMessage.setTextSize(30);
+
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                    finish();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
 
             }
 

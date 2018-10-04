@@ -105,5 +105,7 @@
     <string name="quesiton17">10. ¿Estarías interesado en participar en una entrevista a profundidad?</string>
     <string name="quesiton171">Sí</string>
 
+    <!--finalpage-->
+    <string name="finalMessage">Gracias por completar la prueba de persepción</string>
 
 </resources>

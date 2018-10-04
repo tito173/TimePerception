@@ -296,7 +296,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         }
 
         //si se completo el cuestionario enviarlo a una pagina de agradecimiento y finalizar la app
-        Intent intent = new Intent(getApplicationContext(), HomePage.class);
+        Intent intent = new Intent(getApplicationContext(), FinalPage.class);
         startActivity(intent);
         SendFile.senResFinalQues(getApplicationContext(), questionnaireAnswer());
     }
@@ -341,18 +341,18 @@ public class FinalQuestionnaire extends AppCompatActivity {
         value = a.getInt(numberQuestion.get(0),-1);
         respuesta = respuesta + "\nPregunta 3: "+ Integer.toString(value);
 
-        respuesta = respuesta + "\nPregunta 4.1: " + a.getBoolean(question08[0].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.2: " + a.getBoolean(question08[1].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.3: " + a.getBoolean(question08[2].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.4: " + a.getBoolean(question08[3].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.5: " + a.getBoolean(question08[4].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.6: " + a.getBoolean(question08[5].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.7: " + a.getBoolean(question08[6].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.8: " + a.getBoolean(question08[7].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.1: " + a.getBoolean(question10[0].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.2: " + a.getBoolean(question10[1].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.3: " + a.getBoolean(question10[2].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.4: " + a.getBoolean(question10[3].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.5: " + a.getBoolean(question10[4].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.6: " + a.getBoolean(question10[5].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.7: " + a.getBoolean(question10[6].toString(),false);
+        respuesta = respuesta + "\nPregunta 4.8: " + a.getBoolean(question10[7].toString(),false);
 
-        respuesta = respuesta + "\nPregunta 5.1: " + a.getBoolean(question08[0].toString(),false);
-        respuesta = respuesta + "\nPregunta 5.2: " + a.getBoolean(question08[1].toString(),false);
-        respuesta = respuesta + "\nPregunta 5.3: " + a.getBoolean(question08[2].toString(),false);
+        respuesta = respuesta + "\nPregunta 5.1: " + a.getBoolean(question11[0].toString(),false);
+        respuesta = respuesta + "\nPregunta 5.2: " + a.getBoolean(question11[1].toString(),false);
+        respuesta = respuesta + "\nPregunta 5.3: " + a.getBoolean(question11[2].toString(),false);
 
         respuesta = respuesta + "\nPregunta 6: " + a.getString(question12.toString(),"");
         respuesta = respuesta + "\nPregunta 7: " + a.getString(question13.toString(),"");

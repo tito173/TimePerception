@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 
 //Cuestionario inicial de la app
@@ -97,9 +99,16 @@ public class Questionnaire extends AppCompatActivity {
         EditText valueOfQuestion = findViewById(R.id.question02);
         valueOfQuestion.setText(questionnaireAnswers.getString(question02.toString(),""));
         Object question07 = R.id.question07;
-        EditText valueOfQuestion07 = findViewById(R.id.question07);
-        valueOfQuestion07.setText(questionnaireAnswers.getString(question07.toString(),""));
-
+        if(questionnaireAnswers.getBoolean("llenoCuestionario?", false)) {
+            EditText valueOfQuestion07 = findViewById(R.id.question07);
+            TextView textView7_0 = findViewById(R.id.quesiton7_0);
+            valueOfQuestion07.setVisibility(View.GONE);
+            textView7_0.setVisibility(View.GONE);
+        }
+        else {
+            EditText valueOfQuestion07 = findViewById(R.id.question07);
+            valueOfQuestion07.setText(questionnaireAnswers.getString(question07.toString(), ""));
+        }
     }
 
     @Override
@@ -111,7 +120,7 @@ public class Questionnaire extends AppCompatActivity {
     }
 
     //Validate and save the user answers
-    public  void SaveQuestionnaire(View view) throws IOException {
+    public  void SaveQuestionnaire(View view) throws IOException, InterruptedException, ExecutionException {
 
 
         EditText other = findViewById(R.id.question01Other);
@@ -218,24 +227,21 @@ public class Questionnaire extends AppCompatActivity {
             missquestion = missquestion + getString(R.string.Errorquesiton7)+"\n";
         } else {
             questionnaireAnswers.edit().putString(question07.toString(), valueOfQuestion07.getText().toString()).apply();
+            Log.d("ID1","Se guardo "+questionnaireAnswers.getString(question07.toString(), valueOfQuestion07.getText().toString()));
         }
 
         SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
-        //set that the firt log are made
-        firtlog.edit().putBoolean("llenoCuestionario?", true).apply();
 
-        //set the app was installed
-        if (firtlog.getBoolean("appInstaled", true)) {
-            firtlog.edit().putBoolean("appInstaled", false).apply();
-        } else {
-//            Log.d(TAG, "Questionnaire La app no se a instalado");
-        }
-//        Log.d("Prueba1", "Valor de bool"checkId(getApplicationContext()))
+
         if(!checkId(getApplicationContext())){
-            bool = false; 
+            if(FetchData.timeconection){
+                missOrNot = true;
+                missquestion = "En estos momentos hay problemas con el servidor. Contacte con el administrador";
+            }else{
             missOrNot = true;
-            missquestion += "\nUtilizar otro ID";
+            missquestion += "ID invalido";
+            }
         }
         //Si falta alguna contestacion reiniciar el cuestionario con las opciones previas
         if(missOrNot){
@@ -245,6 +251,8 @@ public class Questionnaire extends AppCompatActivity {
             return;
         }
 
+        //set that the firt log are made
+        firtlog.edit().putBoolean("llenoCuestionario?", true).apply();
         //al terminar el cuestionario comenzar la primera prueba de persepcion
         Intent intent = new Intent(getApplicationContext(), HomePage.class);
         startActivity(intent);
@@ -300,7 +308,7 @@ public class Questionnaire extends AppCompatActivity {
         String TAG = "TP-Smart";
 
         //create new calendar instance
-        Log.d(TAG,"Questionnaire Prepare el pendingintent");
+        Log.d(TAG,"Send the log func");
 
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
@@ -309,7 +317,7 @@ public class Questionnaire extends AppCompatActivity {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR, midnightPI);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000*5, midnightPI);
 //        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 //        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
     }
@@ -332,20 +340,24 @@ public class Questionnaire extends AppCompatActivity {
         return  false;
     }
 
-    public static void firstAccess(Context context) throws IOException {
+    public static void firstAccess(Context context)  {
         SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
-
         FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"firstaccess");
         process.execute();
 
     }
-    public static Boolean checkId(Context context) throws IOException {
+    public static Boolean checkId(Context context) throws IOException, InterruptedException, ExecutionException {
         SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
         FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"checkID");
-        process.execute();
-        return bool;
+        process.execute().get();
+//        TimeUnit.SECONDS.sleep(1);
+
+
+
+        return FetchData.boolean1;
+
 
 
     }
