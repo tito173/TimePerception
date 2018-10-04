@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -29,8 +31,17 @@ public class BootService extends BroadcastReceiver {
             Log.d(TAG, "Boot Complete");
             Intent intent1 = new Intent(context, Services.class);
             context.startService(intent1);
-//            Intent intent2 = new Intent(context,ServiceFetchData.class);
-//            context.startService(intent2);
+          try {
+                SetNotification.setAlarmPerseption(context);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
+            Questionnaire.SendTheLogs(context);
 
         }
 

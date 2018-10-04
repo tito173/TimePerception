@@ -71,17 +71,17 @@ public class HomePage extends AppCompatActivity {
 
         Log.d(TAG, "HomePage Se lleno el questionario: "+String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
         if (firtlog.getBoolean("llenoCuestionario?", false)){
-            try {
-                SetNotification.setAlarmPerseption(this);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
-            SendTheLogs(getApplicationContext());
+//            try {
+//                SetNotification.setAlarmPerseption(this);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
+//            SendTheLogs(getApplicationContext());
 
         }
         else{
