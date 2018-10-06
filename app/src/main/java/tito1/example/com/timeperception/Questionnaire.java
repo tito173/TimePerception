@@ -237,7 +237,7 @@ public class Questionnaire extends AppCompatActivity {
         if(!checkId(getApplicationContext())){
             if(FetchData.timeconection){
                 missOrNot = true;
-                missquestion = "En estos momentos hay problemas con el servidor. Contacte con el administrador";
+                missquestion = getString(R.string.serverProblem);
             }else{
             missOrNot = true;
             missquestion += "ID invalido";
@@ -317,7 +317,7 @@ public class Questionnaire extends AppCompatActivity {
         PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000*5, midnightPI);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR, midnightPI);
 //        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 //        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
     }
@@ -350,13 +350,16 @@ public class Questionnaire extends AppCompatActivity {
     public static Boolean checkId(Context context) throws IOException, InterruptedException, ExecutionException {
         SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
-        FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"checkID");
-        process.execute().get();
+        if(!user_id.getString(question07.toString(), "").equals("")){
+            FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"checkID");
+            process.execute().get();
+            return FetchData.boolean1;
+        }
 //        TimeUnit.SECONDS.sleep(1);
 
+        FetchData.timeconection = false;
 
-
-        return FetchData.boolean1;
+        return false;
 
 
 

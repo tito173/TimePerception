@@ -3,9 +3,12 @@ package tito1.example.com.timeperception;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +23,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Locale;
 
 
 public class FinalQuestionnaire extends AppCompatActivity {
@@ -34,6 +37,19 @@ public class FinalQuestionnaire extends AppCompatActivity {
         super.onResume();
         setContentView(R.layout.activity_final_questionnaire);
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+
+        SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+
+        Configuration conf = getResources().getConfiguration();
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        if(idioma.getString("idioma", "").equals("")){
+            conf.locale = new Locale("es");
+            res.updateConfiguration(conf, dm);
+        }else{
+            conf.locale = new Locale(idioma.getString("idioma",""));
+            res.updateConfiguration(conf, dm);
+        }
 
         TextView error  = findViewById(R.id.error1);
         String fillError = questionnaireAnswers.getString("error","");
@@ -236,7 +252,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             question2 = Integer.valueOf(valueOfQuestion.getText().toString());
         } catch (NumberFormatException e) {}
 
-        if (question2 <= 0) {
+        if (question2 < 0) {
             questionnaireAnswers.edit().putString(question12.toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + "pregunta 6"+ "\n";
@@ -251,10 +267,10 @@ public class FinalQuestionnaire extends AppCompatActivity {
             question2 = Integer.valueOf(valueOfQuestion.getText().toString());
         } catch (NumberFormatException e) {}
 
-        if (question2 <= 0) {
+        if (question2 < 0) {
             questionnaireAnswers.edit().putString(question13.toString(), "").apply();
             missOrNot = true;
-            missquestion = missquestion + "pregunta 2"+ "\n";
+            missquestion = missquestion + "pregunta 7"+ "\n";
         } else {
             questionnaireAnswers.edit().putString(question13.toString(), valueOfQuestion.getText().toString()).apply();
         }
@@ -265,7 +281,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             question2 = Integer.valueOf(valueOfQuestion.getText().toString());
         } catch (NumberFormatException e) {}
 
-        if (question2 <= 0) {
+        if (question2 < 0) {
             questionnaireAnswers.edit().putString(question14.toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + "pregunta 8"+ "\n";
@@ -279,7 +295,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             question2 = Integer.valueOf(valueOfQuestion.getText().toString());
         } catch (NumberFormatException e) {}
 
-        if (question2 <= 0) {
+        if (question2 < 0) {
             questionnaireAnswers.edit().putString(question15.toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + "pregunta 9"+ "\n";
@@ -299,7 +315,9 @@ public class FinalQuestionnaire extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), FinalPage.class);
         startActivity(intent);
         SendFile.senResFinalQues(getApplicationContext(), questionnaireAnswer());
+        finish();
     }
+
     public String questionnaireAnswer(){
 
         SharedPreferences a = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);

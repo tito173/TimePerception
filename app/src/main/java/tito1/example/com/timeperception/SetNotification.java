@@ -51,8 +51,7 @@ public class SetNotification extends BroadcastReceiver{
 
                 //Parsear el contenido del estado y demas componentes del json
                 estado = jsonObject.getString("status");
-                message += "Complete la prueba que corresponde" +
-                        "al dia "+jsonObject.getString("day");
+                message += "Presione para acceder a la prueba del día " +jsonObject.getString("day");
                 int dia = Integer.parseInt(jsonObject.getString("day"));
 
                 //si el estado es alert muestra la noficacion pertinente
@@ -88,7 +87,7 @@ public class SetNotification extends BroadcastReceiver{
 
         Notification notifiaction = new NotificationCompat.Builder(context1,App.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle("Prueba de Persepción de tiempo")
+                .setContentTitle("Prueba de Percepción de tiempo")
                 .setContentText(message)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -130,7 +129,7 @@ public class SetNotification extends BroadcastReceiver{
         Intent intent = new Intent(context,SetNotification.class);
         PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         assert am != null;
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),60000*5, midnightPI);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR, midnightPI);
 
     }
     public static void notifycationDay(Context context) throws IOException, InterruptedException, ExecutionException {

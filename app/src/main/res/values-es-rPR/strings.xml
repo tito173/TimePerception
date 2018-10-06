@@ -47,11 +47,12 @@
     <string name="Errorquesiton2">Pregunta 2: Entre una edad entre 18 y 70</string>
     <string name="Errorquesiton4">Por favor conteste la pregunta 4 </string>
     <string name="Errorquesiton7">Pregunta 7: Entre su ID de usuario asignado</string>
+    <string name="serverProblem">En estos momentos hay problemas con el servidor. Contacte con el administrador</string>
 
     <!--PRUEBA DE PERSEPCION-->
 
     <string name="startTest">Comenzar la prueba</string>
-    <string name="instriction">A Continuación se te presentará una imagen
+    <string name="instriction">A continuación se te presentará una imagen
         para que estimes el tiempo que dura la imagen en la pantalla.
         Para comenzar precione el boton "Comenzar la prueba"</string>
     <string name="instriction1">¿Cuanto duró?</string>
@@ -106,6 +107,7 @@
     <string name="quesiton171">Sí</string>
 
     <!--finalpage-->
-    <string name="finalMessage">Gracias por completar la prueba de persepción</string>
+    <string name="finalMessage">Gracias por completar la prueba de percepción para el día </string>
+    <string name="fintest">Final de la prueba, gracias por participar.</string>
 
 </resources>

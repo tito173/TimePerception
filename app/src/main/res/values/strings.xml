@@ -47,6 +47,7 @@
     <string name="hint2">Age</string>
     <string name="hint7">User ID</string>
     <string name="botonEnviar">Submit</string>
+    <string name="serverProblem">At the moment there are problems with the server. Contact the administrator</string>
 
 
     <!--PRUEBA DE PERSEPCION-->
@@ -105,7 +106,8 @@
     <string name="quesiton171">Yes</string>
 
     <!--finalpage-->
-    <string name="finalMessage">Thanks for complete the test.</string>
+    <string name="finalMessage">Thanks for complete the test for the day </string>
+    <string name="fintest">End of the test, thanks for participating.</string>
 
 
 </resources>

@@ -6,12 +6,16 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +30,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.Timer;
@@ -60,6 +65,18 @@ public class PerseptionQuestion extends AppCompatActivity {
 
         super.onResume();
         setContentView(R.layout.activity_perseption_question);
+        SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+
+        Configuration conf = getResources().getConfiguration();
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        if(idioma.getString("idioma", "").equals("")){
+            conf.locale = new Locale("es");
+            res.updateConfiguration(conf, dm);
+        }else{
+            conf.locale = new Locale(idioma.getString("idioma",""));
+            res.updateConfiguration(conf, dm);
+        }
 
         //configurar un orden aleatoreo para colocar las imagenes
         Set<Integer> set = new LinkedHashSet<>();
@@ -82,9 +99,9 @@ public class PerseptionQuestion extends AppCompatActivity {
 
         prueba1(arr,lista);
 
-        TextView finalMessage = (TextView) findViewById(R.id.finalText);
-        finalMessage.setText(R.string.finalMessage);
-        finalMessage.setTextSize(30);
+//        TextView finalMessage = (TextView) findViewById(R.id.finalText);
+//        finalMessage.setText(R.string.finalMessage);
+//        finalMessage.setTextSize(30);
 
 
     }
@@ -155,9 +172,30 @@ public class PerseptionQuestion extends AppCompatActivity {
                     return;
                 }
                 prueba2(arr,lista);
-
+                int res = 0;
                 try {
-                    questionnaireAnswers.edit().putInt("TestResp1", indice+1).apply();
+                    switch (indice){
+
+                        case 0:
+                            res = 400;
+                            break;
+                        case 1:
+                            res = 500;
+                            break;
+                        case 2:
+                            res = 1000;
+                            break;
+                        case 3:
+                            res = 2000;
+                            break;
+                        case 4:
+                            res = 5000;
+                            break;
+                        case 5:
+                            res = 6000;
+                            break;
+                    }
+                    questionnaireAnswers.edit().putInt("TestResp1", res).apply();
 
                 } catch (Exception e) {
                     Log.d(TAG, "PerseptionQuestion Error al saber la respues");
@@ -170,12 +208,13 @@ public class PerseptionQuestion extends AppCompatActivity {
     private void prueba2(final Integer[] arr, final ArrayList lista) {
 
 
-
+        setContentView(R.layout.activity_perseption_question);
 
         final TextView instruction = findViewById(R.id.instruction);
         final Button startPerseption = findViewById(R.id.startPerseption);
         final Button save = findViewById(R.id.save);
         final RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
+        radioButtonGroup.clearCheck();
         final ImageView imageView = findViewById(R.id.imagen);
         //configurar las opciones de duracion aleatorea de las imagenes
         final ArrayList<Long> durationOp = new ArrayList<Long>();
@@ -232,13 +271,34 @@ public class PerseptionQuestion extends AppCompatActivity {
                 //Si no se selecciono una respuesta inicia la actividad, "Es provivionar a lo que se resuelve el error
                 //producidor por continuar sin seleccionar alguna opcion"
                 if (indice == -1) {
-                    onRestart();
+                    prueba2(arr,lista);
                     return;
                 }
                 prueba3(arr,lista);
-
+                int res = 0;
                 try {
-                    questionnaireAnswers.edit().putInt("TestResp2", indice+1).apply();
+                    switch (indice){
+
+                        case 0:
+                            res = 400;
+                            break;
+                        case 1:
+                            res = 500;
+                            break;
+                        case 2:
+                            res = 1000;
+                            break;
+                        case 3:
+                            res = 2000;
+                            break;
+                        case 4:
+                            res = 5000;
+                            break;
+                        case 5:
+                            res = 6000;
+                            break;
+                    }
+                    questionnaireAnswers.edit().putInt("TestResp2", res).apply();
 
                 } catch (Exception e) {
                     Log.d(TAG, "PerseptionQuestion Error al saber la respues");
@@ -256,6 +316,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         final Button startPerseption = findViewById(R.id.startPerseption);
         final Button save = findViewById(R.id.save);
         final RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
+        radioButtonGroup.clearCheck();
         final ImageView imageView = findViewById(R.id.imagen);
         //configurar las opciones de duracion aleatorea de las imagenes
         final ArrayList<Long> durationOp = new ArrayList<Long>();
@@ -312,13 +373,34 @@ public class PerseptionQuestion extends AppCompatActivity {
                 //Si no se selecciono una respuesta inicia la actividad, "Es provivionar a lo que se resuelve el error
                 //producidor por continuar sin seleccionar alguna opcion"
                 if (indice == -1) {
-                    onRestart();
+                    prueba3(arr,lista);
                     return;
                 }
                 prueba4(arr,lista);
-
+                int res = 0;
                 try {
-                    questionnaireAnswers.edit().putInt("TestResp3", indice+1).apply();
+                    switch (indice){
+
+                        case 0:
+                            res = 400;
+                            break;
+                        case 1:
+                            res = 500;
+                            break;
+                        case 2:
+                            res = 1000;
+                            break;
+                        case 3:
+                            res = 2000;
+                            break;
+                        case 4:
+                            res = 5000;
+                            break;
+                        case 5:
+                            res = 6000;
+                            break;
+                    }
+                    questionnaireAnswers.edit().putInt("TestResp3", res).apply();
 
                 } catch (Exception e) {
                     Log.d(TAG, "PerseptionQuestion Error al saber la respues");
@@ -334,6 +416,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         final Button startPerseption = findViewById(R.id.startPerseption);
         final Button save = findViewById(R.id.save);
         final RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
+        radioButtonGroup.clearCheck();
         final ImageView imageView = findViewById(R.id.imagen);
         //configurar las opciones de duracion aleatorea de las imagenes
         final ArrayList<Long> durationOp = new ArrayList<Long>();
@@ -390,15 +473,37 @@ public class PerseptionQuestion extends AppCompatActivity {
                 //Si no se selecciono una respuesta inicia la actividad, "Es provivionar a lo que se resuelve el error
                 //producidor por continuar sin seleccionar alguna opcion"
                 if (indice == -1) {
-                    onRestart();
+                    prueba4(arr,lista);
                     return;
                 }
 
                 imageView.setVisibility(View.INVISIBLE);
                 save.setVisibility(View.INVISIBLE);
                 radioButtonGroup.setVisibility(View.INVISIBLE);
+                int res = 0;
                 try {
-                    questionnaireAnswers.edit().putInt("TestResp4", indice+1).apply();
+                    switch (indice){
+
+                        case 0:
+                            res = 400;
+                            break;
+                        case 1:
+                            res = 500;
+                            break;
+                        case 2:
+                            res = 1000;
+                            break;
+                        case 3:
+                            res = 2000;
+                            break;
+                        case 4:
+                            res = 5000;
+                            break;
+                        case 5:
+                            res = 6000;
+                            break;
+                    }
+                    questionnaireAnswers.edit().putInt("TestResp4", res).apply();
 
                 } catch (Exception e) {
                     Log.d(TAG, "PerseptionQuestion Error al saber la respues");
@@ -411,16 +516,11 @@ public class PerseptionQuestion extends AppCompatActivity {
                 }
                 SharedPreferences day = getApplicationContext().getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
                 TextView finalMessage = (TextView) findViewById(R.id.finalText);
-                finalMessage.setText(R.string.finalMessage+" " + day.getString("day_notification",""));
+                finalMessage.setText(getString(R.string.finalMessage)+ " " +day.getString("day_notification",""));
                 finalMessage.setVisibility(View.VISIBLE);
+                finalMessage.setTextColor(Color.parseColor("#000000"));
                 finalMessage.setTextSize(30);
 
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                    finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
 
             }

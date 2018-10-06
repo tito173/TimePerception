@@ -91,6 +91,7 @@ public class HomePage extends AppCompatActivity {
 
             try {
                 SetNotification.setAlarmPerseption(this);
+                Log.d("FetchData Notification","Notification home active");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {

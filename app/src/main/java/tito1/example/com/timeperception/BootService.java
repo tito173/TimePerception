@@ -7,10 +7,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -42,6 +46,8 @@ public class BootService extends BroadcastReceiver {
             }
             //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
             Questionnaire.SendTheLogs(context);
+
+
 
         }
 
