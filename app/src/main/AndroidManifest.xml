@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true" />
@@ -93,7 +92,6 @@
         <activity android:name=".Settings" />
         <activity android:name=".Questionnaire" />
         <activity android:name=".FinalQuestionnaire" />
-        <activity android:name=".Geolocalization" />
         <activity android:name=".PerseptionQuestion" />
         <activity android:name=".FinalPage"/>
     </application>

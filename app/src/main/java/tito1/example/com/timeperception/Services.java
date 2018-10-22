@@ -3,6 +3,8 @@ package tito1.example.com.timeperception;
 import android.Manifest;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -11,15 +13,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.TextView;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,11 +45,13 @@ public class Services extends AccessibilityService {
     private NotificationManager notificationManager;
     private static final int ID_NOTIFCATION = 45612;
 
-    //Variables para la geolocalizaicon
-    LocationManager locationManager;
-    String lattitude,longitude;
+
+    private LocationManager locationManager;
+    private LocationListener locationListener, locationListenerNetwork;
+    private long minTime = 0;
 
     //Know when the service start
+    @SuppressLint("MissingPermission")
     @Override
     public void onCreate() {
         Log.d(TAG, "Service Create");
@@ -52,12 +61,13 @@ public class Services extends AccessibilityService {
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(ID_NOTIFCATION);
 
+        //geolocalizacion
+
+
+
+
     }
 
-
-    //Know when the service stop
-    //Por el momento desactivada la funcion, hasta testear otras pastes
-    @Override
     public void onDestroy() {
 //        Log.d(TAG, "Service onDestroy ERROR");
 
@@ -153,80 +163,6 @@ public class Services extends AccessibilityService {
         Log.d(TAG, "Service Interrupt");
     }
 
-    public void Localization (){
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        assert locationManager != null;
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            getLocation();
-        }
-    }
-        private void getLocation() {
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                    (getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                    //ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
-
-            } else {
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-                Location location2 = locationManager.getLastKnownLocation(LocationManager. PASSIVE_PROVIDER);
-                Log.d(TAG,"else of location");
-                if (location != null) {
-                    double latti = location.getLatitude();
-                    double longi = location.getLongitude();
-                    lattitude = String.valueOf(latti);
-                    longitude = String.valueOf(longi);
-
-
-
-                } else  if (location1 != null) {
-                    double latti = location1.getLatitude();
-                    double longi = location1.getLongitude();
-                    lattitude = String.valueOf(latti);
-                    longitude = String.valueOf(longi);
-
-
-                } else  if (location2 != null) {
-                    double latti = location2.getLatitude();
-                    double longi = location2.getLongitude();
-                    lattitude = String.valueOf(latti);
-                    longitude = String.valueOf(longi);
-
-
-                }else{
-
-                    lattitude = "No-Coordinate";
-                    longitude = "No-Coordinate";
-
-                }
-            }
-        }
-
-    protected void buildAlertMessageNoGps() {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Please Turn ON your GPS Connection")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        startActivity(new Intent(Settings.LOCATION_SERVICE));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void eventCheck(AccessibilityEvent event) {
 
@@ -234,7 +170,6 @@ public class Services extends AccessibilityService {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("tito1.example.com.accessibilityservice", Context.MODE_PRIVATE);
         String eventText = "";
 
-        getLocation();
 //        event.getSource();
 //        AccessibilityNodeInfo source = getRootInActiveWindow();
 //
@@ -243,13 +178,100 @@ public class Services extends AccessibilityService {
 //            Log.d(TAG, eventText);
 //            saveEvent(eventText);
 //        }
+
         AccessibilityNodeInfo source01 =  getRootInActiveWindow();
         if (source01 != null) {
-            eventText = source01.getPackageName().toString() + " " + Long.toString(event.getEventTime()) + " " + Calendar.getInstance().getTime().toString();
-            Log.d(TAG, eventText);
+            eventText = source01.getPackageName().toString() + " " + Long.toString(event.getEventTime()) + " "
+                    + Calendar.getInstance().getTime().toString()+" "+ geolocalizacion();
+            Log.d("EVENTO", eventText);
+//            Log.d("EVENTO", geolocalizacion());
             saveEvent(eventText);
         }
 
+    }
+    @SuppressLint("MissingPermission")
+    public String geolocalizacion (){
+        String string = "";
+
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.d("Location", location.toString());
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.d("Location", provider.toString() + " is new the provider");
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.d("Location", provider.toString() + " is start");
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Log.d("Location", provider.toString() + " is stoped");
+
+            }
+        };
+
+        locationListenerNetwork = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.d("Location", location.toString());
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.d("Location", provider.toString() + " is new the provider");
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.d("Location", provider.toString() + " is start");
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Log.d("Location", provider.toString() + " is stoped");
+
+            }
+        };
+
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime, 0, locationListenerNetwork);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, 0, locationListener);
+
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime, 0, locationListenerNetwork);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, 0, locationListener);
+        Log.d("Location", "Else verification permition");
+
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        String lattitude = "";
+        String longitude = "";
+        if (location != null) {
+            Log.d("Location", "Localizacion de Network");
+            double latti = location.getLatitude();
+            double longi = location.getLongitude();
+            lattitude = String.valueOf(latti);
+            longitude = String.valueOf(longi);
+       } else
+        if (location1 != null) {
+            Log.d("Location", "Localizacion de GPS");
+            double latti = location1.getLatitude();
+            double longi = location1.getLongitude();
+            lattitude = String.valueOf(latti);
+            longitude = String.valueOf(longi);
+        }
+        string = lattitude + " " + longitude;
+
+        return string;
     }
 
     public void saveEvent(String string) {

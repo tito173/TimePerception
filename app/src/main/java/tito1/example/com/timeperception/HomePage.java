@@ -1,20 +1,29 @@
 package tito1.example.com.timeperception;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -44,12 +53,17 @@ public class HomePage extends AppCompatActivity {
 
     public  static TextView data;
 
+    private LocationManager locationManager;
+    private LocationListener locationListener, locationListenerNetwork;
+    private long minTime = 0;
 
     @SuppressLint({"WrongConstant", "SetTextI18n"})
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
 
@@ -103,9 +117,45 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//            if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+//                    == PackageManager.PERMISSION_GRANTED){
+//                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime, 0, locationListenerNetwork);
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, 0, locationListener);
+//
+//            }
+//        }
+//    }
+    @SuppressLint("MissingPermission")
     @Override
     protected void onResume() {
         setContentView(R.layout.activity_home_page);
+
+
+        //geolocalizacion
+        /********************************************************************************************/
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+            Log.d("Location", "IF verification permition");
+
+        }
+
+        /*****************************************************************************************/
+
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
 
         //saber si el servicio esta corriendo al volver entrar en la app
@@ -145,6 +195,8 @@ public class HomePage extends AppCompatActivity {
 
         super.onResume();
     }
+
+
 
     //metodo que verifica si algun servicio esta encendido
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -190,14 +242,5 @@ public class HomePage extends AppCompatActivity {
         }
         return false;
     }
-
-//    public static void notifycationDay(Context context) throws IOException, InterruptedException, ExecutionException {
-//        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
-//        Object question07 = R.id.question07;
-//        FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"notificacion");
-//        process.execute().get();
-//
-//
-//    }
 
 }
