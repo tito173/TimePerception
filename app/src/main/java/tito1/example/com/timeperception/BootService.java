@@ -35,15 +35,9 @@ public class BootService extends BroadcastReceiver {
             Log.d(TAG, "Boot Complete");
             Intent intent1 = new Intent(context, Services.class);
             context.startService(intent1);
-          try {
-                SetNotification.setAlarmPerseption(context);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Intent intentService = new Intent(context,MyServiceIsRunning.class);
+            context.startService(intentService);
+            SetNotification.setAlarmPerseption(context);
             //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
             Questionnaire.SendTheLogs(context);
 

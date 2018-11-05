@@ -25,7 +25,7 @@
     <string name="question31">High school or below</string>
     <string name="question32">Bachelor</string>
     <string name="question33">Master</string>
-    <string name="question34">Master</string>
+    <string name="question34">Doctorate</string>
     <string name="question35">Post-doctorate</string>
     <string name="question4">4.	Occupation (Check all that apply): </string>
     <string name="question41">Salaried employed</string>
@@ -99,6 +99,7 @@
     <string name="quesiton123">Evening</string>
     <string name="quesiton13">6. How many hours per day do you spend using Facebook on your cellphone?</string>
     <string name="quesiton131">Hour</string>
+    <string name="quesiton132">Minute</string>
     <string name="quesiton14">7. How many hours per day do you spend using Twitter on your cellphone?</string>
     <string name="quesiton15">8. How many hours per day do you spend using Instagram on your cellphone?</string>
     <string name="quesiton16">9. How many hours per day do you spend using Whatsapp on your cellphone?</string>

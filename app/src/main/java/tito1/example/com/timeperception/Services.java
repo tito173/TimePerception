@@ -48,7 +48,7 @@ public class Services extends AccessibilityService {
 
     private LocationManager locationManager;
     private LocationListener locationListener, locationListenerNetwork;
-    private long minTime = 0;
+    private long minTime = 60000;
 
     //Know when the service start
     @SuppressLint("MissingPermission")

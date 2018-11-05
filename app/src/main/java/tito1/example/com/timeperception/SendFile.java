@@ -13,6 +13,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -307,20 +309,39 @@ public class SendFile extends BroadcastReceiver {
                 e.printStackTrace();
             }
         }
+        //r = respuesta a contestacion de la pregunta
+        Long r1 = (long) questionnaireAnswers.getInt("TestResp1", -1);
+        Long r2 = (long) questionnaireAnswers.getInt("TestResp2", -1);
+        Long r3 = (long) questionnaireAnswers.getInt("TestResp3", -1);
+        Long r4 = (long) questionnaireAnswers.getInt("TestResp4", -1);
+
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(archivoOriginal, false /*append*/));
-        writer.write("Correct answer is: " + Long.toString(l1)+
-                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
-                "TestResp1", -1))+"\n");
-        writer.write("Correct answer is: " + Long.toString(l2)+
-                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
-                "TestResp2", -1))+"\n");
-        writer.write("Correct answer is: " + Long.toString(l3)+
-                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
-                "TestResp3", -1))+"\n");
-        writer.write("Correct answer is: " + Long.toString(l4)+
-                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
-                "TestResp4", -1))+"\n");
+//        writer.write("Correct answer is: " + Long.toString(l1)+
+//                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+//                "TestResp1", -1))+"\n");
+//        writer.write("Correct answer is: " + Long.toString(l2)+
+//                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+//                "TestResp2", -1))+"\n");
+//        writer.write("Correct answer is: " + Long.toString(l3)+
+//                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+//                "TestResp3", -1))+"\n");
+//        writer.write("Correct answer is: " + Long.toString(l4)+
+//                " the user select option: "+Integer.toString(questionnaireAnswers.getInt(
+//                "TestResp4", -1))+"\n");
+        String json = "{\"1\":["+l1+","+r1+"] ,\"2\":["+l2+","+r2+"] ,\"3\":["+l3+","+r3+"],\"4\":["+l4+","+r4+"]}";
+
+        try {
+
+            JSONObject obj = new JSONObject(json);
+
+            writer.write(obj.toString());
+
+        } catch (Throwable t) {
+            Log.e(TAG, "Could not parse malformed JSON: \"" + json + "\"");
+        }
+
+
         writer.close();
 
         //server where we will save every file of event

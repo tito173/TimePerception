@@ -9,21 +9,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.ALARM_SERVICE;
-import static android.content.Intent.getIntent;
 
 public class SetNotification extends BroadcastReceiver{
 
@@ -33,6 +29,7 @@ public class SetNotification extends BroadcastReceiver{
     String message ="";
 
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("SetNotificaion","SetNotification fun onReceive la noficacion");
@@ -69,15 +66,13 @@ public class SetNotification extends BroadcastReceiver{
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
     }
 
 
 
 
-    public  void sendOnChannel1(Context context1) throws JSONException {
+    public  void sendOnChannel1(Context context1) {
 
         Log.d("SetNotificaion","sendOnChannela");
 
@@ -85,7 +80,7 @@ public class SetNotification extends BroadcastReceiver{
         PendingIntent pendingIntent = PendingIntent.getActivity(context1,0,intent,0);
 
 
-        Notification notifiaction = new NotificationCompat.Builder(context1,App.CHANNEL_1_ID)
+        Notification notifiaction = new NotificationCompat.Builder(context1, ChannerlNotification.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_one)
                 .setContentTitle("Prueba de Percepción de tiempo")
                 .setContentText(message)
@@ -106,7 +101,7 @@ public class SetNotification extends BroadcastReceiver{
         Intent intent = new Intent(context1, FinalQuestionnaire.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context1,0,intent,0);
 
-        Notification notifiaction = new NotificationCompat.Builder(context1,App.CHANNEL_2_ID)
+        Notification notifiaction = new NotificationCompat.Builder(context1, ChannerlNotification.CHANNEL_2_ID)
                 .setSmallIcon(R.drawable.ic_one)
                 .setContentTitle("Final Questionnaire")
                 .setContentText("Pleas complete the following questionnaire.")
@@ -122,7 +117,7 @@ public class SetNotification extends BroadcastReceiver{
         notificacionManager.notify(2,notifiaction);
 
     }
-    public static void setAlarmPerseption(Context context) throws InterruptedException, ExecutionException, IOException {
+    public static void setAlarmPerseption(Context context) {
 
         Log.d("SetNotificaion","configuracion de notificacion");
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
@@ -132,7 +127,7 @@ public class SetNotification extends BroadcastReceiver{
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR, midnightPI);
 
     }
-    public static void notifycationDay(Context context) throws IOException, InterruptedException, ExecutionException {
+    public static void notifycationDay(Context context) throws InterruptedException, ExecutionException {
         SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
         FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"notificacion");

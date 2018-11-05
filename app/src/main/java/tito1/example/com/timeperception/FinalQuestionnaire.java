@@ -30,7 +30,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
 
     private final String TAG = "TP-Smart";
-    ArrayList<String> numberQuestion = new ArrayList<String>();
+    ArrayList<String> numberQuestion = new ArrayList<>();
 
     @Override
     protected void onResume() {
@@ -104,7 +104,10 @@ public class FinalQuestionnaire extends AppCompatActivity {
             box.setChecked(questionnaireAnswers.getBoolean(question11[i].toString(),false));
         }
 
-        Object[] question02 = {R.id.question12,R.id.question13,R.id.question14,R.id.question15};
+        Object[] question02 = {R.id.question12,R.id.question121,
+                R.id.question13,R.id.question131,
+                R.id.question14,R.id.question141,
+                R.id.question15,R.id.question151};
         for (int i = 0 ; i< question02.length; i++){
 
             EditText valueOfQuestion = findViewById((Integer) question02[i]);
@@ -163,10 +166,10 @@ public class FinalQuestionnaire extends AppCompatActivity {
         }
 
         //crear los objetos a guardar.
-        Object question12 = R.id.question12;
-        Object question13 = R.id.question13;
-        Object question14 = R.id.question14;
-        Object question15 = R.id.question15;
+        Object[] question12 = {R.id.question12,R.id.question121};
+        Object[] question13 = {R.id.question13,R.id.question131};
+        Object[] question14 = {R.id.question14,R.id.question141};
+        Object[] question15 = {R.id.question15,R.id.question151};
         Object[] question07 = {R.id.question7_1,R.id.question7_2,R.id.question7_3,R.id.question7_4,R.id.question7_5,R.id.question7_6,R.id.question7_7};
         Object[] question08 = {R.id.question8_1,R.id.question8_2,R.id.question8_3,R.id.question8_4,R.id.question8_5,R.id.question8_6,R.id.question8_7};
         Object[] question10 = {R.id.question10_1,R.id.question10_2,R.id.question10_3,R.id.question10_4,R.id.question10_5,R.id.question10_6,R.id.question10_7,R.id.question10_8};
@@ -246,61 +249,69 @@ public class FinalQuestionnaire extends AppCompatActivity {
         }
 
         /*--------------------------------------------pregunta 6----------------------------------------------------------------*/
-        Integer question2  = 0;
-        EditText valueOfQuestion = findViewById(R.id.question12);
-        try {
-            question2 = Integer.valueOf(valueOfQuestion.getText().toString());
-        } catch (NumberFormatException e) {}
+        String question2  = "z";
+        String question21  = "";
+        EditText valueOfQuestion0 = findViewById(R.id.question12);
+        EditText valueOfQuestion1 = findViewById(R.id.question121);
 
-        if (question2 < 0) {
-            questionnaireAnswers.edit().putString(question12.toString(), "").apply();
+        question2 = valueOfQuestion0.getText().toString();
+        question21 = valueOfQuestion1.getText().toString();
+
+        if (question2.matches("") || question21.matches("") ) {
+            questionnaireAnswers.edit().putString(question12[0].toString(), "").apply();
+            questionnaireAnswers.edit().putString(question12[1].toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + "pregunta 6"+ "\n";
         } else {
-            questionnaireAnswers.edit().putString(question12.toString(), valueOfQuestion.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question12[0].toString(), valueOfQuestion0.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question12[1].toString(), valueOfQuestion1.getText().toString()).apply();
         }
 
         /*--------------------------------------------pregunta 7----------------------------------------------------------------*/
-        question2  = 0;
-        valueOfQuestion = findViewById(R.id.question13);
-        try {
-            question2 = Integer.valueOf(valueOfQuestion.getText().toString());
-        } catch (NumberFormatException e) {}
+        valueOfQuestion0 = findViewById(R.id.question13);
+        valueOfQuestion1 = findViewById(R.id.question131);
+        question2 = valueOfQuestion0.getText().toString();
+        question21 = valueOfQuestion1.getText().toString();
 
-        if (question2 < 0) {
-            questionnaireAnswers.edit().putString(question13.toString(), "").apply();
+        if (question2.matches("") || question21.matches("")) {
+            questionnaireAnswers.edit().putString(question13[0].toString(), "").apply();
+            questionnaireAnswers.edit().putString(question13[1].toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + "pregunta 7"+ "\n";
         } else {
-            questionnaireAnswers.edit().putString(question13.toString(), valueOfQuestion.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question13[0].toString(), valueOfQuestion0.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question13[1].toString(), valueOfQuestion1.getText().toString()).apply();
         }
         /*--------------------------------------------pregunta 8----------------------------------------------------------------*/
-        question2  = 0;
-        valueOfQuestion = findViewById(R.id.question14);
-        try {
-            question2 = Integer.valueOf(valueOfQuestion.getText().toString());
-        } catch (NumberFormatException e) {}
+        valueOfQuestion0 = findViewById(R.id.question14);
+        valueOfQuestion1 = findViewById(R.id.question141);
+        question2 = valueOfQuestion0.getText().toString();
+        question21 = valueOfQuestion1.getText().toString();
 
-        if (question2 < 0) {
-            questionnaireAnswers.edit().putString(question14.toString(), "").apply();
+        if (question2.matches("") || question21.matches("")) {
+            questionnaireAnswers.edit().putString(question14[0].toString(), "").apply();
+            questionnaireAnswers.edit().putString(question14[1].toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + "pregunta 8"+ "\n";
         } else {
-            questionnaireAnswers.edit().putString(question14.toString(), valueOfQuestion.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question14[0].toString(), valueOfQuestion0.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question14[1].toString(), valueOfQuestion1.getText().toString()).apply();
         }
         /*--------------------------------------------pregunta 9----------------------------------------------------------------*/
-        question2  = 0;
-        valueOfQuestion = findViewById(R.id.question15);
-        try {
-            question2 = Integer.valueOf(valueOfQuestion.getText().toString());
-        } catch (NumberFormatException e) {}
 
-        if (question2 < 0) {
-            questionnaireAnswers.edit().putString(question15.toString(), "").apply();
+        valueOfQuestion0 = findViewById(R.id.question15);
+        valueOfQuestion1 = findViewById(R.id.question151);
+        question2 = valueOfQuestion0.getText().toString();
+        question21 = valueOfQuestion1.getText().toString();
+
+        if (question2.matches("") || question21.matches("")) {
+            questionnaireAnswers.edit().putString(question15[0].toString(), "").apply();
+            questionnaireAnswers.edit().putString(question15[1].toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + "pregunta 9"+ "\n";
         } else {
-            questionnaireAnswers.edit().putString(question15.toString(), valueOfQuestion.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question15[0].toString(), valueOfQuestion0.getText().toString()).apply();
+            questionnaireAnswers.edit().putString(question15[1].toString(), valueOfQuestion1.getText().toString()).apply();
         }
 
         //si hay algun error vuelve a presentar el cuestionario
@@ -327,59 +338,104 @@ public class FinalQuestionnaire extends AppCompatActivity {
         questions.add(R.id.radioGroup09);
         questions.add(R.id.radioGroup16);
         //set numberQuestion
-        Object question12 = R.id.question12;
-        Object question13 = R.id.question13;
-        Object question14 = R.id.question14;
-        Object question15 = R.id.question15;
+        Object[] question12 = {R.id.question12,R.id.question121};
+        Object[] question13 = {R.id.question13,R.id.question131};
+        Object[] question14 = {R.id.question14,R.id.question141};
+        Object[] question15 = {R.id.question15,R.id.question151};
         Object[] question07 = {R.id.question7_1,R.id.question7_2,R.id.question7_3,R.id.question7_4,R.id.question7_5,R.id.question7_6,R.id.question7_7};
         Object[] question08 = {R.id.question8_1,R.id.question8_2,R.id.question8_3,R.id.question8_4,R.id.question8_5,R.id.question8_6,R.id.question8_7};
         Object[] question10 = {R.id.question10_1,R.id.question10_2,R.id.question10_3,R.id.question10_4,R.id.question10_5,R.id.question10_6,R.id.question10_7,R.id.question10_8};
         Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
 
+        ArrayList listRadioGroup = new ArrayList();
+        for (int i = 0 ; i < questions.size() ; i++){
+            RadioGroup radioG1 = findViewById((Integer) questions.get(i));
+            RadioButton radioB1 = (RadioButton) radioG1.getChildAt(a.getInt(numberQuestion.get(i),-1));
+            listRadioGroup.add(radioB1.getText());
+        }
+
+        String json = "{\"1\":["+a.getBoolean(question07[0].toString(),false)+","+
+                a.getBoolean(question07[1].toString(),false)+","+
+                a.getBoolean(question07[2].toString(),false)+","+
+                a.getBoolean(question07[3].toString(),false)+","+
+                a.getBoolean(question07[4].toString(),false)+","+
+                a.getBoolean(question07[5].toString(),false)+","+
+                a.getBoolean(question07[6].toString(),false)+"],"+
+                "\"2\":["+a.getBoolean(question07[0].toString(),false)+","+
+                a.getBoolean(question08[1].toString(),false)+","+
+                a.getBoolean(question08[2].toString(),false)+","+
+                a.getBoolean(question08[3].toString(),false)+","+
+                a.getBoolean(question08[4].toString(),false)+","+
+                a.getBoolean(question08[5].toString(),false)+","+
+                a.getBoolean(question08[6].toString(),false)+"],"+
+                "\"3\":\""+listRadioGroup.get(0)+"\", " +
+                "\"4\":["+a.getBoolean(question07[0].toString(),false)+","+
+                a.getBoolean(question10[1].toString(),false)+","+
+                a.getBoolean(question10[2].toString(),false)+","+
+                a.getBoolean(question10[3].toString(),false)+","+
+                a.getBoolean(question10[4].toString(),false)+","+
+                a.getBoolean(question10[5].toString(),false)+","+
+                a.getBoolean(question10[6].toString(),false)+","+
+                a.getBoolean(question10[7].toString(),false)+"],"+
+                "\"5\":["+a.getBoolean(question11[0].toString(),false)+","+
+                a.getBoolean(question11[1].toString(),false)+","+
+                a.getBoolean(question11[2].toString(),false)+"],"+
+                "\"6\":["+a.getString(question12[0].toString(),"")+","+
+                a.getString(question12[1].toString(),"")+"],"+
+                "\"7\":["+a.getString(question13[0].toString(),"")+","+
+                a.getString(question13[1].toString(),"")+"],"+
+                "\"8\":["+a.getString(question14[0].toString(),"")+","+
+                a.getString(question14[1].toString(),"")+"],"+
+                "\"9\":["+a.getString(question15[0].toString(),"")+","+
+                a.getString(question15[1].toString(),"")+"],"+
+                "\"10\":\""+listRadioGroup.get(1)+"\"}";
+
+
 
         //Respuestas
-        int value = 0;
-
-        respuesta = respuesta + "\nPregunta 1.1: " + a.getBoolean(question07[0].toString(),false);
-        respuesta = respuesta + "\nPregunta 1.2: " + a.getBoolean(question07[1].toString(),false);
-        respuesta = respuesta + "\nPregunta 1.3: " + a.getBoolean(question07[2].toString(),false);
-        respuesta = respuesta + "\nPregunta 1.4: " + a.getBoolean(question07[3].toString(),false);
-        respuesta = respuesta + "\nPregunta 1.5: " + a.getBoolean(question07[4].toString(),false);
-        respuesta = respuesta + "\nPregunta 1.6: " + a.getBoolean(question07[5].toString(),false);
-        respuesta = respuesta + "\nPregunta 1.7: " + a.getBoolean(question07[6].toString(),false);
-
-        respuesta = respuesta + "\nPregunta 2.1: " + a.getBoolean(question08[0].toString(),false);
-        respuesta = respuesta + "\nPregunta 2.2: " + a.getBoolean(question08[1].toString(),false);
-        respuesta = respuesta + "\nPregunta 2.3: " + a.getBoolean(question08[2].toString(),false);
-        respuesta = respuesta + "\nPregunta 2.4: " + a.getBoolean(question08[3].toString(),false);
-        respuesta = respuesta + "\nPregunta 2.5: " + a.getBoolean(question08[4].toString(),false);
-        respuesta = respuesta + "\nPregunta 2.6: " + a.getBoolean(question08[5].toString(),false);
-        respuesta = respuesta + "\nPregunta 2.7: " + a.getBoolean(question08[6].toString(),false);
-
-        value = a.getInt(numberQuestion.get(0),-1);
-        respuesta = respuesta + "\nPregunta 3: "+ Integer.toString(value);
-
-        respuesta = respuesta + "\nPregunta 4.1: " + a.getBoolean(question10[0].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.2: " + a.getBoolean(question10[1].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.3: " + a.getBoolean(question10[2].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.4: " + a.getBoolean(question10[3].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.5: " + a.getBoolean(question10[4].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.6: " + a.getBoolean(question10[5].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.7: " + a.getBoolean(question10[6].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.8: " + a.getBoolean(question10[7].toString(),false);
-
-        respuesta = respuesta + "\nPregunta 5.1: " + a.getBoolean(question11[0].toString(),false);
-        respuesta = respuesta + "\nPregunta 5.2: " + a.getBoolean(question11[1].toString(),false);
-        respuesta = respuesta + "\nPregunta 5.3: " + a.getBoolean(question11[2].toString(),false);
-
-        respuesta = respuesta + "\nPregunta 6: " + a.getString(question12.toString(),"");
-        respuesta = respuesta + "\nPregunta 7: " + a.getString(question13.toString(),"");
-        respuesta = respuesta + "\nPregunta 8: " + a.getString(question14.toString(),"");
-        respuesta = respuesta + "\nPregunta 9: " + a.getString(question15.toString(),"");
-
-        value = a.getInt(numberQuestion.get(1),-1);
-        respuesta = respuesta + "\nPregunta 10: "+ Integer.toString(value);
-        return respuesta;
+//        int value = 0;
+//
+//        respuesta = respuesta + "Pregunta 1.1: " + a.getBoolean(question07[0].toString(),false);
+//        respuesta = respuesta + "\nPregunta 1.2: " + a.getBoolean(question07[1].toString(),false);
+//        respuesta = respuesta + "\nPregunta 1.3: " + a.getBoolean(question07[2].toString(),false);
+//        respuesta = respuesta + "\nPregunta 1.4: " + a.getBoolean(question07[3].toString(),false);
+//        respuesta = respuesta + "\nPregunta 1.5: " + a.getBoolean(question07[4].toString(),false);
+//        respuesta = respuesta + "\nPregunta 1.6: " + a.getBoolean(question07[5].toString(),false);
+//        respuesta = respuesta + "\nPregunta 1.7: " + a.getBoolean(question07[6].toString(),false);
+//
+//        respuesta = respuesta + "\nPregunta 2.1: " + a.getBoolean(question08[0].toString(),false);
+//        respuesta = respuesta + "\nPregunta 2.2: " + a.getBoolean(question08[1].toString(),false);
+//        respuesta = respuesta + "\nPregunta 2.3: " + a.getBoolean(question08[2].toString(),false);
+//        respuesta = respuesta + "\nPregunta 2.4: " + a.getBoolean(question08[3].toString(),false);
+//        respuesta = respuesta + "\nPregunta 2.5: " + a.getBoolean(question08[4].toString(),false);
+//        respuesta = respuesta + "\nPregunta 2.6: " + a.getBoolean(question08[5].toString(),false);
+//        respuesta = respuesta + "\nPregunta 2.7: " + a.getBoolean(question08[6].toString(),false);
+//
+//        value = a.getInt(numberQuestion.get(0),-1);
+//        respuesta = respuesta + "\nPregunta 3: "+ Integer.toString(value);
+//
+//        respuesta = respuesta + "\nPregunta 4.1: " + a.getBoolean(question10[0].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.2: " + a.getBoolean(question10[1].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.3: " + a.getBoolean(question10[2].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.4: " + a.getBoolean(question10[3].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.5: " + a.getBoolean(question10[4].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.6: " + a.getBoolean(question10[5].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.7: " + a.getBoolean(question10[6].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.8: " + a.getBoolean(question10[7].toString(),false);
+//
+//        respuesta = respuesta + "\nPregunta 5.1: " + a.getBoolean(question11[0].toString(),false);
+//        respuesta = respuesta + "\nPregunta 5.2: " + a.getBoolean(question11[1].toString(),false);
+//        respuesta = respuesta + "\nPregunta 5.3: " + a.getBoolean(question11[2].toString(),false);
+//
+//        respuesta = respuesta + "\nPregunta 6: " + a.getString(question12.toString(),"");
+//        respuesta = respuesta + "\nPregunta 7: " + a.getString(question13.toString(),"");
+//        respuesta = respuesta + "\nPregunta 8: " + a.getString(question14.toString(),"");
+//        respuesta = respuesta + "\nPregunta 9: " + a.getString(question15.toString(),"");
+//
+//        value = a.getInt(numberQuestion.get(1),-1);
+//        respuesta = respuesta + "\nPregunta 10: "+ Integer.toString(value);
+//        Log.d(TAG, json.toString());
+        return json;
     }
 
     @Override

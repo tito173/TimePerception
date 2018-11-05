@@ -6,7 +6,7 @@ import android.app.NotificationManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-public class App extends Application {
+public class ChannerlNotification extends Application {
 
     public static final String CHANNEL_1_ID = "Channel1";
     public static final String CHANNEL_2_ID = "Channel2";

@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +33,7 @@ public class Questionnaire extends AppCompatActivity {
     final String TAG = "TP-Smart";
     ArrayList<String> numberQuestion = new ArrayList<String>();
     static Boolean bool = false;
+    ArrayList questions;
 
     @Override
     protected void onResume() {
@@ -78,7 +80,7 @@ public class Questionnaire extends AppCompatActivity {
                 if (i==0 && value==3){
                     other.setText(questionnaireAnswers.getString("other",""));
                 }
-                else if (i==0 && value != 3){
+                else if (i == 0){
                     other.setText("");
                 }
             }
@@ -125,7 +127,7 @@ public class Questionnaire extends AppCompatActivity {
 
         EditText other = findViewById(R.id.question01Other);
         //create a list to contain the questions
-        ArrayList questions = new ArrayList();
+        questions = new ArrayList();
 
         //save every option from radiogroup
         SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
@@ -267,7 +269,12 @@ public class Questionnaire extends AppCompatActivity {
     public String questionnaireAnswer(){
 
         SharedPreferences a = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
-        String respuesta = "";
+        ArrayList listRadioGroup = new ArrayList();
+        for (int i = 0 ; i < questions.size() ; i++){
+            RadioGroup radioG1 = findViewById((Integer) questions.get(i));
+            RadioButton radioB1 = (RadioButton) radioG1.getChildAt(a.getInt(numberQuestion.get(i),-1));
+            listRadioGroup.add(radioB1.getText());
+        }
 
         //set numberQuestion
         numberQuestion.add("pregunta 1");
@@ -278,29 +285,45 @@ public class Questionnaire extends AppCompatActivity {
         numberQuestion.add("pregunta 6");
         Object question07 = R.id.question07;
 
-        //Respuestas
-        int value = a.getInt(numberQuestion.get(0),-1);
-        respuesta = respuesta + "Pregunta 1: "+ Integer.toString(value);
+        String json = "{\"1\":\""+listRadioGroup.get(0)+"\", " +
+                "\"2\":\""+a.getString(question02.toString(),"")+"\","+
+                "\"3\":\""+listRadioGroup.get(1)+"\", " +
+                "\"4\":["+a.getBoolean(question04[0].toString(),false)+","+
+                a.getBoolean(question04[1].toString(),false)+","+
+                a.getBoolean(question04[2].toString(),false)+","+
+                a.getBoolean(question04[3].toString(),false)+"],"+
+                "\"5\":\""+listRadioGroup.get(2)+"\", " +
+                "\"6\":\""+listRadioGroup.get(3)+"\", " +
+                "\"7\":\""+a.getString(question07.toString(),"")+"\"}";
 
-        respuesta = respuesta + "\nPregunta 2: " + a.getString(question02.toString(),"");
 
-        value = a.getInt(numberQuestion.get(1),-1);
-        respuesta = respuesta + "\nPregunta 3: "+ Integer.toString(value);
+//        String respuesta = "";
+//
+//
+//
+//        //Respuestas
+//        int value = a.getInt(numberQuestion.get(0),-1);
+//        respuesta = respuesta + "Pregunta 1: "+ Integer.toString(value);
+//
+//        respuesta = respuesta + "\nPregunta 2: " + a.getString(question02.toString(),"");
+//
+//        value = a.getInt(numberQuestion.get(1),-1);
+//        respuesta = respuesta + "\nPregunta 3: "+ Integer.toString(value);
+//
+//        respuesta = respuesta + "\nPregunta 4.1: " + a.getBoolean(question04[0].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.2: " + a.getBoolean(question04[1].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.3: " + a.getBoolean(question04[2].toString(),false);
+//        respuesta = respuesta + "\nPregunta 4.4: " + a.getBoolean(question04[3].toString(),false);
+//
+//        value = a.getInt(numberQuestion.get(2),-1);
+//        respuesta = respuesta + "\nPregunta 5: "+ Integer.toString(value);
+//
+//        value = a.getInt(numberQuestion.get(3),-1);
+//        respuesta = respuesta + "\nPregunta 6: "+ Integer.toString(value);
+//
+//        respuesta = respuesta + "\nPregunta 7: " + a.getString(question07.toString(),"");
 
-        respuesta = respuesta + "\nPregunta 4.1: " + a.getBoolean(question04[0].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.2: " + a.getBoolean(question04[1].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.3: " + a.getBoolean(question04[2].toString(),false);
-        respuesta = respuesta + "\nPregunta 4.4: " + a.getBoolean(question04[3].toString(),false);
-
-        value = a.getInt(numberQuestion.get(2),-1);
-        respuesta = respuesta + "\nPregunta 5: "+ Integer.toString(value);
-
-        value = a.getInt(numberQuestion.get(3),-1);
-        respuesta = respuesta + "\nPregunta 6: "+ Integer.toString(value);
-
-        respuesta = respuesta + "\nPregunta 7: " + a.getString(question07.toString(),"");
-
-        return respuesta;
+        return json;
     }
 
     //funcion que repite el envio de los logs recopilados

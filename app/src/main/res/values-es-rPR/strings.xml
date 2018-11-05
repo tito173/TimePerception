@@ -8,7 +8,7 @@
         TP-Smart para comenzar a monitorizar el uso de las redes sociales.</string>
     <string name="butonActivar">Activar Servicio</string>
     <string name="userID">Id de usuario: </string>
-    <string name="ultimoEnvio">Ultimo envio: </string>
+    <string name="ultimoEnvio">Último envio: </string>
 
     <!--CONFIGURACINES-->
     <string name="change_lenguage">Cambiar el lenguaje</string>
@@ -74,9 +74,9 @@
     <string name="question86">Sala de espera (Oficina médica, agencia gubernamental)</string>
     <string name="question87">Otro</string>
     <string name="question9">2. ¿Cuándo utilizas el teléfono celular generalmente? (Marca todas las que apliquen)</string>
-    <string name="question91">Mientas espero</string>
-    <string name="question92">Mientas como</string>
-    <string name="question93">Mientas comparto con amistades o familiares</string>
+    <string name="question91">Mientras espero</string>
+    <string name="question92">Mientras como</string>
+    <string name="question93">Mientras comparto con amistades o familiares</string>
     <string name="question94">Mientras estudio</string>
     <string name="question95">Mientras conduzco</string>
     <string name="question96">Mientras veo televisión</string>
@@ -100,6 +100,7 @@
     <string name="quesiton123">Noche</string>
     <string name="quesiton13">6. ¿Cuántas horas al día utilizas Facebook en tu teléfono celular? </string>
     <string name="quesiton131">Horas</string>
+    <string name="quesiton132">Minutos</string>
     <string name="quesiton14">7. ¿Cuántas horas al día utilizas Twitter en tu teléfono celular? </string>
     <string name="quesiton15">8. ¿Cuántas horas al día utilizas Instagram en tu teléfono celular? </string>
     <string name="quesiton16">9. ¿Cuántas horas al día utilizas Whatsapp en tu teléfono celular?</string>

@@ -1,9 +1,8 @@
-<ScrollView xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:id="@+id/scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10sp"
     android:orientation="vertical"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
@@ -11,7 +10,7 @@
     <LinearLayout
         android:id="@+id/initialLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:focusable="false"
         android:focusableInTouchMode="false" >
@@ -32,7 +31,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton7-0"
                 android:text="@string/question8"/>
             <CheckBox
@@ -83,7 +82,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton8-0"
                 android:text="@string/question9"/>
             <CheckBox
@@ -133,7 +132,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton9-0"
                 android:text="@string/quesiton10"/>
             <RadioButton
@@ -162,7 +161,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton10-0"
                 android:text="@string/quesiton11"/>
             <CheckBox
@@ -217,7 +216,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:text="@string/quesiton12"/>
             <CheckBox
                 android:id="@+id/question11-1"
@@ -244,7 +243,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton12-0"
                 android:text="@string/quesiton13"/>
             <EditText
@@ -252,7 +251,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/quesiton131"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="30sp"
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/question121"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/quesiton132"
+                android:layout_marginLeft="30sp"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -265,7 +271,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton13-0"
                 android:text="@string/quesiton14"/>
             <EditText
@@ -273,7 +279,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/quesiton131"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="30sp"
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/question131"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/quesiton132"
+                android:layout_marginLeft="30sp"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -286,7 +299,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton14-0"
                 android:text="@string/quesiton15"/>
             <EditText
@@ -294,9 +307,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/quesiton131"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="30sp"
                 android:inputType="number" />
-
+            <EditText
+                android:id="@+id/question141"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/quesiton132"
+                android:layout_marginLeft="30sp"
+                android:inputType="number" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/radioGroup15"
@@ -307,7 +326,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton15-0"
                 android:text="@string/quesiton16"/>
             <EditText
@@ -315,7 +334,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/quesiton131"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="30sp"
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/question151"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/quesiton132"
+                android:layout_marginLeft="30sp"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -328,7 +354,7 @@
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/quesiton16-0"
                 android:text="@string/quesiton17"/>
             <RadioButton

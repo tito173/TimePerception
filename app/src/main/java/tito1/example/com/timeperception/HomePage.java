@@ -48,6 +48,8 @@ public class HomePage extends AppCompatActivity {
 
 
     final String TAG = "TP-Smart";
+    private MyServiceIsRunning myServiceIsRunning;
+
 //    private Button boton;
 //    private NotificationManagerCompat notificacionManager;
 
@@ -85,6 +87,8 @@ public class HomePage extends AppCompatActivity {
 
         Log.d(TAG, "HomePage Se lleno el questionario: "+String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
         if (firtlog.getBoolean("llenoCuestionario?", false)){
+            Intent intentService = new Intent(getApplicationContext(),MyServiceIsRunning.class);
+            startService(intentService);
 //            try {
 //                SetNotification.setAlarmPerseption(this);
 //            } catch (InterruptedException e) {
@@ -94,7 +98,7 @@ public class HomePage extends AppCompatActivity {
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-//            //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
+////            //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
 //            SendTheLogs(getApplicationContext());
 
         }
@@ -103,16 +107,8 @@ public class HomePage extends AppCompatActivity {
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
             startActivity(intent1);
 
-            try {
-                SetNotification.setAlarmPerseption(this);
-                Log.d("FetchData Notification","Notification home active");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            SetNotification.setAlarmPerseption(this);
+            Log.d("FetchData Notification","Notification home active");
 
         }
     }
@@ -176,6 +172,7 @@ public class HomePage extends AppCompatActivity {
         if(isMyServiceRunning(Services.class)){
             active.setVisibility(View.GONE);
             goActiveService.setVisibility(View.GONE);
+
 
         }else{
             active.setVisibility(VISIBLE);
