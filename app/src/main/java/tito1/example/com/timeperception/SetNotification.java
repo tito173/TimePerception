@@ -77,6 +77,7 @@ public class SetNotification extends BroadcastReceiver{
         Log.d("SetNotificaion","sendOnChannela");
 
         Intent intent = new Intent(context1, PerseptionQuestion.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context1,0,intent,0);
 
 
@@ -99,6 +100,7 @@ public class SetNotification extends BroadcastReceiver{
     public  void sendOnChannel2(Context context1){
 
         Intent intent = new Intent(context1, FinalQuestionnaire.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context1,0,intent,0);
 
         Notification notifiaction = new NotificationCompat.Builder(context1, ChannerlNotification.CHANNEL_2_ID)

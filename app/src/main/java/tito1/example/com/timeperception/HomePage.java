@@ -90,7 +90,7 @@ public class HomePage extends AppCompatActivity {
             Intent intentService = new Intent(getApplicationContext(),MyServiceIsRunning.class);
             startService(intentService);
 //            try {
-//                SetNotification.setAlarmPerseption(this);
+                SetNotification.setAlarmPerseption(this);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            } catch (ExecutionException e) {
@@ -105,6 +105,7 @@ public class HomePage extends AppCompatActivity {
         else{
             //enviar a la pagina del cuestionario
             Intent intent1 = new Intent(getApplicationContext(),Questionnaire.class);
+            intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent1);
 
             SetNotification.setAlarmPerseption(this);

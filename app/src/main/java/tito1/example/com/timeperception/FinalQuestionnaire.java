@@ -324,9 +324,11 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
         //si se completo el cuestionario enviarlo a una pagina de agradecimiento y finalizar la app
         Intent intent = new Intent(getApplicationContext(), FinalPage.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         SendFile.senResFinalQues(getApplicationContext(), questionnaireAnswer());
-        finish();
+        this.finish();
+
     }
 
     public String questionnaireAnswer(){

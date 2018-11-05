@@ -81,10 +81,14 @@
         </receiver>
 
         <activity android:name=".Settings" />
-        <activity android:name=".Questionnaire" />
-        <activity android:name=".FinalQuestionnaire" />
-        <activity android:name=".PerseptionQuestion" />
-        <activity android:name=".FinalPage" />
+        <activity android:name=".Questionnaire"
+            android:excludeFromRecents="true"/>
+        <activity android:name=".FinalQuestionnaire"
+            android:excludeFromRecents="true"/>
+        <activity android:name=".PerseptionQuestion"
+            android:excludeFromRecents="true"/>
+        <activity android:name=".FinalPage"
+            android:excludeFromRecents="true"/>
 
         <service
             android:name=".MyServiceIsRunning"

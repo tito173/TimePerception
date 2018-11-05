@@ -21,6 +21,11 @@ public class FinalPage extends AppCompatActivity {
         finalMessage.setTextColor(Color.parseColor("#000000"));
 
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
 
 }
 
