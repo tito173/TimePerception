@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -16,10 +16,11 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+import com.timeperception.TPSmart.R;
 import static android.content.Context.ALARM_SERVICE;
+import static com.timeperception.TPSmart.R.string.mensaje2;
 
 public class SetNotification extends BroadcastReceiver{
 
@@ -27,6 +28,11 @@ public class SetNotification extends BroadcastReceiver{
     private NotificationManagerCompat notificacionManager;
     String estado = "";
     String message ="";
+    String message2 ="";
+    String message3 ="";
+    String title ="";
+    String title2 ="";
+    String title3 ="";
 
 
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
@@ -34,7 +40,7 @@ public class SetNotification extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         Log.d("SetNotificaion","SetNotification fun onReceive la noficacion");
         notificacionManager = NotificationManagerCompat.from(context);
-        SharedPreferences day = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences day = context.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
 
             try {
                 //verificar el stado de las notificaciones
@@ -48,7 +54,14 @@ public class SetNotification extends BroadcastReceiver{
 
                 //Parsear el contenido del estado y demas componentes del json
                 estado = jsonObject.getString("status");
-                message += "Presione para acceder a la prueba del día " +jsonObject.getString("day");
+                Log.d("Estado",estado.toString());
+                message += context.getResources().getString(R.string.mensaje1) +jsonObject.getString("day");
+                message2 = context.getResources().getString(R.string.mensaje2);
+                message3 = context.getResources().getString(R.string.mensaje3);
+                title = context.getResources().getString(R.string.titulo1);
+                title2 = context.getResources().getString(R.string.titulo2);
+                title3 = context.getResources().getString(R.string.titulo3);
+
                 int dia = Integer.parseInt(jsonObject.getString("day"));
 
                 //si el estado es alert muestra la noficacion pertinente
@@ -57,6 +70,8 @@ public class SetNotification extends BroadcastReceiver{
                     Log.d("SetNotificaion","Se mostro una notificacion");
                 }else if (estado.equals("alert") && dia >= 8){
                     sendOnChannel2(context);
+                }else if (estado.equals("received")&& dia >= 8){
+                    sendOnChannel3(context);
                 }
 
 
@@ -83,7 +98,7 @@ public class SetNotification extends BroadcastReceiver{
 
         Notification notifiaction = new NotificationCompat.Builder(context1, ChannerlNotification.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle("Prueba de Percepción de tiempo")
+                .setContentTitle(title)
                 .setContentText(message)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -105,8 +120,8 @@ public class SetNotification extends BroadcastReceiver{
 
         Notification notifiaction = new NotificationCompat.Builder(context1, ChannerlNotification.CHANNEL_2_ID)
                 .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle("Final Questionnaire")
-                .setContentText("Pleas complete the following questionnaire.")
+                .setContentTitle(title2)
+                .setContentText(message2)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -119,6 +134,30 @@ public class SetNotification extends BroadcastReceiver{
         notificacionManager.notify(2,notifiaction);
 
     }
+    public  void sendOnChannel3(Context context1){
+
+        Intent intent = new Intent(context1, UnistallApp.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context1,0,intent,0);
+
+        Notification notifiaction = new NotificationCompat.Builder(context1, ChannerlNotification.CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_one)
+                .setContentTitle(title3)
+                .setContentText(message3)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(Color.RED)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setOngoing(true)
+                .setOnlyAlertOnce(true)
+                .build();
+        notificacionManager.notify(2,notifiaction);
+
+    }
+
+
     public static void setAlarmPerseption(Context context) {
 
         Log.d("SetNotificaion","configuracion de notificacion");
@@ -130,7 +169,7 @@ public class SetNotification extends BroadcastReceiver{
 
     }
     public static void notifycationDay(Context context) throws InterruptedException, ExecutionException {
-        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences user_id = context.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
         FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"notificacion");
         process.execute().get();

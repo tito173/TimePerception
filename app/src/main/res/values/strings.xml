@@ -5,7 +5,9 @@
     <string name="app_name">TP-Smart</string>
     <string name="title">Welcome to TP-Smart</string>
     <string name="activarServicio">Press the button "Activate Service" and activate the TP-Smart service to begin monitoring social media usage.</string>
+    <string name="activarServicioGps">Press the button "Activate Gps" to go to turn on the gps.</string>
     <string name="butonActivar">Activete Service</string>
+    <string name="butonActivarGps">Activete GPS</string>
     <string name="userID">User Id: </string>
     <string name="ultimoEnvio">Last send was: </string>
 
@@ -23,6 +25,7 @@
     <string name="question2">2. Age:</string>
     <string name="question3">3.	Highest educational level achieved:</string>
     <string name="question31">High school or below</string>
+    <string name="question30">Associate degree</string>
     <string name="question32">Bachelor</string>
     <string name="question33">Master</string>
     <string name="question34">Doctorate</string>
@@ -33,6 +36,7 @@
     <string name="question43">Unemployed</string>
     <string name="question44">Student</string>
     <string name="question5">5. Weekly hours of work (If you did not indicate that you currently have a job, go to the next question</string>
+    <string name="question50">Unemployed (0 hours)</string>
     <string name="question51">Full-time (30 or more hours)</string>
     <string name="question52">Part-time (29 hours or less)</string>
     <string name="question6">6. Country</string>
@@ -84,6 +88,7 @@
     <string name="quesiton101">Data plan</string>
     <string name="quesiton102">Wireless internet (Wi-Fi)</string>
     <string name="quesiton103">I don’t know</string>
+    <string name="quesiton104">Data plan and Wireless internet (Wi-Fi)</string>
     <string name="quesiton11">4. Which 2 apps do you use most on your cellphone?</string>
     <string name="quesiton111">Facebook</string>
     <string name="quesiton112">Twitter</string>
@@ -97,18 +102,30 @@
     <string name="quesiton121">Morning</string>
     <string name="quesiton122">Afternoon</string>
     <string name="quesiton123">Evening</string>
-    <string name="quesiton13">6. How many hours per day do you spend using Facebook on your cellphone?</string>
+    <string name="quesiton13">5. How many hours per day do you spend using Facebook on your cellphone?</string>
     <string name="quesiton131">Hour</string>
     <string name="quesiton132">Minute</string>
-    <string name="quesiton14">7. How many hours per day do you spend using Twitter on your cellphone?</string>
-    <string name="quesiton15">8. How many hours per day do you spend using Instagram on your cellphone?</string>
-    <string name="quesiton16">9. How many hours per day do you spend using Whatsapp on your cellphone?</string>
-    <string name="quesiton17">10. Would you be interested in participating in an in-depth interview?</string>
+    <string name="quesiton14">6. How many hours per day do you spend using Twitter on your cellphone?</string>
+    <string name="quesiton15">7. How many hours per day do you spend using Instagram on your cellphone?</string>
+    <string name="quesiton16">8. How many hours per day do you spend using Whatsapp on your cellphone?</string>
+    <string name="quesiton17">9. Would you be interested in participating in an in-depth interview?</string>
     <string name="quesiton171">Yes</string>
 
     <!--finalpage-->
     <string name="finalMessage">Thanks for complete the test for the day </string>
     <string name="fintest">End of the test, thanks for participating.</string>
 
+    <!--Tecnical Support-->
+    <string name="tecnicalSupport">If you have any problems, contact: ...</string>
+
+    <!--Notificaciones-->
+    <string name="titulo1">Time Perception Test </string>
+    <string name="mensaje1">Press to access the test of the day </string>
+
+    <string name="titulo2">Final Questionnaire</string>
+    <string name="mensaje2">Pleas complete the following questionnaire.</string>
+
+    <string name="titulo3">Unistall TP-Smart</string>
+    <string name="mensaje3">We have already received your last questionnaire, thanks for participated.</string>
 
 </resources>

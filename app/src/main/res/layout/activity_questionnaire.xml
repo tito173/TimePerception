@@ -109,6 +109,11 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/quesiton3-00"
+                android:text="@string/question30" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/quesiton3-2"
                 android:text="@string/question32" />
             <RadioButton
@@ -181,7 +186,11 @@
                     android:id="@+id/quesiton5-0"
                     android:text="@string/question5"
                     android:textSize="20dp"/>
-
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quesiton5-00"
+                    android:text="@string/question50" />
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

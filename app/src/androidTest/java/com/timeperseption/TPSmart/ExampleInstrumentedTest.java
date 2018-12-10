@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("tito1.example.com.timeperception", appContext.getPackageName());
+        assertEquals("com.timeperseption.TPSmart", appContext.getPackageName());
     }
 }

@@ -1,15 +1,11 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,24 +16,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Locale;
-import java.util.Scanner;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
-import static java.util.Arrays.asList;
+import com.timeperception.TPSmart.R;
 
 public class PerseptionQuestion extends AppCompatActivity {
 
@@ -65,7 +53,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
         super.onResume();
         setContentView(R.layout.activity_perseption_question);
-        SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences idioma = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
 
         Configuration conf = getResources().getConfiguration();
         Resources res = getResources();
@@ -159,7 +147,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences questionnaireAnswers = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+                SharedPreferences questionnaireAnswers = getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
                 RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
                 int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
                 View radioButton = radioButtonGroup.findViewById(radioButtonId);
@@ -262,7 +250,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences questionnaireAnswers = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+                SharedPreferences questionnaireAnswers = getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
                 RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
                 int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
                 View radioButton = radioButtonGroup.findViewById(radioButtonId);
@@ -364,7 +352,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences questionnaireAnswers = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+                SharedPreferences questionnaireAnswers = getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
                 RadioGroup radioButtonGroup = findViewById(R.id.radioGroupvideo);
                 int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
                 View radioButton = radioButtonGroup.findViewById(radioButtonId);
@@ -464,7 +452,7 @@ public class PerseptionQuestion extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences questionnaireAnswers = getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+                SharedPreferences questionnaireAnswers = getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
                 RadioGroup radioButtonGroup1 = findViewById(R.id.radioGroupvideo);
                 int radioButtonId = radioButtonGroup1.getCheckedRadioButtonId();
                 View radioButton = radioButtonGroup1.findViewById(radioButtonId);
@@ -509,12 +497,12 @@ public class PerseptionQuestion extends AppCompatActivity {
                     Log.d(TAG, "PerseptionQuestion Error al saber la respues");
                 }
                 try {
-                    SendFile.SendResPerseptionTest(getApplicationContext(),
+                    Settings.SendFile.SendResPerseptionTest(getApplicationContext(),
                             durationOp.get(duracion1),durationOp.get(duracion2),durationOp.get(duracion3),durationOp.get(duracion4));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                SharedPreferences day = getApplicationContext().getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+                SharedPreferences day = getApplicationContext().getSharedPreferences("com.timeperseption.TPSmart",Context.MODE_PRIVATE);
                 TextView finalMessage = (TextView) findViewById(R.id.finalText);
                 finalMessage.setText(getString(R.string.finalMessage)+ " " +day.getString("day_notification",""));
                 finalMessage.setVisibility(View.VISIBLE);

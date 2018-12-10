@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.app.ActivityManager;
 import android.app.Service;
@@ -7,13 +7,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
-
-import static tito1.example.com.timeperception.Questionnaire.SendTheLogs;
-
 
 
 public class MyServiceIsRunning extends Service {

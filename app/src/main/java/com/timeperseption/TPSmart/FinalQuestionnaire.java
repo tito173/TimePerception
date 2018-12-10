@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -24,6 +23,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import com.timeperception.TPSmart.R;
 
 
 public class FinalQuestionnaire extends AppCompatActivity {
@@ -36,9 +37,9 @@ public class FinalQuestionnaire extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setContentView(R.layout.activity_final_questionnaire);
-        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+        SharedPreferences questionnaireAnswers = this.getSharedPreferences("com.timeperseption.TPSmart",Context.MODE_PRIVATE);
 
-        SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences idioma = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
 
         Configuration conf = getResources().getConfiguration();
         Resources res = getResources();
@@ -98,11 +99,11 @@ public class FinalQuestionnaire extends AppCompatActivity {
             box.setChecked(questionnaireAnswers.getBoolean(question10[i].toString(),false));
         }
 
-        Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
-        for (int i = 0 ; i < question11.length;i++){
-            CheckBox box = findViewById((Integer) question11[i]);
-            box.setChecked(questionnaireAnswers.getBoolean(question11[i].toString(),false));
-        }
+//        Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
+//        for (int i = 0 ; i < question11.length;i++){
+//            CheckBox box = findViewById((Integer) question11[i]);
+//            box.setChecked(questionnaireAnswers.getBoolean(question11[i].toString(),false));
+//        }
 
         Object[] question02 = {R.id.question12,R.id.question121,
                 R.id.question13,R.id.question131,
@@ -136,7 +137,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
 
         //save every option from radiogroup
-        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+        SharedPreferences questionnaireAnswers = this.getSharedPreferences("com.timeperseption.TPSmart",Context.MODE_PRIVATE);
         questions.add(R.id.radioGroup09);
         questions.add(R.id.radioGroup16);
 
@@ -150,7 +151,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             if(radioButtonGroup.getCheckedRadioButtonId() == -1)
             {
                 missOrNot = true;
-                missquestion = missquestion + "pregunta3, y 10 " + " \n";
+                missquestion = missquestion + "pregunta3, y 9" + " \n";
 
 
             }else{
@@ -173,7 +174,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         Object[] question07 = {R.id.question7_1,R.id.question7_2,R.id.question7_3,R.id.question7_4,R.id.question7_5,R.id.question7_6,R.id.question7_7};
         Object[] question08 = {R.id.question8_1,R.id.question8_2,R.id.question8_3,R.id.question8_4,R.id.question8_5,R.id.question8_6,R.id.question8_7};
         Object[] question10 = {R.id.question10_1,R.id.question10_2,R.id.question10_3,R.id.question10_4,R.id.question10_5,R.id.question10_6,R.id.question10_7,R.id.question10_8};
-        Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
+//        Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
 
         /*--------------------------------------------pregunta 1 ----------------------------------------------------------------*/
         int selectOrNot = 0;
@@ -231,22 +232,22 @@ public class FinalQuestionnaire extends AppCompatActivity {
         selectOrNot=0;
 
         /*--------------------------------------------pregunta 5----------------------------------------------------------------*/
-        for (int i = 0 ; i < question11.length;i++){
-            CheckBox box = findViewById((Integer) question11[i]);
-            if(box.isChecked()){
-                questionnaireAnswers.edit().putBoolean(question11[i].toString(),true).apply();
-                selectOrNot++;
-            }
-            else {
-                questionnaireAnswers.edit().putBoolean(question11[i].toString(),false).apply();
-            }
-        }
-
-        if (selectOrNot == 0){
-            missOrNot = true;
-            missquestion = missquestion +
-                    "pregunta 5"+ " \n";
-        }
+//        for (int i = 0 ; i < question11.length;i++){
+//            CheckBox box = findViewById((Integer) question11[i]);
+//            if(box.isChecked()){
+//                questionnaireAnswers.edit().putBoolean(question11[i].toString(),true).apply();
+//                selectOrNot++;
+//            }
+//            else {
+//                questionnaireAnswers.edit().putBoolean(question11[i].toString(),false).apply();
+//            }
+//        }
+//
+//        if (selectOrNot == 0){
+//            missOrNot = true;
+//            missquestion = missquestion +
+//                    "pregunta 5"+ " \n";
+//        }
 
         /*--------------------------------------------pregunta 6----------------------------------------------------------------*/
         String question2  = "z";
@@ -261,7 +262,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             questionnaireAnswers.edit().putString(question12[0].toString(), "").apply();
             questionnaireAnswers.edit().putString(question12[1].toString(), "").apply();
             missOrNot = true;
-            missquestion = missquestion + "pregunta 6"+ "\n";
+            missquestion = missquestion + "pregunta 5"+ "\n";
         } else {
             questionnaireAnswers.edit().putString(question12[0].toString(), valueOfQuestion0.getText().toString()).apply();
             questionnaireAnswers.edit().putString(question12[1].toString(), valueOfQuestion1.getText().toString()).apply();
@@ -277,7 +278,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             questionnaireAnswers.edit().putString(question13[0].toString(), "").apply();
             questionnaireAnswers.edit().putString(question13[1].toString(), "").apply();
             missOrNot = true;
-            missquestion = missquestion + "pregunta 7"+ "\n";
+            missquestion = missquestion + "pregunta 6"+ "\n";
         } else {
             questionnaireAnswers.edit().putString(question13[0].toString(), valueOfQuestion0.getText().toString()).apply();
             questionnaireAnswers.edit().putString(question13[1].toString(), valueOfQuestion1.getText().toString()).apply();
@@ -292,7 +293,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             questionnaireAnswers.edit().putString(question14[0].toString(), "").apply();
             questionnaireAnswers.edit().putString(question14[1].toString(), "").apply();
             missOrNot = true;
-            missquestion = missquestion + "pregunta 8"+ "\n";
+            missquestion = missquestion + "pregunta 7"+ "\n";
         } else {
             questionnaireAnswers.edit().putString(question14[0].toString(), valueOfQuestion0.getText().toString()).apply();
             questionnaireAnswers.edit().putString(question14[1].toString(), valueOfQuestion1.getText().toString()).apply();
@@ -308,7 +309,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             questionnaireAnswers.edit().putString(question15[0].toString(), "").apply();
             questionnaireAnswers.edit().putString(question15[1].toString(), "").apply();
             missOrNot = true;
-            missquestion = missquestion + "pregunta 9"+ "\n";
+            missquestion = missquestion + "pregunta 8"+ "\n";
         } else {
             questionnaireAnswers.edit().putString(question15[0].toString(), valueOfQuestion0.getText().toString()).apply();
             questionnaireAnswers.edit().putString(question15[1].toString(), valueOfQuestion1.getText().toString()).apply();
@@ -326,14 +327,14 @@ public class FinalQuestionnaire extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), FinalPage.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        SendFile.senResFinalQues(getApplicationContext(), questionnaireAnswer());
-        this.finish();
+        Settings.SendFile.senResFinalQues(getApplicationContext(), questionnaireAnswer());
+        finish();
 
     }
 
     public String questionnaireAnswer(){
 
-        SharedPreferences a = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences a = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         String respuesta = "";
 
         ArrayList questions = new ArrayList();
@@ -347,7 +348,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         Object[] question07 = {R.id.question7_1,R.id.question7_2,R.id.question7_3,R.id.question7_4,R.id.question7_5,R.id.question7_6,R.id.question7_7};
         Object[] question08 = {R.id.question8_1,R.id.question8_2,R.id.question8_3,R.id.question8_4,R.id.question8_5,R.id.question8_6,R.id.question8_7};
         Object[] question10 = {R.id.question10_1,R.id.question10_2,R.id.question10_3,R.id.question10_4,R.id.question10_5,R.id.question10_6,R.id.question10_7,R.id.question10_8};
-        Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
+//        Object[] question11 = {R.id.question11_1,R.id.question11_2,R.id.question11_3};
 
         ArrayList listRadioGroup = new ArrayList();
         for (int i = 0 ; i < questions.size() ; i++){
@@ -379,18 +380,18 @@ public class FinalQuestionnaire extends AppCompatActivity {
                 a.getBoolean(question10[5].toString(),false)+","+
                 a.getBoolean(question10[6].toString(),false)+","+
                 a.getBoolean(question10[7].toString(),false)+"],"+
-                "\"5\":["+a.getBoolean(question11[0].toString(),false)+","+
-                a.getBoolean(question11[1].toString(),false)+","+
-                a.getBoolean(question11[2].toString(),false)+"],"+
-                "\"6\":["+a.getString(question12[0].toString(),"")+","+
+//                "\"5\":["+a.getBoolean(question11[0].toString(),false)+","+
+//                a.getBoolean(question11[1].toString(),false)+","+
+//                a.getBoolean(question11[2].toString(),false)+"],"+
+                "\"5\":["+a.getString(question12[0].toString(),"")+","+
                 a.getString(question12[1].toString(),"")+"],"+
-                "\"7\":["+a.getString(question13[0].toString(),"")+","+
+                "\"6\":["+a.getString(question13[0].toString(),"")+","+
                 a.getString(question13[1].toString(),"")+"],"+
-                "\"8\":["+a.getString(question14[0].toString(),"")+","+
+                "\"7\":["+a.getString(question14[0].toString(),"")+","+
                 a.getString(question14[1].toString(),"")+"],"+
-                "\"9\":["+a.getString(question15[0].toString(),"")+","+
+                "\"8\":["+a.getString(question15[0].toString(),"")+","+
                 a.getString(question15[1].toString(),"")+"],"+
-                "\"10\":\""+listRadioGroup.get(1)+"\"}";
+                "\"9\":\""+listRadioGroup.get(1)+"\"}";
 
 
 

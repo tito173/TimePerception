@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20sp"
-            android:text="Version 3.0.0"
+            android:text="Version 3.1.0"
             android:textColor="#000000"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -73,6 +73,35 @@
             app:layout_constraintStart_toStartOf="@+id/active"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/goActiveGps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/active"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ID" />
+
+        <Button
+            android:id="@+id/activeGps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="activetedGps"
+            android:text="@string/butonActivarGps"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ID" />
+
+        <!--<Button-->
+            <!--android:id="@+id/unistall"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Button" />-->
 
         <!--<TextView-->
         <!--android:id="@+id/fetcheddata"-->

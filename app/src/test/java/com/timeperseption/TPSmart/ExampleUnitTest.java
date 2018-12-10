@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import org.junit.Test;
 

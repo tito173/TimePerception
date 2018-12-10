@@ -1,13 +1,11 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.concurrent.TimeUnit;
+import com.timeperception.TPSmart.R;
 
 public class FinalPage extends AppCompatActivity {
 

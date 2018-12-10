@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -73,7 +73,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
                     if (line != null)
                         data = data + line;
                 }
-                Log.d(TAG + " CHECKID", "response check: " + data);
+                Log.d("CHECKID", "response check: " + data);
                 boolean1 = Boolean.valueOf(data);
                 //varibale para determinar si occurio un timeout en la coneccion, si llego a este punto no occurio
                 timeconection = false;

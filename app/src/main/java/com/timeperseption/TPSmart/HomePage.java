@@ -1,29 +1,21 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -34,14 +26,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.util.Calendar;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
-import static android.view.View.INVISIBLE;
+import com.timeperception.TPSmart.R;
+
 import static android.view.View.VISIBLE;
-import static tito1.example.com.timeperception.Questionnaire.SendTheLogs;
 
 
 public class HomePage extends AppCompatActivity {
@@ -50,14 +39,12 @@ public class HomePage extends AppCompatActivity {
     final String TAG = "TP-Smart";
     private MyServiceIsRunning myServiceIsRunning;
 
-//    private Button boton;
-//    private NotificationManagerCompat notificacionManager;
 
     public  static TextView data;
 
     private LocationManager locationManager;
+    ;
     private LocationListener locationListener, locationListenerNetwork;
-    private long minTime = 0;
 
     @SuppressLint({"WrongConstant", "SetTextI18n"})
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -67,7 +54,7 @@ public class HomePage extends AppCompatActivity {
 
 
 
-        SharedPreferences idioma = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences idioma = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
 
         //configuracion del idioma
         Log.d(TAG,"Este es el idioma" +idioma.getString("idoma",""));
@@ -83,14 +70,14 @@ public class HomePage extends AppCompatActivity {
         }
 
         //variable que guarda si ya lleno el cuestionario o no.
-        SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences firtlog = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
 
         Log.d(TAG, "HomePage Se lleno el questionario: "+String.valueOf(firtlog.getBoolean("llenoCuestionario?", false)));
         if (firtlog.getBoolean("llenoCuestionario?", false)){
             Intent intentService = new Intent(getApplicationContext(),MyServiceIsRunning.class);
             startService(intentService);
 //            try {
-                SetNotification.setAlarmPerseption(this);
+              SetNotification.setAlarmPerseption(this);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            } catch (ExecutionException e) {
@@ -133,6 +120,15 @@ public class HomePage extends AppCompatActivity {
     protected void onResume() {
         setContentView(R.layout.activity_home_page);
 
+//para desinstalar la app
+//        Button b = findViewById(R.id.unistall);
+//        b.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent5 = new Intent(getApplicationContext(),UnistallApp.class);
+//                startActivity(intent5);
+//            }
+//        });
 
         //geolocalizacion
         /********************************************************************************************/
@@ -153,11 +149,13 @@ public class HomePage extends AppCompatActivity {
 
         /*****************************************************************************************/
 
-        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+        SharedPreferences questionnaireAnswers = this.getSharedPreferences("com.timeperseption.TPSmart",Context.MODE_PRIVATE);
 
         //saber si el servicio esta corriendo al volver entrar en la app
         Button active = findViewById(R.id.active);
         TextView goActiveService = findViewById(R.id.goActive);
+        Button activeGps = findViewById(R.id.activeGps);
+        TextView goActiveServiceGps = findViewById(R.id.goActiveGps);
         String mensaje = "";
         Object question07 = R.id.question07;
         TextView UserID = findViewById(R.id.ID);
@@ -167,13 +165,13 @@ public class HomePage extends AppCompatActivity {
                 questionnaireAnswers.getString(question07.toString(),"no hay");
         mensaje = mensaje + "\n"+getString(R.string.ultimoEnvio)+" "
                 + questionnaireAnswers.getString("last","no hay");
+        mensaje = mensaje + "\n"+getString(R.string.tecnicalSupport);
         UserID.setText(mensaje);
 
         //Si el sevicio esta corriendo no aparecera nada, si no esta aparecera una opcion para activarlo
         if(isMyServiceRunning(Services.class)){
             active.setVisibility(View.GONE);
             goActiveService.setVisibility(View.GONE);
-
 
         }else{
             active.setVisibility(VISIBLE);
@@ -186,10 +184,30 @@ public class HomePage extends AppCompatActivity {
                 }
             });
         }
-//        data = (TextView) findViewById(R.id.fetcheddata);
+        locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        if ( locationManager!= null ){
 
+            if(locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ) {
+                // Call your Alert message
+//                Log.d("gpss","SI");
+                activeGps.setVisibility(View.GONE);
+                goActiveServiceGps.setVisibility(View.GONE);
 
+            } else {
+//                Log.d("gpss","No");
+                activeGps.setVisibility(VISIBLE);
+                goActiveServiceGps.setText(getString(R.string.activarServicioGps));
+                activeGps.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                                , 0);
+                    }
+                });
+            }
 
+        }else {                Log.d("gpss","Es null");
+        }
 
         super.onResume();
     }
@@ -201,6 +219,15 @@ public class HomePage extends AppCompatActivity {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isMyServiceRunning(String serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.equals(service.service.getClassName())) {
                 return true;
             }
         }
@@ -229,15 +256,16 @@ public class HomePage extends AppCompatActivity {
             return true;
         }
         /*ELIMINAR ESTA OPCION PARA LA PRUEBA*/
-         else if (item.getItemId() == R.id.questionary) {
+        else if (item.getItemId() == R.id.questionary) {
             Intent intent = new Intent(getApplicationContext(), Questionnaire.class);
             startActivity(intent);
             return true;
-        }else if (item.getItemId() == R.id.questionaryfinal) {
-            Intent intent = new Intent(getApplicationContext(), FinalQuestionnaire.class);
-            startActivity(intent);
-            return true;
         }
+//        else if (item.getItemId() == R.id.unistall) {
+//            Intent intent5 = new Intent(getApplicationContext(),UnistallApp.class);
+//            startActivity(intent5);
+//            return true;
+//        }
         return false;
     }
 

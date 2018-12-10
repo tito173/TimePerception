@@ -1,32 +1,21 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
-import android.Manifest;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.TextView;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -48,7 +37,7 @@ public class Services extends AccessibilityService {
 
     private LocationManager locationManager;
     private LocationListener locationListener, locationListenerNetwork;
-    private long minTime = 60000;
+    private long minTime = 60*60000;
 
     //Know when the service start
     @SuppressLint("MissingPermission")
@@ -96,7 +85,7 @@ public class Services extends AccessibilityService {
 
         Log.d(TAG, "Service Destroy");
         saveEventStopApp("An error occurred and the app stopped");
-        SharedPreferences name = getApplicationContext().getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences name = getApplicationContext().getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         name.edit().putBoolean("appStopped", true).apply();
     }
 
@@ -167,7 +156,7 @@ public class Services extends AccessibilityService {
     public void eventCheck(AccessibilityEvent event) {
 
         //Creation of variable to save the lunch app on the service.
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("tito1.example.com.accessibilityservice", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         String eventText = "";
 
 //        event.getSource();

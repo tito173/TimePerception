@@ -6,7 +6,9 @@
     <string name="title">Bienvenidos a TP-Smart</string>
     <string name="activarServicio">Preciona el boton "Activar Servicio", y luego activar el servicio de
         TP-Smart para comenzar a monitorizar el uso de las redes sociales.</string>
+    <string name="activarServicioGps">Presiona el botón "Activar Gps" para ir al gps.</string>
     <string name="butonActivar">Activar Servicio</string>
+    <string name="butonActivarGps">Activar GPS</string>
     <string name="userID">Id de usuario: </string>
     <string name="ultimoEnvio">Último envio: </string>
 
@@ -23,6 +25,7 @@
     <string name="question2">2. Edad:</string>
     <string name="question3">3.	Nivel educativo más alto alcanzado:</string>
     <string name="question31">Escuela superior o menos	</string>
+    <string name="question30">Grado Asociado</string>
     <string name="question32">Bachillerato</string>
     <string name="question33">Maestria</string>
     <string name="question34">Doctorado</string>
@@ -33,6 +36,7 @@
     <string name="question43">Desempleado</string>
     <string name="question44">Estudiante</string>
     <string name="question5">5. Horas semanales de trabajo (si no indicó que actualmente tiene un trabajo, pase a la siguiente pregunta</string>
+    <string name="question50">Desempleado(a) (0 horas)</string>
     <string name="question51">Tiempo completo (30 horas o mas)</string>
     <string name="question52">Tiempo parcial (29 horas o menos)</string>
     <string name="question6">6. País</string>
@@ -85,6 +89,7 @@
     <string name="quesiton101">Plan de datos</string>
     <string name="quesiton102">Internet inalámbrico (Wi-Fi)</string>
     <string name="quesiton103">No sé</string>
+    <string name="quesiton104">Plan de datos y Internet inalámbrico (Wi-Fi)</string>
     <string name="quesiton11">4. ¿Cuáles son las 2 aplicaciones que más utilizas en tu teléfono celular?</string>
     <string name="quesiton111">Facebook</string>
     <string name="quesiton112">Twitter</string>
@@ -98,17 +103,29 @@
     <string name="quesiton121">Mañana</string>
     <string name="quesiton122">Tarde</string>
     <string name="quesiton123">Noche</string>
-    <string name="quesiton13">6. ¿Cuántas horas al día utilizas Facebook en tu teléfono celular? </string>
+    <string name="quesiton13">5. ¿Cuántas horas al día utilizas Facebook en tu teléfono celular? </string>
     <string name="quesiton131">Horas</string>
     <string name="quesiton132">Minutos</string>
-    <string name="quesiton14">7. ¿Cuántas horas al día utilizas Twitter en tu teléfono celular? </string>
-    <string name="quesiton15">8. ¿Cuántas horas al día utilizas Instagram en tu teléfono celular? </string>
-    <string name="quesiton16">9. ¿Cuántas horas al día utilizas Whatsapp en tu teléfono celular?</string>
-    <string name="quesiton17">10. ¿Estarías interesado en participar en una entrevista a profundidad?</string>
+    <string name="quesiton14">6. ¿Cuántas horas al día utilizas Twitter en tu teléfono celular? </string>
+    <string name="quesiton15">7. ¿Cuántas horas al día utilizas Instagram en tu teléfono celular? </string>
+    <string name="quesiton16">8. ¿Cuántas horas al día utilizas Whatsapp en tu teléfono celular?</string>
+    <string name="quesiton17">9. ¿Estarías interesado en participar en una entrevista a profundidad?</string>
     <string name="quesiton171">Sí</string>
 
     <!--finalpage-->
     <string name="finalMessage">Gracias por completar la prueba de percepción para el día </string>
     <string name="fintest">Final de la prueba, gracias por participar.</string>
 
+    <!--Tecnical Support-->
+    <string name="tecnicalSupport">Si tienes algún problema, contacte: ...</string>
+
+    <!--Notificaciones-->
+    <string name="titulo1">Prueba de Percepción de tiempo </string>
+    <string name="mensaje1">Presione para acceder a la prueba del día </string>
+
+    <string name="titulo2">Cuestionario Final</string>
+    <string name="mensaje2">Por favor complete el siguiente cuestionario.</string>
+
+    <string name="titulo3">Desintale TP-Smart</string>
+    <string name="mensaje3">Ya hemos recibido tu último cuestionario, gracias por participar.</string>
 </resources>

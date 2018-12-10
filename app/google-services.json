@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:969180652865:android:c9edb26581cd1fa1",
         "android_client_info": {
-          "package_name": "tito1.example.com.timeperception"
+          "package_name": "com.timeperseption.TPSmart"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "969180652865-c211skjjhoj2olpc2hhtlsi3hrjlvvdj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "tito1.example.com.timeperception",
+            "package_name": "com.timeperseption.TPSmart",
             "certificate_hash": "e979b138e67af6bafdecd69ac9ad64a3b0029dfd"
           }
         },

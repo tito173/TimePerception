@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -21,11 +21,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
+import com.timeperception.TPSmart.R;
 
 //Cuestionario inicial de la app
 public class Questionnaire extends AppCompatActivity {
@@ -43,7 +42,7 @@ public class Questionnaire extends AppCompatActivity {
         EditText other = findViewById(R.id.question01Other);
 
         //Errores al llenar el questionario, aparecera un textView con los errores
-        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+        SharedPreferences questionnaireAnswers = this.getSharedPreferences("com.timeperseption.TPSmart",Context.MODE_PRIVATE);
 
         TextView error  = findViewById(R.id.error1);
         String fillError = questionnaireAnswers.getString("error","");
@@ -130,7 +129,7 @@ public class Questionnaire extends AppCompatActivity {
         questions = new ArrayList();
 
         //save every option from radiogroup
-        SharedPreferences questionnaireAnswers = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences questionnaireAnswers = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         questions.add(R.id.radioGroup01);
         questions.add(R.id.radioGroup03);
         questions.add(R.id.radioGroup05);
@@ -224,15 +223,16 @@ public class Questionnaire extends AppCompatActivity {
         //condicion previa para el proximo if
         //question7 <= 0 || question7 >= 100 || question7 == null
         if (question7 == 0||question7 == null) {
+            Log.d("CHECKID if","IF");
             questionnaireAnswers.edit().putString(question07.toString(), "").apply();
             missOrNot = true;
             missquestion = missquestion + getString(R.string.Errorquesiton7)+"\n";
         } else {
             questionnaireAnswers.edit().putString(question07.toString(), valueOfQuestion07.getText().toString()).apply();
-            Log.d("ID1","Se guardo "+questionnaireAnswers.getString(question07.toString(), valueOfQuestion07.getText().toString()));
+            Log.d("ID1","Se guardo "+questionnaireAnswers.getString(question07.toString(), ""));
         }
 
-        SharedPreferences firtlog = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences firtlog = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
 
 
 
@@ -260,15 +260,15 @@ public class Questionnaire extends AppCompatActivity {
         startActivity(intent);
         firstAccess(getApplicationContext());
         SendTheLogs(getApplicationContext());
-        SendFile.SendResCuestionario(this,questionnaireAnswer());
-//        finish();
+        Settings.SendFile.SendResCuestionario(this,questionnaireAnswer());
+        finish();
 //        moveTaskToBack(true);
     }
 
     //pasar a un string con los resultados del cuestionario
     public String questionnaireAnswer(){
 
-        SharedPreferences a = this.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences a = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         ArrayList listRadioGroup = new ArrayList();
         for (int i = 0 ; i < questions.size() ; i++){
             RadioGroup radioG1 = findViewById((Integer) questions.get(i));
@@ -336,12 +336,12 @@ public class Questionnaire extends AppCompatActivity {
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         //create a pending intent to be called at midnight
-        Intent intent = new Intent(context,SendFile.class);
+        Intent intent = new Intent(context,Settings.SendFile.class);
         PendingIntent midnightPI =  PendingIntent.getBroadcast(context,0,intent,0);
 
 
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR, midnightPI);
-//        SharedPreferences mensaje = context.getSharedPreferences("tito1.example.com.timeperception",Context.MODE_PRIVATE);
+//        SharedPreferences mensaje = context.getSharedPreferences("com.timeperseption.TPSmart",Context.MODE_PRIVATE);
 //        mensaje.edit().putString("last","Question "+Calendar.getInstance().getTime().toString()).apply();
     }
 
@@ -364,16 +364,18 @@ public class Questionnaire extends AppCompatActivity {
     }
 
     public static void firstAccess(Context context)  {
-        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences user_id = context.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
         FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"firstaccess");
         process.execute();
 
     }
     public static Boolean checkId(Context context) throws IOException, InterruptedException, ExecutionException {
-        SharedPreferences user_id = context.getSharedPreferences("tito1.example.com.timeperception", Context.MODE_PRIVATE);
+        SharedPreferences user_id = context.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
         Object question07 = R.id.question07;
         if(!user_id.getString(question07.toString(), "").equals("")){
+            Log.d("ID1","HOLA"+user_id.getString(question07.toString(),"").toString());
+
             FetchData process = new FetchData(user_id.getString(question07.toString(),""),true,"checkID");
             process.execute().get();
             return FetchData.boolean1;
@@ -385,6 +387,12 @@ public class Questionnaire extends AppCompatActivity {
         return false;
 
 
+
+    }
+    @Override
+    public void onBackPressed() {
+
+        //can't press back buton
 
     }
 

@@ -1,4 +1,4 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.timeperception.TPSmart.R;
 /*Clase para detectar cuadno la app se a detenido "Aun esta en desarollo"*/
 public class TheAppStopped extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class TheAppStopped extends AppCompatActivity {
         super.onOptionsItemSelected(item);
 
         if (item.getItemId() == R.id.language) {
-            Intent intent = new Intent(getApplicationContext(), tito1.example.com.timeperception.Settings.class);
+            Intent intent = new Intent(getApplicationContext(), Settings.class);
             startActivity(intent);
 
             return true;

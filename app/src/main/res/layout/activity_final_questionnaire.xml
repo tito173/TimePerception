@@ -148,6 +148,11 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/quesiton9-4"
+                android:text="@string/quesiton104" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/quesiton9-3"
                 android:text="@string/quesiton103" />
         </RadioGroup>
@@ -205,35 +210,35 @@
                 android:layout_height="wrap_content"
                 android:text="@string/quesiton118"/>
         </RadioGroup>
-        <RadioGroup
-            android:id="@+id/radioGroup11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <!--<RadioGroup-->
+            <!--android:id="@+id/radioGroup11"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/quesiton11-0"
-                android:textColor="@android:color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="@string/quesiton12"/>
-            <CheckBox
-                android:id="@+id/question11-1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quesiton121"/>
-            <CheckBox
-                android:id="@+id/question11-2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quesiton122"/>
-            <CheckBox
-                android:id="@+id/question11-3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quesiton123"/>
-        </RadioGroup>
+            <!--<TextView-->
+                <!--android:id="@+id/quesiton11-0"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="20sp"-->
+                <!--android:text="@string/quesiton12"/>-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/question11-1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/quesiton121"/>-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/question11-2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/quesiton122"/>-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/question11-3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/quesiton123"/>-->
+        <!--</RadioGroup>-->
         <LinearLayout
             android:id="@+id/radioGroup12"
             android:layout_width="wrap_content"

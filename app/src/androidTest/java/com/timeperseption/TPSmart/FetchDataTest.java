@@ -1,8 +1,6 @@
-package tito1.example.com.timeperception;
+package com.timeperseption.TPSmart;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class FetchDataTest {
 
