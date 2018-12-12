@@ -77,7 +77,7 @@ public class HomePage extends AppCompatActivity {
             Intent intentService = new Intent(getApplicationContext(),MyServiceIsRunning.class);
             startService(intentService);
 //            try {
-              SetNotification.setAlarmPerseption(this);
+//              SetNotification.setAlarmPerseption(this);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            } catch (ExecutionException e) {

@@ -18,7 +18,7 @@
 
     <!--CUESTIONARIO-->
     <string name="Button">Guardar</string>
-    <string name="question1">1. Genero:</string>
+    <string name="question1">1. Género:</string>
     <string name="question11">Hombre</string>
     <string name="question12">Mujer</string>
     <string name="question13">Otro (espesificar):</string>
@@ -27,7 +27,7 @@
     <string name="question31">Escuela superior o menos	</string>
     <string name="question30">Grado Asociado</string>
     <string name="question32">Bachillerato</string>
-    <string name="question33">Maestria</string>
+    <string name="question33">Maestría</string>
     <string name="question34">Doctorado</string>
     <string name="question35">PosDoctorado</string>
     <string name="question4">4.	Ocupación (Marcar todas las que apliquen): </string>
@@ -37,8 +37,8 @@
     <string name="question44">Estudiante</string>
     <string name="question5">5. Horas semanales de trabajo (si no indicó que actualmente tiene un trabajo, pase a la siguiente pregunta</string>
     <string name="question50">Desempleado(a) (0 horas)</string>
-    <string name="question51">Tiempo completo (30 horas o mas)</string>
-    <string name="question52">Tiempo parcial (29 horas o menos)</string>
+    <string name="question52">Tiempo completo (30 horas o más)</string>
+    <string name="question51">Tiempo parcial (29 horas o menos)</string>
     <string name="question6">6. País</string>
     <string name="question61">Grecia</string>
     <string name="question62">Puerto Rico</string>

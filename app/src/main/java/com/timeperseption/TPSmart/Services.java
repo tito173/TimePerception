@@ -37,7 +37,7 @@ public class Services extends AccessibilityService {
 
     private LocationManager locationManager;
     private LocationListener locationListener, locationListenerNetwork;
-    private long minTime = 60*60000;
+    private long minTime = 3600000; //una hora en milisegundo
 
     //Know when the service start
     @SuppressLint("MissingPermission")
@@ -231,9 +231,6 @@ public class Services extends AccessibilityService {
 
             }
         };
-
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime, 0, locationListenerNetwork);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, 0, locationListener);
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime, 0, locationListenerNetwork);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, 0, locationListener);
