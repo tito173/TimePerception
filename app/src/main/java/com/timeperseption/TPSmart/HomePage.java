@@ -102,33 +102,12 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//            if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
-//                    == PackageManager.PERMISSION_GRANTED){
-//                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime, 0, locationListenerNetwork);
-//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, 0, locationListener);
-//
-//            }
-//        }
-//    }
+
     @SuppressLint("MissingPermission")
     @Override
     protected void onResume() {
         setContentView(R.layout.activity_home_page);
 
-//para desinstalar la app
-//        Button b = findViewById(R.id.unistall);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent5 = new Intent(getApplicationContext(),UnistallApp.class);
-//                startActivity(intent5);
-//            }
-//        });
 
         //geolocalizacion
         /********************************************************************************************/

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 public class ChannerlNotification extends Application {
+    //crea los canales para que las notificaciones se muestren en versiones >= 8.0.0
 
     public static final String CHANNEL_1_ID = "Channel1";
     public static final String CHANNEL_2_ID = "Channel2";
@@ -21,6 +22,7 @@ public class ChannerlNotification extends Application {
 
     }
 
+    //canal 1
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void createNotifactionChannel1() {
 
@@ -37,6 +39,7 @@ public class ChannerlNotification extends Application {
         }
     }
 
+    //canal 2
     private void createNotifactionChannel2() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel2 = new NotificationChannel(

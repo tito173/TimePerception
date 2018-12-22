@@ -14,23 +14,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class FetchData extends AsyncTask<Void, Void, Void> {
+    //variables para usar en comparaciones
     String TAG = "FetchData";
     static String data ="";
-    static String data1 ="";
-    static String dataParsed = "";
-    String singleParsed ="";
     String user_id = "";
     Boolean quest0 = false;
     Boolean checkId = false;
     Boolean noty = false;
-//    Boolean ques1_8 = false;
+
     static Boolean boolean1;
     static Boolean timeconection;
-    static JSONArray JA;
 
 
 
-
+    //optiene los datos para procesar
     public FetchData(String string,Boolean b,String s) {
         if(s == "checkID")
             checkId = true;
@@ -48,6 +45,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        //verificac si existe el ID
         if (checkId) {
             try {
                 data = "";
@@ -83,7 +81,6 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //
         } else if (quest0) {
             try {
                 data = "";
@@ -103,7 +100,6 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
             //Tarea para saber si se debe mostrar alguna notificacion al usuario.
         } else if (noty) {
             data = "";
-            //Se utiliza el mismo proceso que las demas
             try {
                 Log.d(TAG + "Notficaciones", "Verificando el usuario " + user_id);
                 URL url = new URL("https://rarceresearch.fun:3034/status/" + user_id);

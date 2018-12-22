@@ -20,12 +20,12 @@ import java.util.concurrent.ExecutionException;
 
 import com.timeperception.TPSmart.R;
 import static android.content.Context.ALARM_SERVICE;
-import static com.timeperception.TPSmart.R.string.mensaje2;
 
 public class SetNotification extends BroadcastReceiver{
 
     final String TAG = "TP-Smart";
     private NotificationManagerCompat notificacionManager;
+    //variables para colocar un texto
     String estado = "";
     String message ="";
     String message2 ="";

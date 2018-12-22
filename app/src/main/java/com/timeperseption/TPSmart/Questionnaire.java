@@ -34,6 +34,7 @@ public class Questionnaire extends AppCompatActivity {
     static Boolean bool = false;
     ArrayList questions;
 
+    //muestra en pantalla el cuestionario
     @Override
     protected void onResume() {
         super.onResume();
@@ -285,6 +286,7 @@ public class Questionnaire extends AppCompatActivity {
         numberQuestion.add("pregunta 6");
         Object question07 = R.id.question07;
 
+        //creacion de json para enviar a la base de datos
         String json = "{\"1\":\""+listRadioGroup.get(0)+"\", " +
                 "\"2\":\""+a.getString(question02.toString(),"")+"\","+
                 "\"3\":\""+listRadioGroup.get(1)+"\", " +
@@ -296,7 +298,7 @@ public class Questionnaire extends AppCompatActivity {
                 "\"6\":\""+listRadioGroup.get(3)+"\", " +
                 "\"7\":\""+a.getString(question07.toString(),"")+"\"}";
 
-
+//foramto antiguo de las respuestas
 //        String respuesta = "";
 //
 //

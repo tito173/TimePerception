@@ -41,6 +41,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
         SharedPreferences idioma = this.getSharedPreferences("com.timeperseption.TPSmart", Context.MODE_PRIVATE);
 
+        //verifica que idioma tiene la app y mostrar el cuestionario en el idioma que corresponde
         Configuration conf = getResources().getConfiguration();
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
@@ -52,6 +53,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             res.updateConfiguration(conf, dm);
         }
 
+        /*Preparacion del cuestionario a mostrar*/
         TextView error  = findViewById(R.id.error1);
         String fillError = questionnaireAnswers.getString("error","");
         if(fillError.equals(""))
@@ -119,6 +121,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
     }
 
+    //dejar que onResumen se encargue de la  presenetacion del cuestionario
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +130,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
     }
 
+    //guardas las opciones seleccionadas
     public void saveQuestionnaire(View view) throws IOException {
 
         //declaracion de variables generales
@@ -231,6 +235,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
         }
         selectOrNot=0;
 
+        //omitida
         /*--------------------------------------------pregunta 5----------------------------------------------------------------*/
 //        for (int i = 0 ; i < question11.length;i++){
 //            CheckBox box = findViewById((Integer) question11[i]);
@@ -357,6 +362,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
             listRadioGroup.add(radioB1.getText());
         }
 
+        //creacion del json para enviar a la base de datos
         String json = "{\"1\":["+a.getBoolean(question07[0].toString(),false)+","+
                 a.getBoolean(question07[1].toString(),false)+","+
                 a.getBoolean(question07[2].toString(),false)+","+
@@ -395,7 +401,7 @@ public class FinalQuestionnaire extends AppCompatActivity {
 
 
 
-        //Respuestas
+        //Respuestas en el formato antiguo
 //        int value = 0;
 //
 //        respuesta = respuesta + "Pregunta 1.1: " + a.getBoolean(question07[0].toString(),false);

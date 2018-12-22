@@ -46,7 +46,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
     }
 
-
+    //muestra en pantalla cada prueba con tiempos y figuras aleatoreas
     @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
@@ -94,6 +94,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
     }
 
+    //prueba1
     private void prueba1(final Integer[] arr, final ArrayList lista) {
 
         final TextView instruction = findViewById(R.id.instruction);
@@ -193,6 +194,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
         });
     }
+    //prueba2
     private void prueba2(final Integer[] arr, final ArrayList lista) {
 
 
@@ -296,6 +298,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
         });
     }
+    //prueba3
     private void prueba3(final Integer[] arr, final ArrayList lista) {
 
 
@@ -398,6 +401,7 @@ public class PerseptionQuestion extends AppCompatActivity {
 
         });
     }
+    //prueba4
     private void prueba4(final Integer[] arr, final ArrayList lista) {
 
         final TextView instruction = findViewById(R.id.instruction);
@@ -497,6 +501,7 @@ public class PerseptionQuestion extends AppCompatActivity {
                     Log.d(TAG, "PerseptionQuestion Error al saber la respues");
                 }
                 try {
+                    //enviar los resultados a la base de datos
                     Settings.SendFile.SendResPerseptionTest(getApplicationContext(),
                             durationOp.get(duracion1),durationOp.get(duracion2),durationOp.get(duracion3),durationOp.get(duracion4));
                 } catch (IOException e) {

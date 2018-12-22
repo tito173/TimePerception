@@ -15,7 +15,7 @@ public class MyServiceIsRunning extends Service {
 
     Timer t = new Timer();
 
-    public MyServiceIsRunning() {
+//    public MyServiceIsRunning() {
 //        try {
 //            SetNotification.setAlarmPerseption(getBaseContext());
 //        } catch (InterruptedException e) {
@@ -27,7 +27,7 @@ public class MyServiceIsRunning extends Service {
 //        }
 //            //para hacer pruebas una vez el cuestionario esta lleno y no volver a llenar otro.
 //        SendTheLogs(getBaseContext());
-    }
+//    }
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
